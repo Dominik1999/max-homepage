@@ -45,9 +45,10 @@ Es gibt ZWEI Wege:
        python3 build_site.py
 
    (braucht Python 3 + das Paket beautifulsoup4: pip install beautifulsoup4)
-   Der Generator schreibt index.html und en/index.html neu.
-   HINWEIS: build_site.py enthält feste Pfade (/mnt/user-data/...) aus der
-   Erstellungsumgebung — diese oben im Skript auf die lokalen Pfade anpassen.
+   Der Generator schreibt index.html, en/index.html, sitemap.xml, robots.txt
+   und .htaccess neu. Er findet seine Pfade selbst (aus jedem Verzeichnis
+   aufrufbar: python3 bearbeiten/build_site.py) und bricht ab, falls die
+   Ausgabe Google Fonts enthalten würde.
 
 Impressum, Datenschutz und kontakt.php sind eigenständige Dateien und werden
 direkt bearbeitet (nicht über den Generator).
@@ -79,4 +80,14 @@ VOR DEM ÖFFENTLICHEN START (offene Punkte)
 - Rechtstexte juristisch final prüfen (Versicherungs-Geltungsbereich, Adresse,
   USt-Status). USt-IdNr. ist bewusst weggelassen (noch nicht vorhanden).
 - Optional: sichtbare Telefonnummer ergänzen (zweiter Kontaktweg).
-- Details zum Hochladen: siehe website/DEPLOY.txt.
+- Details zum Hochladen und zur Vorschau auf GitHub Pages: siehe README.md.
+  (website/DEPLOY.txt war veraltet und wurde entfernt.)
+
+STAND 2026-11-04 (nach dem Review)
+----------------------------------
+- Review mit allen Befunden: tasks/review-2026-11-03.md; umgesetzt / offen: tasks/todo.md
+- kontakt.php gehärtet (keine Wiederholung der Nachricht in der Eingangsbestätigung,
+  Längenbegrenzung, Einwilligung serverseitig geprüft, Rate-Limit, Spam-Feld heißt
+  jetzt "fax_ref", Rücksprung ohne JavaScript auf die jeweilige Sprachseite)
+- website/.htaccess (HTTPS, Sicherheits-Header, CSP) wird vom Generator erzeugt
+- Alle Bilder ohne eingebettete Metadaten (C2PA) neu gespeichert
