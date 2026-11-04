@@ -1,0 +1,58 @@
+# Vorschau der statischen Seite auf GitHub Pages.
+# Das ist NICHT der Produktiv-Deploy (der geht 1:1 nach Hetzner, siehe README):
+#  - kontakt.php läuft auf GitHub Pages nicht (kein PHP) und wird weggelassen;
+#    das Formular zeigt auf *.github.io einen Vorschau-Hinweis.
+#  - Plausible wird entfernt, damit die Vorschau keine Besucher zählt.
+#  - Absolute Pfade (/fonts.css, /en/ …) bekommen das Repo-Präfix der Pages-URL.
+name: Preview on GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare preview copy
+        env:
+          BASE: /${{ github.event.repository.name }}
+        run: |
+          set -euo pipefail
+          rm -rf _site && mkdir _site
+          cp -R website/. _site/
+          rm -f _site/kontakt.php _site/.htaccess
+          # Plausible-Tag entfernen
+          find _site -name '*.html' -print0 | xargs -0 sed -i -E 's#<script[^>]*plausible\.io[^>]*></script>##g'
+          # Root-relative Pfade auf das Pages-Unterverzeichnis umbiegen
+          find _site -name '*.html' -print0 | xargs -0 sed -i -E "s#(href|src|action)=\"/#\1=\"${BASE}/#g"
+          sed -i -E "s#url\('/#url('${BASE}/#g" _site/fonts.css
+          # Vorschau soll nicht indexiert werden
+          printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
+          rm -f _site/sitemap.xml
+          grep -c "${BASE}/fonts.css" _site/index.html _site/en/index.html
+          ! grep -rl 'plausible' _site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
