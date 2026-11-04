@@ -1,0 +1,65 @@
+# 925law – Apache-Konfiguration für Hetzner Webhosting
+# Diese Datei wird von bearbeiten/build_site.py nach website/.htaccess geschrieben.
+# Die CSP-Hashes (__SCRIPT_HASHES__ / __STYLE_HASHES__) berechnet der Generator aus den
+# fertigen HTML-Dateien. Nach JEDER Änderung an Inline-Scripts/Styles neu generieren.
+
+Options -Indexes -MultiViews
+ServerSignature Off
+AddDefaultCharset UTF-8
+
+# --- HTTPS erzwingen + kanonischer Host (ohne www) ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://925law.de%{REQUEST_URI} [R=301,L,NE]
+
+  # Quell-/Arbeitsdateien niemals ausliefern, falls versehentlich hochgeladen
+  RewriteRule ^(bearbeiten|tasks|\.git|\.github)(/|$) - [F,L]
+</IfModule>
+
+<FilesMatch "\.(py|md|bak|orig|sh|sql|log|ini|env|template|lock|json)$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "\.txt$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^(robots\.txt|OFL-[A-Za-z-]+\.txt)$">
+  Require all granted
+</FilesMatch>
+<FilesMatch "^\.(?!well-known)">
+  Require all denied
+</FilesMatch>
+
+# --- Sicherheits-Header ---
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; font-src 'self'; style-src 'self' __STYLE_HASHES__; script-src 'self' https://plausible.io __SCRIPT_HASHES__; connect-src https://plausible.io; upgrade-insecure-requests"
+
+  # Caching: Schriften/Bilder lange, HTML kurz
+  <FilesMatch "\.(woff2|png|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=600, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.php$">
+    Header set Cache-Control "no-store"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/json application/javascript image/svg+xml
+</IfModule>
+
+# --- PHP (greift bei mod_php; bei PHP-FPM in der konsoleH unter "PHP-Konfiguration" setzen) ---
+<IfModule mod_php.c>
+  php_flag display_errors Off
+  php_flag log_errors On
+  php_flag expose_php Off
+</IfModule>

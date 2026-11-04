@@ -2,28 +2,27 @@
 
 <html lang="de">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <script>if('IntersectionObserver' in window){document.documentElement.classList.add('js-anim');}</script>
 <title>925law – Rechtsanwalt Arbeitsrecht &amp; Vertragsrecht Berlin | Max Englhard</title>
-
-
-
+<link href="/fonts.css" rel="stylesheet">
 <style>
   :root {
     --bg: #FAF9F7;
     --ink: #161616;
     --ink-soft: #4A4A48;
     --accent: #D6006E;
-    --accent-soft: #F6D9E7;
     --line: #DEDAD4;
-    --serif: 'Archivo', sans-serif;
+    --line-strong: #B9B4AC;
+    --serif: 'Archivo', sans-serif;   /* Display-Schrift (Archivo ist eine Sans) */
     --sans: 'IBM Plex Sans', sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
 
-  html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
@@ -39,6 +38,7 @@
     grid-template-columns: 240px minmax(0, 960px);
     justify-content: center;
     min-height: 100vh;
+    min-height: 100svh;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -50,6 +50,8 @@
     align-self: start;
     width: 100%;
     height: 100vh;
+    height: 100svh;
+    overflow-y: auto;
     padding: 48px 32px;
     display: flex;
     flex-direction: column;
@@ -152,15 +154,16 @@
   }
 
   .lang-switch .sep {
-    color: var(--line);
-    margin: 0 6px;
+    color: var(--ink-soft);
+    opacity: 0.6;
+    margin: 0 8px;
   }
 
   /* Main content */
   main {
     grid-column: 2;
     max-width: none;
-    padding: 0 72px;
+    padding: 0 clamp(32px, 5vw, 72px);
   }
 
   section {
@@ -174,16 +177,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    scroll-snap-align: start;
     padding: 72px 0;
   }
   /* Nur der Hero füllt den ersten Bildschirm und ist vertikal zentriert */
-  #hero { min-height: 100vh; justify-content: center; padding: 0; }
+  #hero { min-height: 100vh; min-height: 100svh; justify-content: center; padding: 64px 0 0; }
   .cta { align-self: flex-start; }
-
-  /* Über mich: Inhalt oben, Fußzeile am unteren Rand des letzten Screens */
-  #about { justify-content: space-between; }
-  #about .about-foot { width: 100%; padding-top: 24px; }
 
   /* Sanftes Einblenden beim Scrollen (nur mit JS; ohne JS alles sichtbar) */
   .js-anim main > section,
@@ -198,23 +196,11 @@
   .js-anim footer.is-visible {
     opacity: 1;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .js-anim main > section,
-    .js-anim footer {
-      opacity: 1;
-      transition: none;
-    }
-  }
-
   section:last-of-type {
     border-bottom: none;
   }
 
   /* Hero */
-  #hero {
-    padding-top: 64px;
-  }
-
   #hero .kicker {
     font-size: 0.95rem;
     color: var(--ink-soft);
@@ -224,7 +210,7 @@
   #hero h1 {
     font-family: var(--serif);
     font-weight: 900;
-    font-size: clamp(2.4rem, 5.2vw, 4rem);
+    font-size: clamp(min(2.4rem, 11vw), 5.2vw, 4rem);
     line-height: 1.05;
     letter-spacing: -0.03em;
     max-width: 20ch;
@@ -257,12 +243,6 @@
 
   .cta:hover, .cta:focus-visible {
     background: var(--ink);
-  }
-
-  .slogan-strip {
-    margin-top: 110px;
-    padding-top: 48px;
-    border-top: 1px solid var(--line);
   }
 
   .hero-headline-row {
@@ -407,13 +387,14 @@
   /* Über mich */
   #about .about-grid {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 220px minmax(0, 1fr);
     gap: 56px;
     align-items: start;
   }
 
   .portrait {
     width: 220px;
+    max-width: 100%;
     height: 280px;
     object-fit: cover;
     border-radius: 2px;
@@ -551,11 +532,10 @@
   }
 
   .field input,
-  .field select,
   .field textarea {
     width: 100%;
     border: none;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1.5px solid var(--line-strong);
     background: transparent;
     padding: 10px 2px;
     font-family: var(--sans);
@@ -566,7 +546,6 @@
   }
 
   .field input:focus,
-  .field select:focus,
   .field textarea:focus {
     border-color: var(--accent);
   }
@@ -583,37 +562,9 @@
     font-family: var(--sans);
   }
 
-  .legal-section {
-    padding-bottom: 100px;
-  }
-
-  .legal-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 56px;
-  }
-
-  .legal-grid h3 {
-    font-size: 0.92rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: var(--ink);
-  }
-
-  .legal-grid p {
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-    line-height: 1.7;
-  }
-
-  .legal-grid a {
-    text-decoration: underline;
-    text-decoration-color: var(--line);
-    text-underline-offset: 2px;
-  }
-
   footer {
     padding: 40px 0 80px;
+    border-top: 1px solid var(--line);
   }
 
   .footnote {
@@ -654,10 +605,28 @@
     font-family: var(--serif);
     font-size: 1.2rem;
     color: var(--ink);
+    outline: none;
   }
+  .form-status {
+    font-size: 0.95rem;
+    color: var(--accent);
+    max-width: 520px;
+  }
+  .hp { position: absolute; left: -9999px; }
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 10;
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .skip:focus { left: 8px; }
 
   /* Mobile */
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
     .layout { display: block; }
     nav.sidebar {
       position: static;
@@ -667,53 +636,65 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      row-gap: 16px;
-      padding: 24px 24px;
+      row-gap: 10px;
+      padding: 16px 24px;
       border-right: none;
       border-bottom: 1px solid var(--line);
     }
-    .sidebar-top { display: flex; align-items: center; gap: 32px; }
+    /* Kopfzeile kompakt: Marke, darunter die Links in einer umbrechenden Zeile */
+    .sidebar-top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; width: 100%; }
     .sidebar-top .brand { margin-bottom: 0; }
-    .sidebar-top ul { flex-direction: row; gap: 16px; flex-wrap: wrap; }
+    .sidebar-top ul { flex-direction: row; gap: 0 10px; flex-wrap: wrap; width: 100%; }
+    /* Tippflächen mind. 40px hoch */
+    .sidebar-top a, .lang-switch a, .sidebar-bottom > a, .footer-legal a { display: inline-block; padding: 8px 4px; }
+    .lang-switch { margin-bottom: 0; }
     .sidebar-bottom {
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       width: 100%;
       border-top: 1px solid var(--line);
-      padding-top: 16px;
+      padding-top: 8px;
     }
-    main { margin-left: 0; padding: 0 24px; max-width: 100%; }
+    main { padding: 0 24px; max-width: 100%; }
+    /* Hero nur so hoch wie sein Inhalt: Headline + Button auf dem ersten Bildschirm */
+    #hero { min-height: 0; padding: 32px 0 56px; }
+    #hero .kicker { margin-bottom: 16px; }
+    #hero p.sub { margin-top: 24px; }
     section { padding: 48px 0; }
-    .service-block { grid-template-columns: 1fr; gap: 24px; padding: 32px 0; }
+    .service-block { padding: 32px 0; }
     #about .about-grid { grid-template-columns: 1fr; }
     .portrait { width: 160px; height: 200px; }
-    .situations-grid { grid-template-columns: 1fr; gap: 16px; }
-    .steps-grid { grid-template-columns: 1fr; gap: 28px; }
-    .why-grid { grid-template-columns: 1fr; gap: 36px; }
-    .legal-grid { grid-template-columns: 1fr; gap: 32px; }
+    .situations-grid { gap: 16px; }
+    .steps-grid { gap: 28px; }
+    .why-grid { gap: 28px; }
+    /* Lesbare Schriftgrößen auf dem Handy */
+    .service-block li span, .service-block .intro, .step p, .why-item p, .field label { font-size: 1rem; }
+    .consent, .footer-bottom, .footnote p, .sidebar-bottom, .lang-switch { font-size: 0.9rem; }
     .footer-bottom { flex-direction: column; gap: 8px; }
-    .hero-headline-row { flex-direction: column; gap: 16px; }
-    .stamp-hero { width: 64px; height: 64px; margin-top: 0; }
+    .hero-headline-row { flex-direction: column; gap: 12px; }
+    .stamp-hero { width: 56px; height: 56px; margin-top: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
+    .js-anim main > section, .js-anim footer { opacity: 1; }
   }
 
-  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
 </style>
-<link href="/fonts.css" rel="stylesheet"/><script data-domain="925law.de" defer="" src="https://plausible.io/js/script.js"></script><meta content="Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis." name="description"/><meta content="index,follow" name="robots"/><meta content="Max Englhard" name="author"/><link href="https://925law.de/" rel="canonical"/><link href="https://925law.de/" hreflang="de" rel="alternate"/><link href="https://925law.de/en/" hreflang="en" rel="alternate"/><link href="https://925law.de/" hreflang="x-default" rel="alternate"/><link href="/favicon.svg" rel="icon" type="image/svg+xml"/><link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/apple-touch-icon.png" rel="apple-touch-icon"/><meta content="website" property="og:type"/><meta content="925law" property="og:site_name"/><meta content="925law – Rechtsanwalt Arbeitsrecht &amp; Vertragsrecht Berlin | Max Englhard" property="og:title"/><meta content="Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis." property="og:description"/><meta content="https://925law.de/" property="og:url"/><meta content="https://925law.de/og-image.png" property="og:image"/><meta content="de_DE" property="og:locale"/><meta content="en_US" property="og:locale:alternate"/><meta content="summary_large_image" name="twitter:card"/><meta content="925law – Rechtsanwalt Arbeitsrecht &amp; Vertragsrecht Berlin | Max Englhard" name="twitter:title"/><meta content="Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis." name="twitter:description"/><meta content="https://925law.de/og-image.png" name="twitter:image"/><script type="application/ld+json">{
+<meta content="Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis." name="description"><meta content="index,follow" name="robots"><meta content="Max Englhard" name="author"><link href="https://925law.de/" rel="canonical"><link href="https://925law.de/" hreflang="de" rel="alternate"><link href="https://925law.de/en/" hreflang="en" rel="alternate"><link href="https://925law.de/" hreflang="x-default" rel="alternate"><link href="/favicon.svg" rel="icon" type="image/svg+xml"><link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"><link href="/apple-touch-icon.png" rel="apple-touch-icon"><meta content="website" property="og:type"><meta content="925law" property="og:site_name"><meta content="925law – Rechtsanwalt Arbeitsrecht &amp; Vertragsrecht Berlin | Max Englhard" property="og:title"><meta content="Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis." property="og:description"><meta content="https://925law.de/" property="og:url"><meta content="https://925law.de/og-image.png" property="og:image"><meta content="de_DE" property="og:locale"><meta content="en_US" property="og:locale:alternate"><meta content="summary_large_image" name="twitter:card"><meta content="925law – Rechtsanwalt Arbeitsrecht &amp; Vertragsrecht Berlin | Max Englhard" name="twitter:title"><meta content="Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis." name="twitter:description"><meta content="https://925law.de/og-image.png" name="twitter:image"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Attorney",
   "name": "925law – Max Englhard",
   "url": "https://925law.de/",
-  "description": "Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation.",
+  "image": "https://925law.de/og-image.png",
+  "description": "Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis.",
   "areaServed": "Berlin, Germany",
   "availableLanguage": [
     "de",
@@ -741,16 +722,15 @@
   },
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "Kaiserkorso 2",
+    "postalCode": "12101",
     "addressLocality": "Berlin",
     "addressCountry": "DE"
   },
-  "email": "kontakt@925law.de",
-  "inLanguage": [
-    "de",
-    "en"
-  ]
-}</script></head>
+  "email": "kontakt@925law.de"
+}</script><script data-domain="925law.de" defer src="https://plausible.io/js/script.js"></script></head>
 <body>
+<a class="skip" href="#hero">Zum Inhalt springen</a>
 <div class="layout">
 <nav class="sidebar">
 <div class="sidebar-top">
@@ -770,12 +750,13 @@
 </ul>
 </div>
 <div class="sidebar-bottom">
-<div class="lang-switch"><a aria-current="true" class="lang-de lang-active" href="/">DE</a><span class="sep">/</span><a class="lang-en" href="/en/">EN</a></div>
+<div class="lang-switch"><a aria-current="true" class="lang-de lang-active" href="/" hreflang="de">DE</a><span aria-hidden="true" class="sep">/</span><a class="lang-en" href="/en/" hreflang="en">EN</a></div>
 <a href="mailto:kontakt@925law.de">kontakt@925law.de</a>
 </div>
 </nav>
 <main>
 <section id="hero">
+<p class="kicker">Max Englhard · Rechtsanwalt · Berlin · Beratung auf Deutsch und Englisch</p>
 <div class="hero-headline-row">
 <h1>Erst <span class="accent-num">recht</span>, wenn's drauf ankommt.</h1>
 <div class="stamp-wrap">
@@ -790,7 +771,7 @@
 <p class="sub">Arbeits- und Vertragsrecht für Persönlichkeiten. Ohne Umwege.</p>
 <a class="cta" href="#contact">Erstgespräch anfragen</a>
 </section>
-<section class="tall" id="services">
+<section id="services">
 <h2 class="section-title">Leistungen</h2>
 <p class="section-lead"><span class="accent-word">Klartext</span>, kein Kleingedrucktes.</p>
 <div class="services-stack">
@@ -818,7 +799,7 @@
 </div>
 </div>
 </section>
-<section class="tall" id="situations">
+<section id="situations">
 <h2 class="section-title">Wenn es ernst wird</h2>
 <p class="section-lead">Für Sie steht viel auf dem Spiel. Für mich ist es vertrautes Terrain.</p>
 <ul class="situations-grid">
@@ -852,7 +833,7 @@
 </div>
 </div>
 </section>
-<section class="tall" id="process">
+<section id="process">
 <h2 class="section-title">Die nächsten Schritte</h2>
 <div class="steps-grid">
 <div class="step">
@@ -881,38 +862,38 @@
 <h2 class="section-title">Kontakt</h2>
 <p class="intro" id="contact-intro">Beschreiben Sie kurz, womit ich Ihnen <span class="accent-word">helfen</span> kann.</p>
 <form action="/kontakt.php" id="contact-form" method="POST">
-<div aria-hidden="true" style="position:absolute; left:-9999px;"><label>Bitte leer lassen <input autocomplete="off" name="website" tabindex="-1" type="text"/></label></div>
-<input name="lang" type="hidden" value="de"/>
+<div aria-hidden="true" class="hp"><label><span>Bitte leer lassen</span> <input autocomplete="off" name="fax_ref" tabindex="-1" type="text"></label></div>
+<input name="lang" type="hidden" value="de">
 <div class="field">
 <label for="name">Name</label>
-<input id="name" name="name" required="" type="text"/>
+<input id="name" name="name" required type="text">
 </div>
 <div class="field">
 <label for="email">E-Mail</label>
-<input id="email" name="email" required="" type="email"/>
+<input id="email" name="email" required type="email">
 </div>
 <div class="field">
 <label for="message">Nachricht</label>
-<textarea id="message" name="message" required=""></textarea>
+<textarea id="message" name="message" required></textarea>
 </div>
-<label class="consent"><input name="consent" required="" type="checkbox"/> <span>Ich habe die <a href="/datenschutz.html">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden.</span></label>
+<label class="consent"><input name="consent" required type="checkbox"> <span>Ich habe die <a href="/datenschutz.html">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden.</span></label>
 <button class="cta" type="submit">Nachricht senden</button>
+<p aria-live="polite" class="form-status" hidden id="form-status" role="status"></p>
 </form>
-<p class="form-thanks" style="display:none;">Vielen Dank für Ihre Nachricht. Ich melde mich.</p>
+<p class="form-thanks" hidden>Vielen Dank für Ihre Nachricht. Ich melde mich.</p>
 </section>
 <section id="about">
-<div class="about-main">
 <h2 class="section-title">Über mich</h2>
 <div class="about-grid">
-<img alt="Porträt Max Englhard, Rechtsanwalt" class="portrait" src="/portrait.webp"/>
+<img alt="Porträt Max Englhard, Rechtsanwalt" class="portrait" decoding="async" height="946" loading="lazy" src="/portrait.webp" width="640">
 <div>
 <p class="lead"><span class="accent-word">925law</span> bin ich: Max Englhard, Rechtsanwalt.</p>
 <p>Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.</p>
 <p>Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Genau darin bin ich gut: das Problem schnell erkennen und in kurzer Zeit einen tragfähigen Weg entwickeln, der Ihnen wirklich hilft. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.</p>
 </div>
 </div>
-</div>
-<div class="about-foot">
+</section>
+<footer>
 <div class="footnote" id="footnote">
 <p>* <span class="fn-num">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird. Egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber, eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.</p>
 </div>
@@ -927,8 +908,7 @@
 <span>Berlin</span>
 <span class="footer-legal"><a href="/impressum.html">Impressum</a><a href="/datenschutz.html">Datenschutz</a></span>
 </div>
-</div>
-</section>
+</footer>
 </main>
 </div>
 <script>
@@ -939,32 +919,48 @@
     entries.forEach(function(e){
       if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
   els.forEach(function(el){ io.observe(el); });
 })();
 </script>
 <script>
   (function(){
     var form = document.getElementById('contact-form');
+    var status = document.getElementById('form-status');
+    var ERR = "Es gab ein Problem beim Senden. Bitte prüfen Sie Ihre Angaben oder schreiben Sie direkt an kontakt@925law.de.";
+    var PREVIEW = /\.github\.io$/.test(location.hostname);
     function showThanks(){
-      if(form) form.style.display='none';
-      var i=document.getElementById('contact-intro'); if(i) i.style.display='none';
-      var t=document.querySelector('.form-thanks'); if(t) t.style.display='block';
+      if(form) form.hidden = true;
+      var i = document.getElementById('contact-intro'); if(i) i.hidden = true;
+      var t = document.querySelector('.form-thanks');
+      if(t){ t.hidden = false; t.setAttribute('tabindex', '-1'); t.focus(); }
     }
+    function showError(msg){ if(status){ status.textContent = msg; status.hidden = false; } }
     try{
       if(/[?&]sent=1/.test(location.search)){
         showThanks();
-        if(window.history && history.replaceState){ history.replaceState(null,'',location.pathname+'#contact'); }
+        history.replaceState(null, '', location.pathname + '#contact');
+      } else if(/[?&]error=/.test(location.search)){
+        showError(ERR);
+        history.replaceState(null, '', location.pathname + '#contact');
       }
     }catch(e){}
     if(form){
       form.addEventListener('submit', function(e){
         e.preventDefault();
-        fetch(form.action, { method:'POST', body:new FormData(form),
-          headers:{ 'Accept':'application/json','X-Requested-With':'XMLHttpRequest' } })
-        .then(function(r){ return r.json().catch(function(){ return { ok:r.ok }; }); })
-        .then(function(res){ if(res && res.ok){ showThanks(); } else { alert("Es gab ein Problem beim Senden. Bitte schreiben Sie direkt an kontakt@925law.de."); } })
-        .catch(function(){ alert("Es gab ein Problem beim Senden. Bitte schreiben Sie direkt an kontakt@925law.de."); });
+        if(PREVIEW){ showError("Vorschau: In dieser Testversion ist das Formular deaktiviert. Auf der echten Seite geht die Nachricht an kontakt@925law.de."); return; }
+        var btn = form.querySelector('button[type=submit]');
+        if(btn && btn.disabled) return;
+        if(btn) btn.disabled = true;
+        if(status) status.hidden = true;
+        fetch(form.action, { method: 'POST', body: new FormData(form),
+          headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(function(r){ return r.json().catch(function(){ return { ok: r.ok }; }); })
+        .then(function(res){
+          if(res && res.ok){ showThanks(); }
+          else { showError(ERR); if(btn) btn.disabled = false; }
+        })
+        .catch(function(){ showError(ERR); if(btn) btn.disabled = false; });
       });
     }
   })();

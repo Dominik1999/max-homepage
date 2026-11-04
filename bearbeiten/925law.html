@@ -5,24 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>if('IntersectionObserver' in window){document.documentElement.classList.add('js-anim');}</script>
 <title>925law — Rechtsanwalt Max Englhard</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts.css">
 <style>
   :root {
     --bg: #FAF9F7;
     --ink: #161616;
     --ink-soft: #4A4A48;
     --accent: #D6006E;
-    --accent-soft: #F6D9E7;
     --line: #DEDAD4;
-    --serif: 'Archivo', sans-serif;
+    --line-strong: #B9B4AC;
+    --serif: 'Archivo', sans-serif;   /* Display-Schrift (Archivo ist eine Sans) */
     --sans: 'IBM Plex Sans', sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
 
-  html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
@@ -38,6 +37,7 @@
     grid-template-columns: 240px minmax(0, 960px);
     justify-content: center;
     min-height: 100vh;
+    min-height: 100svh;
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -49,6 +49,8 @@
     align-self: start;
     width: 100%;
     height: 100vh;
+    height: 100svh;
+    overflow-y: auto;
     padding: 48px 32px;
     display: flex;
     flex-direction: column;
@@ -151,15 +153,16 @@
   }
 
   .lang-switch .sep {
-    color: var(--line);
-    margin: 0 6px;
+    color: var(--ink-soft);
+    opacity: 0.6;
+    margin: 0 8px;
   }
 
   /* Main content */
   main {
     grid-column: 2;
     max-width: none;
-    padding: 0 72px;
+    padding: 0 clamp(32px, 5vw, 72px);
   }
 
   section {
@@ -173,16 +176,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    scroll-snap-align: start;
     padding: 72px 0;
   }
   /* Nur der Hero füllt den ersten Bildschirm und ist vertikal zentriert */
-  #hero { min-height: 100vh; justify-content: center; padding: 0; }
+  #hero { min-height: 100vh; min-height: 100svh; justify-content: center; padding: 64px 0 0; }
   .cta { align-self: flex-start; }
-
-  /* Über mich: Inhalt oben, Fußzeile am unteren Rand des letzten Screens */
-  #about { justify-content: space-between; }
-  #about .about-foot { width: 100%; padding-top: 24px; }
 
   /* Sanftes Einblenden beim Scrollen (nur mit JS; ohne JS alles sichtbar) */
   .js-anim main > section,
@@ -197,23 +195,11 @@
   .js-anim footer.is-visible {
     opacity: 1;
   }
-  @media (prefers-reduced-motion: reduce) {
-    .js-anim main > section,
-    .js-anim footer {
-      opacity: 1;
-      transition: none;
-    }
-  }
-
   section:last-of-type {
     border-bottom: none;
   }
 
   /* Hero */
-  #hero {
-    padding-top: 64px;
-  }
-
   #hero .kicker {
     font-size: 0.95rem;
     color: var(--ink-soft);
@@ -223,7 +209,7 @@
   #hero h1 {
     font-family: var(--serif);
     font-weight: 900;
-    font-size: clamp(2.4rem, 5.2vw, 4rem);
+    font-size: clamp(min(2.4rem, 11vw), 5.2vw, 4rem);
     line-height: 1.05;
     letter-spacing: -0.03em;
     max-width: 20ch;
@@ -256,12 +242,6 @@
 
   .cta:hover, .cta:focus-visible {
     background: var(--ink);
-  }
-
-  .slogan-strip {
-    margin-top: 110px;
-    padding-top: 48px;
-    border-top: 1px solid var(--line);
   }
 
   .hero-headline-row {
@@ -406,13 +386,14 @@
   /* Über mich */
   #about .about-grid {
     display: grid;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 220px minmax(0, 1fr);
     gap: 56px;
     align-items: start;
   }
 
   .portrait {
     width: 220px;
+    max-width: 100%;
     height: 280px;
     object-fit: cover;
     border-radius: 2px;
@@ -550,11 +531,10 @@
   }
 
   .field input,
-  .field select,
   .field textarea {
     width: 100%;
     border: none;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1.5px solid var(--line-strong);
     background: transparent;
     padding: 10px 2px;
     font-family: var(--sans);
@@ -565,7 +545,6 @@
   }
 
   .field input:focus,
-  .field select:focus,
   .field textarea:focus {
     border-color: var(--accent);
   }
@@ -582,37 +561,9 @@
     font-family: var(--sans);
   }
 
-  .legal-section {
-    padding-bottom: 100px;
-  }
-
-  .legal-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px 56px;
-  }
-
-  .legal-grid h3 {
-    font-size: 0.92rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: var(--ink);
-  }
-
-  .legal-grid p {
-    font-size: 0.9rem;
-    color: var(--ink-soft);
-    line-height: 1.7;
-  }
-
-  .legal-grid a {
-    text-decoration: underline;
-    text-decoration-color: var(--line);
-    text-underline-offset: 2px;
-  }
-
   footer {
     padding: 40px 0 80px;
+    border-top: 1px solid var(--line);
   }
 
   .footnote {
@@ -653,10 +604,28 @@
     font-family: var(--serif);
     font-size: 1.2rem;
     color: var(--ink);
+    outline: none;
   }
+  .form-status {
+    font-size: 0.95rem;
+    color: var(--accent);
+    max-width: 520px;
+  }
+  .hp { position: absolute; left: -9999px; }
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 10;
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 14px;
+    text-decoration: none;
+  }
+  .skip:focus { left: 8px; }
 
   /* Mobile */
-  @media (max-width: 860px) {
+  @media (max-width: 960px) {
     .layout { display: block; }
     nav.sidebar {
       position: static;
@@ -666,49 +635,61 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      row-gap: 16px;
-      padding: 24px 24px;
+      row-gap: 10px;
+      padding: 16px 24px;
       border-right: none;
       border-bottom: 1px solid var(--line);
     }
-    .sidebar-top { display: flex; align-items: center; gap: 32px; }
+    /* Kopfzeile kompakt: Marke, darunter die Links in einer umbrechenden Zeile */
+    .sidebar-top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; width: 100%; }
     .sidebar-top .brand { margin-bottom: 0; }
-    .sidebar-top ul { flex-direction: row; gap: 16px; flex-wrap: wrap; }
+    .sidebar-top ul { flex-direction: row; gap: 0 10px; flex-wrap: wrap; width: 100%; }
+    /* Tippflächen mind. 40px hoch */
+    .sidebar-top a, .lang-switch a, .sidebar-bottom > a, .footer-legal a { display: inline-block; padding: 8px 4px; }
+    .lang-switch { margin-bottom: 0; }
     .sidebar-bottom {
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       width: 100%;
       border-top: 1px solid var(--line);
-      padding-top: 16px;
+      padding-top: 8px;
     }
-    main { margin-left: 0; padding: 0 24px; max-width: 100%; }
+    main { padding: 0 24px; max-width: 100%; }
+    /* Hero nur so hoch wie sein Inhalt: Headline + Button auf dem ersten Bildschirm */
+    #hero { min-height: 0; padding: 32px 0 56px; }
+    #hero .kicker { margin-bottom: 16px; }
+    #hero p.sub { margin-top: 24px; }
     section { padding: 48px 0; }
-    .service-block { grid-template-columns: 1fr; gap: 24px; padding: 32px 0; }
+    .service-block { padding: 32px 0; }
     #about .about-grid { grid-template-columns: 1fr; }
     .portrait { width: 160px; height: 200px; }
-    .situations-grid { grid-template-columns: 1fr; gap: 16px; }
-    .steps-grid { grid-template-columns: 1fr; gap: 28px; }
-    .why-grid { grid-template-columns: 1fr; gap: 36px; }
-    .legal-grid { grid-template-columns: 1fr; gap: 32px; }
+    .situations-grid { gap: 16px; }
+    .steps-grid { gap: 28px; }
+    .why-grid { gap: 28px; }
+    /* Lesbare Schriftgrößen auf dem Handy */
+    .service-block li span, .service-block .intro, .step p, .why-item p, .field label { font-size: 1rem; }
+    .consent, .footer-bottom, .footnote p, .sidebar-bottom, .lang-switch { font-size: 0.9rem; }
     .footer-bottom { flex-direction: column; gap: 8px; }
-    .hero-headline-row { flex-direction: column; gap: 16px; }
-    .stamp-hero { width: 64px; height: 64px; margin-top: 0; }
+    .hero-headline-row { flex-direction: column; gap: 12px; }
+    .stamp-hero { width: 56px; height: 56px; margin-top: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
+    .js-anim main > section, .js-anim footer { opacity: 1; }
   }
 
-  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
 </style>
 </head>
 <body>
+<a class="skip" href="#hero" data-i18n="skip">Zum Inhalt springen</a>
 
 <div class="layout">
   <nav class="sidebar">
@@ -737,6 +718,7 @@
   <main>
 
     <section id="hero">
+      <p class="kicker" data-i18n="hero_kicker">Max Englhard · Rechtsanwalt · Berlin · Beratung auf Deutsch und Englisch</p>
       <div class="hero-headline-row">
         <h1 data-i18n="hero_h1">Erst <span class="accent-num">recht</span>, wenn's drauf ankommt.</h1>
         <div class="stamp-wrap">
@@ -745,21 +727,21 @@
             <circle cx="60" cy="60" r="42" stroke-width="0.8" opacity="0.5" />
             <text x="60" y="68" font-size="26" text-anchor="middle">925</text>
           </svg>
-          <a href="#footnote" class="stamp-asterisk" aria-label="Erklärung zu 925">*</a>
+          <a href="#footnote" class="stamp-asterisk" aria-label="Erklärung zu 925" data-i18n-attr="aria-label:asterisk_label">*</a>
         </div>
       </div>
-      <p class="sub" data-i18n="hero_sub">Arbeits- und Vertragsrecht für Persönlichkeiten — ohne Umwege.</p>
+      <p class="sub" data-i18n="hero_sub">Arbeits- und Vertragsrecht für Persönlichkeiten. Ohne Umwege.</p>
       <a href="#contact" class="cta" data-i18n="hero_cta">Erstgespräch anfragen</a>
     </section>
 
-    <section id="services" class="tall">
+    <section id="services">
       <h2 class="section-title" data-i18n="sec_services">Leistungen</h2>
-      <p class="section-lead" data-i18n="services_lead">Klartext, kein Kleingedrucktes.</p>
+      <p class="section-lead" data-i18n="services_lead"><span class="accent-word">Klartext</span>, kein Kleingedrucktes.</p>
       <div class="services-stack">
 
         <div class="service-block">
           <div>
-            <h3 data-i18n="b1_h3">Für Unternehmen &amp; Freelancer</h3>
+            <h3 data-i18n="b1_h3">Für Unternehmer &amp; Freelancer</h3>
             <p class="intro" data-i18n="b1_intro">Sie machen Ihre Arbeit, ich kümmere mich um den Rest.</p>
           </div>
           <ul>
@@ -772,7 +754,7 @@
         <div class="service-block">
           <div>
             <h3 data-i18n="b2_h3">Für Führungskräfte, Angestellte &amp; Beamte</h3>
-            <p class="intro" data-i18n="b2_intro">Rechtliche Unterstützung, wenn es ernst wird.</p>
+            <p class="intro" data-i18n="b2_intro">Rechtliche Unterstützung in schwierigen Lagen.</p>
           </div>
           <ul>
             <li data-i18n="b2_i1"><strong>Kündigungsschutz und Abfindungsverhandlung</strong><span>Vertretung im Kündigungsschutzverfahren und Verhandlung einer angemessenen Abfindung, außergerichtlich oder vor Gericht.</span></li>
@@ -784,16 +766,16 @@
       </div>
     </section>
 
-    <section id="situations" class="tall">
-      <h2 class="section-title" data-i18n="sec_situations">Typische Situationen</h2>
-      <p class="section-lead" data-i18n="situations_lead">Womit Mandanten zu mir kommen:</p>
+    <section id="situations">
+      <h2 class="section-title" data-i18n="sec_situations">Wenn es ernst wird</h2>
+      <p class="section-lead" data-i18n="situations_lead">Für Sie steht viel auf dem Spiel. Für mich ist es vertrautes Terrain.</p>
       <ul class="situations-grid">
-        <li data-i18n="sit1">Eine Kündigung oder ein Aufhebungsvertrag liegt auf dem Tisch.</li>
-        <li data-i18n="sit4">Ein Vertrag muss halten, was er verspricht.</li>
-        <li data-i18n="sit2">Das Arbeitszeugnis wird zum Streitpunkt.</li>
-        <li data-i18n="sit5">Eine berechtigte Forderung bleibt unbezahlt.</li>
-        <li data-i18n="sit3">Ein Disziplinarverfahren bedroht die Beamtenlaufbahn.</li>
-        <li data-i18n="sit6">Eine Trennung vom Team muss rechtssicher laufen.</li>
+        <li data-i18n="sit1">Sie haben eine <span class="accent-word">Kündigung</span> oder einen Aufhebungsvertrag auf dem Tisch. Ich entwickle mit Ihnen eine Strategie, greife die Kündigung an und verhandle über Ihre Abfindung. Dafür bleiben nur drei Wochen: Wer nicht klagt, hat mit Sicherheit verloren, egal wie unwirksam die Kündigung war.</li>
+        <li data-i18n="sit4">Sie brauchen einen <span class="accent-word">Vertrag</span>, der im Ernstfall hält, oder haben einen, bei dem Sie ein ungutes Gefühl haben. Ich schreibe ihn so, dass er Ihre Interessen schützt und im Streit nicht als Erstes kippt.</li>
+        <li data-i18n="sit2">Ihr <span class="accent-word">Arbeitszeugnis</span> ist schlechter, als Ihre Arbeit war, und kostet Sie womöglich den nächsten Job. Ich entschlüssele die Geheimcodes und hole die Bewertung heraus, die Ihnen zusteht, notfalls vor Gericht.</li>
+        <li data-i18n="sit5">Ein Kunde zahlt nicht, und Erinnerungen bringen längst nichts mehr. Ich setze Ihre <span class="accent-word">Forderung</span> durch, mit Nachdruck, außergerichtlich und wenn nötig vor Gericht.</li>
+        <li data-i18n="sit3">Gegen Sie läuft ein <span class="accent-word">Disziplinarverfahren</span>, und Ihre Laufbahn steht auf dem Spiel. Ich zerlege die Vorwürfe, nutze jeden Verfahrensfehler und kämpfe um Ihre Laufbahn.</li>
+        <li data-i18n="sit6">Sie müssen sich von einem Mitarbeiter trennen und wollen kein Risiko eingehen. Ich plane die <span class="accent-word">Trennung</span> wasserdicht, damit sie hält und teure Fehler ausbleiben.</li>
       </ul>
     </section>
 
@@ -803,24 +785,24 @@
       <div class="why-grid">
         <div class="why-item">
           <h3 data-i18n="why1_h3">Direkt</h3>
-          <p data-i18n="why1_p">Sie reden mit mir — von der ersten Einschätzung bis zum Abschluss.</p>
+          <p data-i18n="why1_p">Sie reden mit mir. Von der ersten Einschätzung bis zum Abschluss.</p>
         </div>
         <div class="why-item">
           <h3 data-i18n="why4_h3">Erstklassig</h3>
-          <p data-i18n="why4_p">Beratung auf höchstem Niveau — fundiert, präzise, auf den Punkt.</p>
+          <p data-i18n="why4_p">Beratung auf höchstem Niveau. Fundiert, präzise, auf den Punkt.</p>
         </div>
         <div class="why-item">
           <h3 data-i18n="why2_h3">Klar</h3>
-          <p data-i18n="why2_p">Sie verstehen jeden Schritt — nachvollziehbar und ohne Umwege.</p>
+          <p data-i18n="why2_p">Sie verstehen jeden Schritt. Nachvollziehbar und ohne Umwege.</p>
         </div>
         <div class="why-item">
           <h3 data-i18n="why3_h3">Passgenau</h3>
-          <p data-i18n="why3_p">Sie bekommen, was Ihr Fall braucht — nicht mehr und nicht weniger.</p>
+          <p data-i18n="why3_p">Sie bekommen, was Ihr Fall braucht. Nicht mehr und nicht weniger.</p>
         </div>
       </div>
     </section>
 
-    <section id="process" class="tall">
+    <section id="process">
       <h2 class="section-title" data-i18n="sec_process">Die nächsten Schritte</h2>
       <div class="steps-grid">
         <div class="step">
@@ -831,7 +813,7 @@
         <div class="step">
           <div class="num">2</div>
           <h3 data-i18n="step2_h">Erstgespräch</h3>
-          <p data-i18n="step2_p">Wir klären Ihr Anliegen, Ihre Chancen und das weitere Vorgehen — zum Festpreis von 190 € zzgl. USt (226,10 € brutto).</p>
+          <p data-i18n="step2_p">Ich kläre Ihr Anliegen, Ihre Chancen und das weitere Vorgehen. Zum Festpreis von 190 € zzgl. USt (226,10 € brutto).</p>
         </div>
         <div class="step">
           <div class="num">3</div>
@@ -841,16 +823,16 @@
         <div class="step">
           <div class="num">4</div>
           <h3 data-i18n="step4_h">Honorar</h3>
-          <p data-i18n="step4_p">Die Vergütung, die für Sie langfristig am besten passt: nach RVG bei Rechtsstreitigkeiten, nach Stundensatz bei laufender Beratung. Die Einschätzung dazu kommt vorab — auf Wunsch mit Kostendeckel (Cap) oder als Retainer.</p>
+          <p data-i18n="step4_p">Die Vergütung, die für Sie langfristig am besten passt: nach RVG bei Rechtsstreitigkeiten, nach Stundensatz bei laufender Beratung. Die Einschätzung dazu kommt vorab. Auf Wunsch mit Kostendeckel (Cap) oder als Retainer.</p>
         </div>
       </div>
     </section>
 
     <section id="contact">
       <h2 class="section-title" data-i18n="sec_contact">Kontakt</h2>
-      <p class="intro" id="contact-intro" data-i18n="contact_intro">Beschreiben Sie kurz, womit ich Ihnen helfen kann.</p>
+      <p class="intro" id="contact-intro" data-i18n="contact_intro">Beschreiben Sie kurz, womit ich Ihnen <span class="accent-word">helfen</span> kann.</p>
       <form id="contact-form" action="kontakt.php" method="POST">
-        <div style="position:absolute; left:-9999px;" aria-hidden="true"><label>Bitte leer lassen <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div class="hp" aria-hidden="true"><label><span data-i18n="hp_label">Bitte leer lassen</span> <input type="text" name="fax_ref" tabindex="-1" autocomplete="off"></label></div>
         <input type="hidden" name="lang" value="de">
         <div class="field">
           <label for="name">Name</label>
@@ -866,25 +848,26 @@
         </div>
         <label class="consent"><input type="checkbox" name="consent" required> <span data-i18n="form_consent">Ich habe die <a href="/datenschutz.html">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden.</span></label>
         <button type="submit" class="cta" data-i18n="btn_submit">Nachricht senden</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
       </form>
-      <p class="form-thanks" data-i18n="form_thanks" style="display:none;">Vielen Dank für Ihre Nachricht. Ich melde mich.</p>
+      <p class="form-thanks" data-i18n="form_thanks" hidden>Vielen Dank für Ihre Nachricht. Ich melde mich.</p>
     </section>
 
     <section id="about">
-      <div class="about-main">
-        <h2 class="section-title" data-i18n="sec_about">Über mich</h2>
+      <h2 class="section-title" data-i18n="sec_about">Über mich</h2>
       <div class="about-grid">
-        <img class="portrait" src="portrait.webp" alt="Porträt Max Englhard, Rechtsanwalt" />
+        <img class="portrait" src="portrait.webp" width="640" height="946" loading="lazy" decoding="async" alt="Porträt Max Englhard, Rechtsanwalt" data-i18n-attr="alt:portrait_alt">
         <div>
-          <p class="lead" data-i18n="about_lead">925law bin ich: Max Englhard, Rechtsanwalt.</p>
-          <p data-i18n="about_p1">Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. So habe ich beide Seiten kennengelernt: Ich denke unternehmerisch und weiß, worauf es Unternehmen ankommt — und ich weiß genauso, wie es sich anfühlt, angestellt zu sein.</p>
-          <p data-i18n="about_p2">Das setze ich für Sie ein. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.</p>
+          <p class="lead" data-i18n="about_lead"><span class="accent-word">925law</span> bin ich: Max Englhard, Rechtsanwalt.</p>
+          <p data-i18n="about_p1">Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.</p>
+          <p data-i18n="about_p2">Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Genau darin bin ich gut: das Problem schnell erkennen und in kurzer Zeit einen tragfähigen Weg entwickeln, der Ihnen wirklich hilft. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.</p>
         </div>
       </div>
-      </div>
-      <div class="about-foot">
+    </section>
+
+    <footer>
       <div class="footnote" id="footnote">
-        <p data-i18n="footnote">* 925 steht für 9 to 5, also für die Zeit, in der gearbeitet wird — egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber: eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.</p>
+        <p data-i18n="footnote">* <span class="fn-num">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird. Egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber, eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.</p>
       </div>
       <div class="footer-bottom">
         <span class="footer-brand">
@@ -897,8 +880,7 @@
         <span>Berlin</span>
         <span class="footer-legal"><a href="/impressum.html" data-i18n="footer_impressum">Impressum</a><a href="/datenschutz.html" data-i18n="footer_datenschutz">Datenschutz</a></span>
       </div>
-      </div>
-    </section>
+    </footer>
 
   </main>
 </div>
@@ -912,13 +894,13 @@
     entries.forEach(function(e){
       if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' });
   els.forEach(function(el){ io.observe(el); });
 })();
 </script>
 
 <script>
-  var I18N = {"nav_services": {"de": "Leistungen", "en": "Services"}, "nav_about": {"de": "Über mich", "en": "About"}, "nav_why": {"de": "Warum 925law", "en": "Why 925law"}, "nav_contact": {"de": "Kontakt", "en": "Contact"}, "hero_h1": {"de": "Erst <span class=\"accent-num\">recht</span>, wenn's drauf ankommt.", "en": "When it <span class=\"accent-num\">counts</span> most."}, "hero_sub": {"de": "Arbeits- und Vertragsrecht für Persönlichkeiten. Ohne Umwege.", "en": "Employment and contract law — handled directly, explained plainly."}, "hero_cta": {"de": "Erstgespräch anfragen", "en": "Request a consultation"}, "sec_services": {"de": "Leistungen", "en": "Services"}, "services_lead": {"de": "<span class=\"accent-word\">Klartext</span>, kein Kleingedrucktes.", "en": "<span class=\"accent-word\">Plain talk</span>, no fine print."}, "b1_h3": {"de": "Für Unternehmer &amp; Freelancer", "en": "For entrepreneurs &amp; freelancers"}, "b1_intro": {"de": "Sie machen Ihre Arbeit, ich kümmere mich um den Rest.", "en": "You do your work. I'll handle the rest."}, "b1_i1": {"de": "<strong>Vertragserstellung, -prüfung und -verhandlung</strong><span>Dienstleistungs-, Kooperations- und Lieferverträge, AGB und Honorarvereinbarungen.</span>", "en": "<strong>Contract drafting, review &amp; negotiation</strong><span>Service, partnership and supply agreements, standard terms (T&amp;Cs), and fee arrangements.</span>"}, "b1_i2": {"de": "<strong>Unterstützung im Arbeitsrecht</strong><span>Erstellung von Arbeitsverträgen, Begleitung bei Trennungsprozessen, gerichtliche Vertretung in Arbeitssachen.</span>", "en": "<strong>Employment-law support</strong><span>Employment contracts, support through separations, and representation in employment court.</span>"}, "b1_i3": {"de": "<strong>Durchsetzung von Ansprüchen</strong><span>Außergerichtliche und gerichtliche Durchsetzung Ihrer Ansprüche.</span>", "en": "<strong>Recovering what you're owed</strong><span>Pursuing your claims out of court and in it.</span>"}, "b2_h3": {"de": "Für Führungskräfte, Angestellte &amp; Beamte", "en": "For executives, employees &amp; civil servants"}, "b2_intro": {"de": "Rechtliche Unterstützung in schwierigen Lagen.", "en": "Legal support when it matters."}, "b2_i1": {"de": "<strong>Kündigungsschutz und Abfindungsverhandlung</strong><span>Vertretung im Kündigungsschutzverfahren und Verhandlung einer angemessenen Abfindung, außergerichtlich oder vor Gericht.</span>", "en": "<strong>Dismissal &amp; severance</strong><span>Representation in unfair-dismissal claims and negotiating a fair severance — out of court or before it.</span>"}, "b2_i2": {"de": "<strong>Allgemeine Beratung im Arbeitsrecht</strong><span>Fragen zu Urlaub, Elternzeit, Arbeitszeit, Zeugnis und Vertragsänderungen.</span>", "en": "<strong>Everyday employment advice</strong><span>Questions on leave, parental leave, working hours, job references, and changes to your contract.</span>"}, "b2_i3": {"de": "<strong>Beamtenrecht</strong><span>Unterstützung und Begleitung in Disziplinarverfahren.</span>", "en": "<strong>Civil service law</strong><span>Support and representation in disciplinary proceedings.</span>"}, "sec_situations": {"de": "Wenn es ernst wird", "en": "When things get serious"}, "situations_lead": {"de": "Für Sie steht viel auf dem Spiel. Für mich ist es vertrautes Terrain.", "en": "The stakes are high for you. For me, it’s familiar ground."}, "sit1": {"de": "Sie haben eine <span class=\"accent-word\">Kündigung</span> oder einen Aufhebungsvertrag auf dem Tisch. Ich entwickle mit Ihnen eine Strategie, greife die Kündigung an und verhandle über Ihre Abfindung. Dafür bleiben nur drei Wochen: Wer nicht klagt, hat mit Sicherheit verloren, egal wie unwirksam die Kündigung war.", "en": "You’ve been handed a <span class=\"accent-word\">dismissal</span> or a termination agreement. I build a strategy with you, challenge the dismissal and negotiate your severance. You have only three weeks: whoever doesn’t file has lost for certain, however unlawful the dismissal was."}, "sit2": {"de": "Ihr <span class=\"accent-word\">Arbeitszeugnis</span> ist schlechter, als Ihre Arbeit war, und kostet Sie womöglich den nächsten Job. Ich entschlüssele die Geheimcodes und hole die Bewertung heraus, die Ihnen zusteht, notfalls vor Gericht.", "en": "Your <span class=\"accent-word\">job reference</span> is worse than your work was, and it can cost you your next job. I decode the hidden phrasing and secure the assessment you’re entitled to, in court if it comes to that."}, "sit3": {"de": "Gegen Sie läuft ein <span class=\"accent-word\">Disziplinarverfahren</span>, und Ihre Laufbahn steht auf dem Spiel. Ich zerlege die Vorwürfe, nutze jeden Verfahrensfehler und kämpfe um Ihre Laufbahn.", "en": "You’re facing <span class=\"accent-word\">disciplinary proceedings</span>, with your career on the line. I take the allegations apart, use every procedural flaw and fight for your career."}, "sit4": {"de": "Sie brauchen einen <span class=\"accent-word\">Vertrag</span>, der im Ernstfall hält, oder haben einen, bei dem Sie ein ungutes Gefühl haben. Ich schreibe ihn so, dass er Ihre Interessen schützt und im Streit nicht als Erstes kippt.", "en": "You need a <span class=\"accent-word\">contract</span> that holds up when it matters, or you have one that gives you a bad feeling. I draft it so it protects your interests and isn’t the first thing to buckle in a dispute."}, "sit5": {"de": "Ein Kunde zahlt nicht, und Erinnerungen bringen längst nichts mehr. Ich setze Ihre <span class=\"accent-word\">Forderung</span> durch, mit Nachdruck, außergerichtlich und wenn nötig vor Gericht.", "en": "A client isn’t paying, and reminders stopped working long ago. I enforce your <span class=\"accent-word\">claim</span> with real pressure, out of court and, if needed, before it."}, "sit6": {"de": "Sie müssen sich von einem Mitarbeiter trennen und wollen kein Risiko eingehen. Ich plane die <span class=\"accent-word\">Trennung</span> wasserdicht, damit sie hält und teure Fehler ausbleiben.", "en": "You have to let an employee go and don’t want to take any risks. I plan the <span class=\"accent-word\">separation</span> watertight, so it holds and costly mistakes never arise."}, "sec_about": {"de": "Über mich", "en": "About"}, "about_lead": {"de": "<span class=\"accent-word\">925law</span> bin ich: Max Englhard, Rechtsanwalt.", "en": "I'm <span class=\"accent-word\">925law</span> — Max Englhard, attorney-at-law."}, "about_p1": {"de": "Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.", "en": "My career hasn’t run in a straight line: private practice, a fintech, the public sector, and most recently a large commercial firm. I’ve seen a lot and come to know both sides. I know what matters to a business, and just as well how it feels to be an employee."}, "about_p2": {"de": "Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Genau darin bin ich gut: das Problem schnell erkennen und in kurzer Zeit einen tragfähigen Weg entwickeln, der Ihnen wirklich hilft. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.", "en": "What drives me is simple: I like helping people, and law is my tool for it. Most of my clients don’t care about the legal fine print — they want a solution. That’s what I’m good at: spotting the real problem and building a workable way through it, fast, that actually helps you. Clear advice, no runaround, no law-firm jargon, built around you."}, "sec_why": {"de": "Warum 925law", "en": "Why 925law"}, "why_lead": {"de": "Weil ich den <span class=\"accent-word\">Unterschied</span> für Sie mache.", "en": "Because I make the <span class=\"accent-word\">difference</span>."}, "why1_h3": {"de": "Direkt", "en": "Direct"}, "why1_p": {"de": "Sie reden mit mir. Von der ersten Einschätzung bis zum Abschluss.", "en": "You deal with me — from the first call to the final outcome."}, "why2_h3": {"de": "Klar", "en": "Clear"}, "why2_p": {"de": "Sie verstehen jeden Schritt. Nachvollziehbar und ohne Umwege.", "en": "You understand every step — no jargon, no detours."}, "why3_h3": {"de": "Passgenau", "en": "Tailored"}, "why3_p": {"de": "Sie bekommen, was Ihr Fall braucht. Nicht mehr und nicht weniger.", "en": "You get what your case needs — no more, no less."}, "why4_h3": {"de": "Erstklassig", "en": "First-rate"}, "why4_p": {"de": "Beratung auf höchstem Niveau. Fundiert, präzise, auf den Punkt.", "en": "Top-tier advice — rigorous, precise, and to the point."}, "sec_process": {"de": "Die nächsten Schritte", "en": "The next steps"}, "step1_h": {"de": "Anfrage senden", "en": "Send your request"}, "step1_p": {"de": "Schildern Sie kurz Ihr Anliegen über das Formular. Ich melde mich.", "en": "Tell me briefly what's going on, using the form. I'll get back to you."}, "step2_h": {"de": "Erstgespräch", "en": "Initial consultation"}, "step2_p": {"de": "Ich kläre Ihr Anliegen, Ihre Chancen und das weitere Vorgehen. Zum Festpreis von 190 € zzgl. USt (226,10 € brutto).", "en": "I talk through your situation, your chances, and the next steps — for a flat €190 plus VAT (€226.10 incl. VAT)."}, "step3_h": {"de": "Anrechnung", "en": "Credited back"}, "step3_p": {"de": "Beauftragen Sie mich anschließend, wird dieses Honorar voll angerechnet.", "en": "If you go ahead and hire me, that fee is credited in full."}, "step4_h": {"de": "Honorar", "en": "Fees"}, "step4_p": {"de": "Die Vergütung, die für Sie langfristig am besten passt: nach RVG bei Rechtsstreitigkeiten, nach Stundensatz bei laufender Beratung. Die Einschätzung dazu kommt vorab. Auf Wunsch mit Kostendeckel (Cap) oder als Retainer.", "en": "Whichever fee model works best for you in the long run: statutory rates (RVG) for disputes, an hourly rate for ongoing advice. You'll have my estimate up front — with a cost cap or a retainer if you prefer."}, "sec_contact": {"de": "Kontakt", "en": "Contact"}, "contact_intro": {"de": "Beschreiben Sie kurz, womit ich Ihnen <span class=\"accent-word\">helfen</span> kann.", "en": "Tell me briefly how I can <span class=\"accent-word\">help</span>."}, "lbl_email": {"de": "E-Mail", "en": "Email"}, "lbl_topic": {"de": "Bereich", "en": "Area"}, "lbl_message": {"de": "Nachricht", "en": "Message"}, "opt0": {"de": "Bitte wählen (optional)", "en": "Please choose (optional)"}, "opt1": {"de": "Unternehmen / Freelancer", "en": "Company / Freelancer"}, "opt2": {"de": "Führungskraft / Angestellte*r / Beamt*in", "en": "Executive / Employee / Civil servant"}, "btn_submit": {"de": "Nachricht senden", "en": "Send message"}, "form_thanks": {"de": "Vielen Dank für Ihre Nachricht. Ich melde mich.", "en": "Thanks for your message — I'll be in touch."}, "sec_impressum": {"de": "Impressum", "en": "Legal notice"}, "footnote": {"de": "* <span class=\"fn-num\">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird. Egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber, eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.", "en": "* <span class=\"fn-num\">925</span> stands for 9 to 5 — the time when work gets done, whether employed or running your own business. The problems that arise here are the ones I handle. 925 is also 925 sterling silver: an alloy of high purity, sturdy, solid and of real value: my standard and my promise."}, "footer_impressum": {"de": "Impressum", "en": "Legal notice"}, "footer_brand": {"de": "925law — Max Englhard, Rechtsanwalt", "en": "925law — Max Englhard, Attorney-at-law"}, "footer_datenschutz": {"de": "Datenschutz", "en": "Privacy"}, "form_consent": {"de": "Ich habe die <a href=\"/datenschutz.html\">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden.", "en": "I have read the <a href=\"/datenschutz.html\">privacy policy</a> and agree to my details being processed to handle my enquiry."}};
+  var I18N = {"skip": {"de": "Zum Inhalt springen", "en": "Skip to content"}, "nav_services": {"de": "Leistungen", "en": "Services"}, "nav_about": {"de": "Über mich", "en": "About"}, "nav_why": {"de": "Warum 925law", "en": "Why 925law"}, "nav_contact": {"de": "Kontakt", "en": "Contact"}, "hero_kicker": {"de": "Max Englhard · Rechtsanwalt · Berlin · Beratung auf Deutsch und Englisch", "en": "Max Englhard · Attorney-at-law · Berlin · Advice in English and German"}, "hero_h1": {"de": "Erst <span class=\"accent-num\">recht</span>, wenn's drauf ankommt.", "en": "When it <span class=\"accent-num\">counts</span> most."}, "hero_sub": {"de": "Arbeits- und Vertragsrecht für Persönlichkeiten. Ohne Umwege.", "en": "Employment and contract law — handled directly, explained plainly."}, "hero_cta": {"de": "Erstgespräch anfragen", "en": "Request a consultation"}, "asterisk_label": {"de": "Erklärung zu 925", "en": "What 925 stands for"}, "sec_services": {"de": "Leistungen", "en": "Services"}, "services_lead": {"de": "<span class=\"accent-word\">Klartext</span>, kein Kleingedrucktes.", "en": "<span class=\"accent-word\">Plain talk</span>, no fine print."}, "b1_h3": {"de": "Für Unternehmer &amp; Freelancer", "en": "For entrepreneurs &amp; freelancers"}, "b1_intro": {"de": "Sie machen Ihre Arbeit, ich kümmere mich um den Rest.", "en": "You do your work. I'll handle the rest."}, "b1_i1": {"de": "<strong>Vertragserstellung, -prüfung und -verhandlung</strong><span>Dienstleistungs-, Kooperations- und Lieferverträge, AGB und Honorarvereinbarungen.</span>", "en": "<strong>Contract drafting, review &amp; negotiation</strong><span>Service, partnership and supply agreements, standard terms (T&amp;Cs), and fee arrangements.</span>"}, "b1_i2": {"de": "<strong>Unterstützung im Arbeitsrecht</strong><span>Erstellung von Arbeitsverträgen, Begleitung bei Trennungsprozessen, gerichtliche Vertretung in Arbeitssachen.</span>", "en": "<strong>Employment-law support</strong><span>Employment contracts, support through separations, and representation in employment court.</span>"}, "b1_i3": {"de": "<strong>Durchsetzung von Ansprüchen</strong><span>Außergerichtliche und gerichtliche Durchsetzung Ihrer Ansprüche.</span>", "en": "<strong>Recovering what you're owed</strong><span>Pursuing your claims out of court and in it.</span>"}, "b2_h3": {"de": "Für Führungskräfte, Angestellte &amp; Beamte", "en": "For executives, employees &amp; civil servants"}, "b2_intro": {"de": "Rechtliche Unterstützung in schwierigen Lagen.", "en": "Legal support when it matters."}, "b2_i1": {"de": "<strong>Kündigungsschutz und Abfindungsverhandlung</strong><span>Vertretung im Kündigungsschutzverfahren und Verhandlung einer angemessenen Abfindung, außergerichtlich oder vor Gericht.</span>", "en": "<strong>Dismissal &amp; severance</strong><span>Representation in unfair-dismissal claims and negotiating a fair severance — out of court or before it.</span>"}, "b2_i2": {"de": "<strong>Allgemeine Beratung im Arbeitsrecht</strong><span>Fragen zu Urlaub, Elternzeit, Arbeitszeit, Zeugnis und Vertragsänderungen.</span>", "en": "<strong>Everyday employment advice</strong><span>Questions on leave, parental leave, working hours, job references, and changes to your contract.</span>"}, "b2_i3": {"de": "<strong>Beamtenrecht</strong><span>Unterstützung und Begleitung in Disziplinarverfahren.</span>", "en": "<strong>Civil service law</strong><span>Support and representation in disciplinary proceedings.</span>"}, "sec_situations": {"de": "Wenn es ernst wird", "en": "When things get serious"}, "situations_lead": {"de": "Für Sie steht viel auf dem Spiel. Für mich ist es vertrautes Terrain.", "en": "The stakes are high for you. For me, it’s familiar ground."}, "sit1": {"de": "Sie haben eine <span class=\"accent-word\">Kündigung</span> oder einen Aufhebungsvertrag auf dem Tisch. Ich entwickle mit Ihnen eine Strategie, greife die Kündigung an und verhandle über Ihre Abfindung. Dafür bleiben nur drei Wochen: Wer nicht klagt, hat mit Sicherheit verloren, egal wie unwirksam die Kündigung war.", "en": "You’ve been handed a <span class=\"accent-word\">dismissal</span> or a termination agreement. I build a strategy with you, challenge the dismissal and negotiate your severance. You have only three weeks: whoever doesn’t file has lost for certain, however unlawful the dismissal was."}, "sit2": {"de": "Ihr <span class=\"accent-word\">Arbeitszeugnis</span> ist schlechter, als Ihre Arbeit war, und kostet Sie womöglich den nächsten Job. Ich entschlüssele die Geheimcodes und hole die Bewertung heraus, die Ihnen zusteht, notfalls vor Gericht.", "en": "Your <span class=\"accent-word\">job reference</span> is worse than your work was, and it can cost you your next job. I decode the hidden phrasing and secure the assessment you’re entitled to, in court if it comes to that."}, "sit3": {"de": "Gegen Sie läuft ein <span class=\"accent-word\">Disziplinarverfahren</span>, und Ihre Laufbahn steht auf dem Spiel. Ich zerlege die Vorwürfe, nutze jeden Verfahrensfehler und kämpfe um Ihre Laufbahn.", "en": "You’re facing <span class=\"accent-word\">disciplinary proceedings</span>, with your career on the line. I take the allegations apart, use every procedural flaw and fight for your career."}, "sit4": {"de": "Sie brauchen einen <span class=\"accent-word\">Vertrag</span>, der im Ernstfall hält, oder haben einen, bei dem Sie ein ungutes Gefühl haben. Ich schreibe ihn so, dass er Ihre Interessen schützt und im Streit nicht als Erstes kippt.", "en": "You need a <span class=\"accent-word\">contract</span> that holds up when it matters, or you have one that gives you a bad feeling. I draft it so it protects your interests and isn’t the first thing to buckle in a dispute."}, "sit5": {"de": "Ein Kunde zahlt nicht, und Erinnerungen bringen längst nichts mehr. Ich setze Ihre <span class=\"accent-word\">Forderung</span> durch, mit Nachdruck, außergerichtlich und wenn nötig vor Gericht.", "en": "A client isn’t paying, and reminders stopped working long ago. I enforce your <span class=\"accent-word\">claim</span> with real pressure, out of court and, if needed, before it."}, "sit6": {"de": "Sie müssen sich von einem Mitarbeiter trennen und wollen kein Risiko eingehen. Ich plane die <span class=\"accent-word\">Trennung</span> wasserdicht, damit sie hält und teure Fehler ausbleiben.", "en": "You have to let an employee go and don’t want to take any risks. I plan the <span class=\"accent-word\">separation</span> watertight, so it holds and costly mistakes never arise."}, "sec_about": {"de": "Über mich", "en": "About"}, "about_lead": {"de": "<span class=\"accent-word\">925law</span> bin ich: Max Englhard, Rechtsanwalt.", "en": "I'm <span class=\"accent-word\">925law</span> — Max Englhard, attorney-at-law."}, "portrait_alt": {"de": "Porträt Max Englhard, Rechtsanwalt", "en": "Portrait of Max Englhard, attorney-at-law"}, "about_p1": {"de": "Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.", "en": "My career hasn’t run in a straight line: private practice, a fintech, the public sector, and most recently a large commercial firm. I’ve seen a lot and come to know both sides. I know what matters to a business, and just as well how it feels to be an employee."}, "about_p2": {"de": "Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Genau darin bin ich gut: das Problem schnell erkennen und in kurzer Zeit einen tragfähigen Weg entwickeln, der Ihnen wirklich hilft. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.", "en": "What drives me is simple: I like helping people, and law is my tool for it. Most of my clients don’t care about the legal fine print — they want a solution. That’s what I’m good at: spotting the real problem and building a workable way through it, fast, that actually helps you. Clear advice, no runaround, no law-firm jargon, built around you."}, "sec_why": {"de": "Warum 925law", "en": "Why 925law"}, "why_lead": {"de": "Weil ich den <span class=\"accent-word\">Unterschied</span> für Sie mache.", "en": "Because I make the <span class=\"accent-word\">difference</span>."}, "why1_h3": {"de": "Direkt", "en": "Direct"}, "why1_p": {"de": "Sie reden mit mir. Von der ersten Einschätzung bis zum Abschluss.", "en": "You deal with me — from the first call to the final outcome."}, "why2_h3": {"de": "Klar", "en": "Clear"}, "why2_p": {"de": "Sie verstehen jeden Schritt. Nachvollziehbar und ohne Umwege.", "en": "You understand every step — no jargon, no detours."}, "why3_h3": {"de": "Passgenau", "en": "Tailored"}, "why3_p": {"de": "Sie bekommen, was Ihr Fall braucht. Nicht mehr und nicht weniger.", "en": "You get what your case needs — no more, no less."}, "why4_h3": {"de": "Erstklassig", "en": "First-rate"}, "why4_p": {"de": "Beratung auf höchstem Niveau. Fundiert, präzise, auf den Punkt.", "en": "Top-tier advice — rigorous, precise, and to the point."}, "sec_process": {"de": "Die nächsten Schritte", "en": "The next steps"}, "step1_h": {"de": "Anfrage senden", "en": "Send your request"}, "step1_p": {"de": "Schildern Sie kurz Ihr Anliegen über das Formular. Ich melde mich.", "en": "Tell me briefly what's going on, using the form. I'll get back to you."}, "step2_h": {"de": "Erstgespräch", "en": "Initial consultation"}, "step2_p": {"de": "Ich kläre Ihr Anliegen, Ihre Chancen und das weitere Vorgehen. Zum Festpreis von 190 € zzgl. USt (226,10 € brutto).", "en": "I talk through your situation, your chances, and the next steps — for a flat €190 plus VAT (€226.10 incl. VAT)."}, "step3_h": {"de": "Anrechnung", "en": "Credited back"}, "step3_p": {"de": "Beauftragen Sie mich anschließend, wird dieses Honorar voll angerechnet.", "en": "If you go ahead and hire me, that fee is credited in full."}, "step4_h": {"de": "Honorar", "en": "Fees"}, "step4_p": {"de": "Die Vergütung, die für Sie langfristig am besten passt: nach RVG bei Rechtsstreitigkeiten, nach Stundensatz bei laufender Beratung. Die Einschätzung dazu kommt vorab. Auf Wunsch mit Kostendeckel (Cap) oder als Retainer.", "en": "Whichever fee model works best for you in the long run: statutory rates (RVG) for disputes, an hourly rate for ongoing advice. You'll have my estimate up front — with a cost cap or a retainer if you prefer."}, "sec_contact": {"de": "Kontakt", "en": "Contact"}, "contact_intro": {"de": "Beschreiben Sie kurz, womit ich Ihnen <span class=\"accent-word\">helfen</span> kann.", "en": "Tell me briefly how I can <span class=\"accent-word\">help</span>."}, "lbl_email": {"de": "E-Mail", "en": "Email"}, "lbl_message": {"de": "Nachricht", "en": "Message"}, "btn_submit": {"de": "Nachricht senden", "en": "Send message"}, "hp_label": {"de": "Bitte leer lassen", "en": "Please leave empty"}, "form_thanks": {"de": "Vielen Dank für Ihre Nachricht. Ich melde mich.", "en": "Thanks for your message — I'll be in touch."}, "form_error": {"de": "Es gab ein Problem beim Senden. Bitte prüfen Sie Ihre Angaben oder schreiben Sie direkt an kontakt@925law.de.", "en": "Something went wrong while sending. Please check your details or email kontakt@925law.de directly."}, "form_preview": {"de": "Vorschau: In dieser Testversion ist das Formular deaktiviert. Auf der echten Seite geht die Nachricht an kontakt@925law.de.", "en": "Preview: the form is disabled in this test version. On the live site your message goes to kontakt@925law.de."}, "footnote": {"de": "* <span class=\"fn-num\">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird. Egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber, eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.", "en": "* <span class=\"fn-num\">925</span> stands for 9 to 5 — the time when work gets done, whether employed or running your own business. The problems that arise here are the ones I handle. 925 is also 925 sterling silver: an alloy of high purity, sturdy, solid and of real value: my standard and my promise."}, "footer_impressum": {"de": "Impressum", "en": "Legal notice"}, "footer_brand": {"de": "925law — Max Englhard, Rechtsanwalt", "en": "925law — Max Englhard, Attorney-at-law"}, "footer_datenschutz": {"de": "Datenschutz", "en": "Privacy"}, "form_consent": {"de": "Ich habe die <a href=\"/datenschutz.html\">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden.", "en": "I have read the <a href=\"/datenschutz.html\">privacy policy</a> and agree to my details being processed to handle my enquiry."}};
   var TITLES = {"de": "925law — Rechtsanwalt Max Englhard", "en": "925law — Max Englhard, Attorney-at-law"};
   function setLang(lang){
     document.documentElement.lang = lang;
