@@ -20,9 +20,9 @@ Scope: developer items only. Lawyer / wording decisions stay open (see bottom).
 - [x] README for the repo
 
 ## Delivery
-- [ ] Private GitHub repo, pushed
-- [ ] GitHub Pages workflow (static preview; form disabled on github.io, Plausible stripped, kontakt.php excluded, base path rewritten)
-- [ ] Verify preview URL renders at phone + desktop
+- [x] GitHub repo pushed (made public on 2026-11-04 because Pages needs a paid plan for private repos)
+- [x] GitHub Pages workflow (static preview; form disabled on github.io, Plausible stripped, kontakt.php excluded, base path rewritten)
+- [x] Verify preview URL renders at phone + desktop: https://dominik1999.github.io/max-homepage/
 
 ## Left open on purpose (not mine to decide)
 - Section reorder (About up), "Warum" copy, phone number / address on page, "für Persönlichkeiten" wording, meta description length, OG image + favicon redesign
