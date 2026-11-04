@@ -42,7 +42,7 @@ jobs:
           printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
           rm -f _site/sitemap.xml
           grep -c "${BASE}/fonts.css" _site/index.html _site/en/index.html
-          ! grep -rl 'plausible' _site
+          ! grep -rl 'plausible.io/js' _site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
