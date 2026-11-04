@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script>if('IntersectionObserver' in window){document.documentElement.classList.add('js-anim');}</script>
+<title>925law – English-speaking Employment &amp; Contract Lawyer in Berlin | Max Englhard</title>
+
+
+
+<style>
+  :root {
+    --bg: #FAF9F7;
+    --ink: #161616;
+    --ink-soft: #4A4A48;
+    --accent: #D6006E;
+    --accent-soft: #F6D9E7;
+    --line: #DEDAD4;
+    --serif: 'Archivo', sans-serif;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+  }
+
+  a { color: inherit; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 960px);
+    justify-content: center;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Sidebar */
+  nav.sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    width: 100%;
+    height: 100vh;
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--line);
+  }
+
+  .sidebar-top .brand {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 56px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--accent);
+  }
+
+  .logo-mark circle {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 3;
+  }
+
+  .logo-mark text {
+    font-family: var(--serif);
+    font-weight: 700;
+    fill: var(--accent);
+  }
+
+  .asterisk {
+    color: var(--accent);
+  }
+
+  .sidebar-top ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .sidebar-top a {
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+    position: relative;
+  }
+
+  .sidebar-top a:hover,
+  .sidebar-top a:focus-visible {
+    color: var(--accent);
+  }
+
+  .sidebar-top a:hover::before,
+  .sidebar-top a:focus-visible::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .sidebar-bottom {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  .sidebar-bottom a {
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+
+  .lang-switch {
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+  }
+
+  .lang-switch a {
+    text-decoration: none;
+    color: var(--ink-soft);
+  }
+
+  .lang-switch a:hover,
+  .lang-switch a:focus-visible {
+    color: var(--accent);
+  }
+
+  .lang-switch .lang-active {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .lang-switch .sep {
+    color: var(--line);
+    margin: 0 6px;
+  }
+
+  /* Main content */
+  main {
+    grid-column: 2;
+    max-width: none;
+    padding: 0 72px;
+  }
+
+  section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 48px;
+  }
+
+  /* Abschnitte so hoch wie ihr Inhalt -> überall gleicher Abstand */
+  main > section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    scroll-snap-align: start;
+    padding: 72px 0;
+  }
+  /* Nur der Hero füllt den ersten Bildschirm und ist vertikal zentriert */
+  #hero { min-height: 100vh; justify-content: center; padding: 0; }
+  .cta { align-self: flex-start; }
+
+  /* Über mich: Inhalt oben, Fußzeile am unteren Rand des letzten Screens */
+  #about { justify-content: space-between; }
+  #about .about-foot { width: 100%; padding-top: 24px; }
+
+  /* Sanftes Einblenden beim Scrollen (nur mit JS; ohne JS alles sichtbar) */
+  .js-anim main > section,
+  .js-anim footer {
+    opacity: 0;
+    transition: opacity 0.7s ease;
+  }
+  .js-anim #hero {
+    opacity: 1;
+  }
+  .js-anim main > section.is-visible,
+  .js-anim footer.is-visible {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js-anim main > section,
+    .js-anim footer {
+      opacity: 1;
+      transition: none;
+    }
+  }
+
+  section:last-of-type {
+    border-bottom: none;
+  }
+
+  /* Hero */
+  #hero {
+    padding-top: 64px;
+  }
+
+  #hero .kicker {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+
+  #hero h1 {
+    font-family: var(--serif);
+    font-weight: 900;
+    font-size: clamp(2.4rem, 5.2vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+  }
+
+  #hero .accent-num {
+    color: var(--accent);
+  }
+
+  #hero p.sub {
+    margin-top: 32px;
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    max-width: 42ch;
+  }
+
+  .cta {
+    display: inline-block;
+    margin-top: 36px;
+    background: var(--accent);
+    color: #fff;
+    padding: 16px 34px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.15s ease;
+  }
+
+  .cta:hover, .cta:focus-visible {
+    background: var(--ink);
+  }
+
+  .slogan-strip {
+    margin-top: 110px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+  }
+
+  .hero-headline-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .stamp circle {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.4;
+  }
+
+  .stamp text {
+    font-family: var(--serif);
+    font-weight: 700;
+    fill: var(--ink);
+  }
+
+  .stamp-hero {
+    flex-shrink: 0;
+    margin-top: 12px;
+  }
+
+  .stamp-wrap {
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 12px;
+    line-height: 0;
+  }
+
+  .stamp-wrap .stamp-hero {
+    margin-top: 0;
+  }
+
+  .stamp-asterisk {
+    position: absolute;
+    top: -2px;
+    right: -8px;
+    color: var(--accent);
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .stamp-asterisk:hover { color: var(--ink); }
+
+  #footnote { scroll-margin-top: 48px; }
+
+  .accent-word {
+    color: var(--accent);
+  }
+
+  /* Section headings */
+  h2.section-title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 2.1rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 40px;
+  }
+
+  h2.section-title::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  h2.section-title + .section-lead {
+    margin-top: -28px;
+    margin-bottom: 40px;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+  }
+
+  /* Leistungen */
+  .services-stack {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-block {
+    display: block;
+    padding: 48px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .service-block > div {
+    margin-bottom: 28px;
+  }
+
+  .service-block:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .service-block:last-child {
+    padding-bottom: 0;
+  }
+
+  .service-block h3 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+  }
+
+  .service-block .intro {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    max-width: 34ch;
+  }
+
+  .service-block ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .service-block li strong {
+    display: block;
+    font-size: 1.02rem;
+    margin-bottom: 6px;
+  }
+
+  .service-block li span {
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    max-width: 600px;
+    display: block;
+  }
+
+  /* Über mich */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .portrait {
+    width: 220px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  #about p {
+    max-width: 600px;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    color: var(--ink-soft);
+  }
+
+  #about p strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  #about p.lead {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  #about p.punch {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent);
+    max-width: none;
+    margin-top: 8px;
+  }
+
+  /* Typische Situationen */
+  .situations-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .situations-grid li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 600px;
+  }
+
+  .situations-grid li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 11px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  /* Warum 925law */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .why-item h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  .why-item h3 .neg {
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+
+  .why-item p {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    max-width: 600px;
+  }
+
+  /* So läuft's */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .step .num {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .step h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin: 12px 0 8px;
+  }
+
+  .step p {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    line-height: 1.55;
+    max-width: 600px;
+  }
+
+  /* Kontakt */
+  #contact p.intro {
+    color: var(--ink-soft);
+    max-width: 48ch;
+    margin-bottom: 48px;
+    font-size: 1.05rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 520px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    padding: 10px 2px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--accent);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  form .cta {
+    align-self: flex-start;
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+
+  .legal-section {
+    padding-bottom: 100px;
+  }
+
+  .legal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 56px;
+  }
+
+  .legal-grid h3 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
+  .legal-grid p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .legal-grid a {
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 2px;
+  }
+
+  footer {
+    padding: 40px 0 80px;
+  }
+
+  .footnote {
+    max-width: 52ch;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .footnote p {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .footnote .fn-num { color: var(--accent); font-weight: 600; }
+
+  .footer-bottom {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-legal { display: inline-flex; gap: 18px; }
+  .footer-legal a { color: var(--ink-soft); text-decoration: underline; text-decoration-color: var(--line); }
+  .footer-legal a:hover { color: var(--accent); }
+  .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.5; margin-top: 4px; max-width: 540px; }
+  .consent input { margin-top: 3px; flex-shrink: 0; }
+  .consent a { color: var(--accent); }
+
+  .form-thanks {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+
+  /* Mobile */
+  @media (max-width: 860px) {
+    .layout { display: block; }
+    nav.sidebar {
+      position: static;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      row-gap: 16px;
+      padding: 24px 24px;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .sidebar-top { display: flex; align-items: center; gap: 32px; }
+    .sidebar-top .brand { margin-bottom: 0; }
+    .sidebar-top ul { flex-direction: row; gap: 16px; flex-wrap: wrap; }
+    .sidebar-bottom {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+    main { margin-left: 0; padding: 0 24px; max-width: 100%; }
+    section { padding: 48px 0; }
+    .service-block { grid-template-columns: 1fr; gap: 24px; padding: 32px 0; }
+    #about .about-grid { grid-template-columns: 1fr; }
+    .portrait { width: 160px; height: 200px; }
+    .situations-grid { grid-template-columns: 1fr; gap: 16px; }
+    .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+    .why-grid { grid-template-columns: 1fr; gap: 36px; }
+    .legal-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
+    .hero-headline-row { flex-direction: column; gap: 16px; }
+    .stamp-hero { width: 64px; height: 64px; margin-top: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+<link href="/fonts.css" rel="stylesheet"/><script data-domain="925law.de" defer="" src="https://plausible.io/js/script.js"></script><meta content="Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation." name="description"/><meta content="index,follow" name="robots"/><meta content="Max Englhard" name="author"/><link href="https://925law.de/en/" rel="canonical"/><link href="https://925law.de/" hreflang="de" rel="alternate"/><link href="https://925law.de/en/" hreflang="en" rel="alternate"/><link href="https://925law.de/" hreflang="x-default" rel="alternate"/><link href="/favicon.svg" rel="icon" type="image/svg+xml"/><link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/apple-touch-icon.png" rel="apple-touch-icon"/><meta content="website" property="og:type"/><meta content="925law" property="og:site_name"/><meta content="925law – English-speaking Employment &amp; Contract Lawyer in Berlin | Max Englhard" property="og:title"/><meta content="Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation." property="og:description"/><meta content="https://925law.de/en/" property="og:url"/><meta content="https://925law.de/og-image-en.png" property="og:image"/><meta content="en_US" property="og:locale"/><meta content="de_DE" property="og:locale:alternate"/><meta content="summary_large_image" name="twitter:card"/><meta content="925law – English-speaking Employment &amp; Contract Lawyer in Berlin | Max Englhard" name="twitter:title"/><meta content="Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation." name="twitter:description"/><meta content="https://925law.de/og-image-en.png" name="twitter:image"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Attorney",
+  "name": "925law – Max Englhard",
+  "url": "https://925law.de/",
+  "description": "Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation.",
+  "areaServed": "Berlin, Germany",
+  "availableLanguage": [
+    "de",
+    "en"
+  ],
+  "knowsAbout": [
+    "Arbeitsrecht",
+    "Kündigungsschutz",
+    "Abfindung",
+    "Aufhebungsvertrag",
+    "Vertragsrecht",
+    "Forderungseinzug",
+    "Beamtenrecht",
+    "Employment law",
+    "Contract law"
+  ],
+  "founder": {
+    "@type": "Person",
+    "name": "Max Englhard",
+    "jobTitle": "Rechtsanwalt"
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Rechtsanwaltskammer Berlin"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Berlin",
+    "addressCountry": "DE"
+  },
+  "email": "kontakt@925law.de",
+  "inLanguage": [
+    "de",
+    "en"
+  ]
+}</script></head>
+<body>
+<div class="layout">
+<nav class="sidebar">
+<div class="sidebar-top">
+<a class="brand" href="#hero">
+<svg aria-hidden="true" class="logo-mark" height="28" viewbox="0 0 120 120" width="28">
+<circle cx="60" cy="60" r="52"></circle>
+<circle cx="60" cy="60" opacity="0.5" r="42" stroke-width="1.4"></circle>
+<text font-size="26" text-anchor="middle" x="60" y="68">925</text>
+</svg>
+<span>925law</span>
+</a>
+<ul>
+<li><a href="#services">Services</a></li>
+<li><a href="#why">Why 925law</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#about">About</a></li>
+</ul>
+</div>
+<div class="sidebar-bottom">
+<div class="lang-switch"><a class="lang-de" href="/">DE</a><span class="sep">/</span><a aria-current="true" class="lang-en lang-active" href="/en/">EN</a></div>
+<a href="mailto:kontakt@925law.de">kontakt@925law.de</a>
+</div>
+</nav>
+<main>
+<section id="hero">
+<div class="hero-headline-row">
+<h1>When it <span class="accent-num">counts</span> most.</h1>
+<div class="stamp-wrap">
+<svg aria-hidden="true" class="stamp stamp-hero" height="110" viewbox="0 0 120 120" width="110">
+<circle cx="60" cy="60" r="52"></circle>
+<circle cx="60" cy="60" opacity="0.5" r="42" stroke-width="0.8"></circle>
+<text font-size="26" text-anchor="middle" x="60" y="68">925</text>
+</svg>
+<a aria-label="Erklärung zu 925" class="stamp-asterisk" href="#footnote">*</a>
+</div>
+</div>
+<p class="sub">Employment and contract law — handled directly, explained plainly.</p>
+<a class="cta" href="#contact">Request a consultation</a>
+</section>
+<section class="tall" id="services">
+<h2 class="section-title">Services</h2>
+<p class="section-lead"><span class="accent-word">Plain talk</span>, no fine print.</p>
+<div class="services-stack">
+<div class="service-block">
+<div>
+<h3>For entrepreneurs &amp; freelancers</h3>
+<p class="intro">You do your work. I'll handle the rest.</p>
+</div>
+<ul>
+<li><strong>Contract drafting, review &amp; negotiation</strong><span>Service, partnership and supply agreements, standard terms (T&amp;Cs), and fee arrangements.</span></li>
+<li><strong>Employment-law support</strong><span>Employment contracts, support through separations, and representation in employment court.</span></li>
+<li><strong>Recovering what you're owed</strong><span>Pursuing your claims out of court and in it.</span></li>
+</ul>
+</div>
+<div class="service-block">
+<div>
+<h3>For executives, employees &amp; civil servants</h3>
+<p class="intro">Legal support when it matters.</p>
+</div>
+<ul>
+<li><strong>Dismissal &amp; severance</strong><span>Representation in unfair-dismissal claims and negotiating a fair severance — out of court or before it.</span></li>
+<li><strong>Everyday employment advice</strong><span>Questions on leave, parental leave, working hours, job references, and changes to your contract.</span></li>
+<li><strong>Civil service law</strong><span>Support and representation in disciplinary proceedings.</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="tall" id="situations">
+<h2 class="section-title">When things get serious</h2>
+<p class="section-lead">The stakes are high for you. For me, it’s familiar ground.</p>
+<ul class="situations-grid">
+<li>You’ve been handed a <span class="accent-word">dismissal</span> or a termination agreement. I build a strategy with you, challenge the dismissal and negotiate your severance. You have only three weeks: whoever doesn’t file has lost for certain, however unlawful the dismissal was.</li>
+<li>You need a <span class="accent-word">contract</span> that holds up when it matters, or you have one that gives you a bad feeling. I draft it so it protects your interests and isn’t the first thing to buckle in a dispute.</li>
+<li>Your <span class="accent-word">job reference</span> is worse than your work was, and it can cost you your next job. I decode the hidden phrasing and secure the assessment you’re entitled to, in court if it comes to that.</li>
+<li>A client isn’t paying, and reminders stopped working long ago. I enforce your <span class="accent-word">claim</span> with real pressure, out of court and, if needed, before it.</li>
+<li>You’re facing <span class="accent-word">disciplinary proceedings</span>, with your career on the line. I take the allegations apart, use every procedural flaw and fight for your career.</li>
+<li>You have to let an employee go and don’t want to take any risks. I plan the <span class="accent-word">separation</span> watertight, so it holds and costly mistakes never arise.</li>
+</ul>
+</section>
+<section id="why">
+<h2 class="section-title">Why 925law</h2>
+<p class="section-lead">Because I make the <span class="accent-word">difference</span>.</p>
+<div class="why-grid">
+<div class="why-item">
+<h3>Direct</h3>
+<p>You deal with me — from the first call to the final outcome.</p>
+</div>
+<div class="why-item">
+<h3>First-rate</h3>
+<p>Top-tier advice — rigorous, precise, and to the point.</p>
+</div>
+<div class="why-item">
+<h3>Clear</h3>
+<p>You understand every step — no jargon, no detours.</p>
+</div>
+<div class="why-item">
+<h3>Tailored</h3>
+<p>You get what your case needs — no more, no less.</p>
+</div>
+</div>
+</section>
+<section class="tall" id="process">
+<h2 class="section-title">The next steps</h2>
+<div class="steps-grid">
+<div class="step">
+<div class="num">1</div>
+<h3>Send your request</h3>
+<p>Tell me briefly what's going on, using the form. I'll get back to you.</p>
+</div>
+<div class="step">
+<div class="num">2</div>
+<h3>Initial consultation</h3>
+<p>I talk through your situation, your chances, and the next steps — for a flat €190 plus VAT (€226.10 incl. VAT).</p>
+</div>
+<div class="step">
+<div class="num">3</div>
+<h3>Credited back</h3>
+<p>If you go ahead and hire me, that fee is credited in full.</p>
+</div>
+<div class="step">
+<div class="num">4</div>
+<h3>Fees</h3>
+<p>Whichever fee model works best for you in the long run: statutory rates (RVG) for disputes, an hourly rate for ongoing advice. You'll have my estimate up front — with a cost cap or a retainer if you prefer.</p>
+</div>
+</div>
+</section>
+<section id="contact">
+<h2 class="section-title">Contact</h2>
+<p class="intro" id="contact-intro">Tell me briefly how I can <span class="accent-word">help</span>.</p>
+<form action="/kontakt.php" id="contact-form" method="POST">
+<div aria-hidden="true" style="position:absolute; left:-9999px;"><label>Bitte leer lassen <input autocomplete="off" name="website" tabindex="-1" type="text"/></label></div>
+<input name="lang" type="hidden" value="en"/>
+<div class="field">
+<label for="name">Name</label>
+<input id="name" name="name" required="" type="text"/>
+</div>
+<div class="field">
+<label for="email">Email</label>
+<input id="email" name="email" required="" type="email"/>
+</div>
+<div class="field">
+<label for="message">Message</label>
+<textarea id="message" name="message" required=""></textarea>
+</div>
+<label class="consent"><input name="consent" required="" type="checkbox"/> <span>I have read the <a href="/datenschutz.html">privacy policy</a> and agree to my details being processed to handle my enquiry.</span></label>
+<button class="cta" type="submit">Send message</button>
+</form>
+<p class="form-thanks" style="display:none;">Thanks for your message — I'll be in touch.</p>
+</section>
+<section id="about">
+<div class="about-main">
+<h2 class="section-title">About</h2>
+<div class="about-grid">
+<img alt="Portrait of Max Englhard, attorney-at-law" class="portrait" src="/portrait.webp"/>
+<div>
+<p class="lead">I'm <span class="accent-word">925law</span> — Max Englhard, attorney-at-law.</p>
+<p>My career hasn’t run in a straight line: private practice, a fintech, the public sector, and most recently a large commercial firm. I’ve seen a lot and come to know both sides. I know what matters to a business, and just as well how it feels to be an employee.</p>
+<p>What drives me is simple: I like helping people, and law is my tool for it. Most of my clients don’t care about the legal fine print — they want a solution. That’s what I’m good at: spotting the real problem and building a workable way through it, fast, that actually helps you. Clear advice, no runaround, no law-firm jargon, built around you.</p>
+</div>
+</div>
+</div>
+<div class="about-foot">
+<div class="footnote" id="footnote">
+<p>* <span class="fn-num">925</span> stands for 9 to 5 — the time when work gets done, whether employed or running your own business. The problems that arise here are the ones I handle. 925 is also 925 sterling silver: an alloy of high purity, sturdy, solid and of real value: my standard and my promise.</p>
+</div>
+<div class="footer-bottom">
+<span class="footer-brand">
+<svg aria-hidden="true" height="18" viewbox="0 0 120 120" width="18">
+<circle cx="60" cy="60" fill="none" r="52" stroke="currentColor" stroke-width="4"></circle>
+<text fill="currentColor" font-family="'Archivo', sans-serif" font-size="34" font-weight="700" text-anchor="middle" x="60" y="72">925</text>
+</svg>
+<span>925law — Max Englhard, Attorney-at-law</span>
+</span>
+<span>Berlin</span>
+<span class="footer-legal"><a href="/impressum.html">Legal notice</a><a href="/datenschutz.html">Privacy</a></span>
+</div>
+</div>
+</section>
+</main>
+</div>
+<script>
+(function(){
+  if(!('IntersectionObserver' in window)){ document.documentElement.classList.remove('js-anim'); return; }
+  var els = document.querySelectorAll('main > section:not(#hero), footer');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+<script>
+  (function(){
+    var form = document.getElementById('contact-form');
+    function showThanks(){
+      if(form) form.style.display='none';
+      var i=document.getElementById('contact-intro'); if(i) i.style.display='none';
+      var t=document.querySelector('.form-thanks'); if(t) t.style.display='block';
+    }
+    try{
+      if(/[?&]sent=1/.test(location.search)){
+        showThanks();
+        if(window.history && history.replaceState){ history.replaceState(null,'',location.pathname+'#contact'); }
+      }
+    }catch(e){}
+    if(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        fetch(form.action, { method:'POST', body:new FormData(form),
+          headers:{ 'Accept':'application/json','X-Requested-With':'XMLHttpRequest' } })
+        .then(function(r){ return r.json().catch(function(){ return { ok:r.ok }; }); })
+        .then(function(res){ if(res && res.ok){ showThanks(); } else { alert("Something went wrong while sending. Please email kontakt@925law.de directly."); } })
+        .catch(function(){ alert("Something went wrong while sending. Please email kontakt@925law.de directly."); });
+      });
+    }
+  })();
+</script>
+</body>
+</html>

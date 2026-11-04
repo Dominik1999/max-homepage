@@ -1,0 +1,82 @@
+925law — Homepage: Übergabe
+===========================
+
+Zweisprachige Kanzlei-Homepage (Deutsch/Englisch), statisches HTML +
+ein PHP-Skript für das Kontaktformular. Hosting bei Hetzner (Webhosting).
+
+
+ORDNER IN DIESEM PAKET
+----------------------
+
+website/   = die FERTIGE Seite. Inhalt 1:1 in den Webroot (public_html) laden.
+bearbeiten/ = Quelldateien, falls Texte/Design geändert werden sollen.
+
+
+ORDNER "website/" — was wohin gehört
+------------------------------------
+/                 index.html          deutsche Startseite
+/en/              en/index.html       englische Startseite
+/impressum.html                       Impressum (deutsch)
+/datenschutz.html                     Datenschutzerklärung (deutsch)
+/kontakt.php                          Formular-Handler (verschickt die Mail)
+/portrait.webp                        Foto
+/favicon.svg  /favicon-32.png  /apple-touch-icon.png
+/og-image.png  /og-image-en.png       Vorschaubilder beim Teilen/Verlinken
+/fonts.css   /fonts/                  selbst gehostete Schriften (7 Dateien)
+/sitemap.xml  /robots.txt
+
+-> Alles ist vollständig. Fonts liegen bei (kein Nachladen nötig).
+
+
+SO WIRD BEARBEITET
+------------------
+Es gibt ZWEI Wege:
+
+1) Direkt im fertigen HTML
+   index.html (DE) und en/index.html (EN) sind normale HTML-Dateien und
+   können direkt editiert werden. Achtung: Änderungen müssen dann in BEIDE
+   Sprachdateien übernommen werden.
+
+2) Über die Quelle (empfohlen für Texte)
+   bearbeiten/925law.html ist die EINZIGE Quelle für die Startseiten-Texte.
+   Alle Texte liegen dort in einem Wörterbuch (Variable "I18N" im <script>),
+   jeweils mit "de" und "en". Dort ändern, dann neu erzeugen mit:
+
+       python3 build_site.py
+
+   (braucht Python 3 + das Paket beautifulsoup4: pip install beautifulsoup4)
+   Der Generator schreibt index.html und en/index.html neu.
+   HINWEIS: build_site.py enthält feste Pfade (/mnt/user-data/...) aus der
+   Erstellungsumgebung — diese oben im Skript auf die lokalen Pfade anpassen.
+
+Impressum, Datenschutz und kontakt.php sind eigenständige Dateien und werden
+direkt bearbeitet (nicht über den Generator).
+
+
+TECHNISCHE HINWEISE
+-------------------
+- Schriften: selbst gehostet (DSGVO-konform), kein Google-Fonts-CDN.
+  Falls der Ordner /fonts je leer ist: bearbeiten/fetch_fonts.py lädt die
+  7 Schriftdateien nach, oder manuell über gwfh.mranftl.com
+  (Archivo 500/700/800/900, IBM Plex Sans 400/500/600, "latin", woff2).
+- Analytics: Plausible-Script ist eingebunden. Es zählt nur, wenn im
+  Plausible-Account die Domain 925law.de angelegt ist. Wird Plausible NICHT
+  genutzt, müssen das Script (in index.html/en + impressum/datenschutz) UND
+  der Plausible-Absatz in der Datenschutzerklärung entfernt werden.
+- Domain: überall fest "https://925law.de". Bei anderer Domain in
+  build_site.py (Variable DOMAIN) ändern und neu erzeugen, sowie in
+  sitemap.xml/robots.txt.
+- Sprachumschalter: echte Links (/ und /en/), keine JavaScript-Umschaltung.
+  Beide Sprachen sind getrennt für Google indexierbar (hreflang gesetzt).
+
+
+VOR DEM ÖFFENTLICHEN START (offene Punkte)
+------------------------------------------
+- Kontaktformular auf dem Server live testen. PHP muss aktiv sein und das
+  Postfach kontakt@925law.de muss existieren (Benachrichtigung + Auto-Antwort).
+- Plausible-Account mit Domain 925law.de anlegen + AV-Vertrag bestätigen —
+  oder Plausible wie oben beschrieben entfernen.
+- Rechtstexte juristisch final prüfen (Versicherungs-Geltungsbereich, Adresse,
+  USt-Status). USt-IdNr. ist bewusst weggelassen (noch nicht vorhanden).
+- Optional: sichtbare Telefonnummer ergänzen (zweiter Kontaktweg).
+- Details zum Hochladen: siehe website/DEPLOY.txt.
