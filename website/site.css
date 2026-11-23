@@ -162,10 +162,6 @@ nav.sidebar {
   margin-bottom: 56px;
 }
 
-.asterisk {
-  color: var(--accent);
-}
-
 .sidebar-top ul {
   list-style: none;
   display: flex;
@@ -521,15 +517,6 @@ h2.section-title + .section-lead {
   font-weight: 500;
 }
 
-#about p.punch {
-  font-family: var(--serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--accent);
-  max-width: none;
-  margin-top: 8px;
-}
-
 /* Typische Situationen */
 .situations-grid {
   list-style: none;
@@ -574,11 +561,6 @@ h2.section-title + .section-lead {
   font-weight: 600;
   font-size: 1.25rem;
   margin-bottom: 10px;
-}
-
-.why-item h3 .neg {
-  color: var(--ink-soft);
-  font-weight: 400;
 }
 
 .why-item p {
