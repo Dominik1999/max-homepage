@@ -949,16 +949,15 @@ details[open] .faq-a { animation: faq-in 0.2s ease; }
 .foot-col .lang-switch .lang-active { text-decoration: underline; text-decoration-color: var(--accent); }
 
 /* --- Sanftes Einblenden beim Scrollen (nur mit JS; ohne JS alles sichtbar) --- */
+/* Ausgeblendet nur, solange .is-visible fehlt (die :not(#hero)-ID hätte sonst Vorrang vor .is-visible) */
 .js-anim main > section:not(#hero),
 .js-anim body > footer {
-  opacity: 0;
-  transform: translateY(16px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.js-anim main > section.is-visible,
-.js-anim body > footer.is-visible {
-  opacity: 1;
-  transform: none;
+.js-anim main > section:not(#hero):not(.is-visible),
+.js-anim body > footer:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(16px);
 }
 
 /* --- Responsiv --- */
