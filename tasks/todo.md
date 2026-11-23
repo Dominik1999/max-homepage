@@ -24,6 +24,24 @@ Scope: developer items only. Lawyer / wording decisions stay open (see bottom).
 - [x] GitHub Pages workflow (static preview; form disabled on github.io, Plausible stripped, kontakt.php excluded, base path rewritten)
 - [x] Verify preview URL renders at phone + desktop: https://dominik1999.github.io/max-homepage/
 
-## Left open on purpose (not mine to decide)
-- Section reorder (About up), "Warum" copy, phone number / address on page, "für Persönlichkeiten" wording, meta description length, OG image + favicon redesign
-- Impressum ODR paragraph, insurance scope, consent vs. Art. 6 basis, privacy policy additions, English legal pages, Plausible DPA
+## Review items 08-26 (2026-11-23, branch review-soon-and-nice, PR #1)
+- [x] 08 About after services; hero portrait with name, title, city, languages
+- [x] 10 Contact block with e-mail and address; phone slot (empty); response-time line
+- [x] 11 "Warum" with four facts from existing copy
+- [x] 12/14 Field border 3.48:1 (earlier fix was 1.96:1); tap targets 44px, mobile text 16px
+- [x] 13/15 Compact mobile header, CTA in first screen at 390x740; breakpoint 1000px
+- [x] 19 Privacy policy: confirmation e-mail, confidentiality note (DE + EN drafts)
+- [x] 20 English Impressum and privacy policy; language-aware back links
+- [x] 21 OG images and icons from the site fonts (build_og.py, build_icons.py)
+- [x] 22 Two-column layouts on wide screens
+- [x] 23 Tagline names the audiences; 925 hint under the stamp
+- [x] 25 Legal pages generated from one template with site header and footer
+- [x] 26 Shared site.css / legal.css, CSP style-src 'self', portrait 440x650, meta descriptions <= 155
+- [x] Screenshot pass on the merged result (DE/EN start page, legal pages; 390 and 1440)
+- [ ] 27 SPF/DKIM/DMARC and live form test: only after the Hetzner deploy
+
+## Waiting for Max (not mine to decide)
+- Response-time promise, new "Warum" copy, tagline without Angestellte/Beamte, phone number, condensed favicon digits
+- The eight TODO(Max) points printed by every build (`build_site.py --final` fails while any remain): ODR paragraph, log retention, mailbox provider, rate-limit files, consent vs. Art. 6 basis, "call me" without a phone number, Stand date, "German version is authoritative" line
+- Findings not changed: second contact channel and USt-IdNr. in the Impressum, Plausible location wording, Art. 13 GDPR gaps, insurance scope
+- Plausible DPA

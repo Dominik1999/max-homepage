@@ -3,7 +3,8 @@
 #  - kontakt.php läuft auf GitHub Pages nicht (kein PHP) und wird weggelassen;
 #    das Formular zeigt auf *.github.io einen Vorschau-Hinweis.
 #  - Plausible wird entfernt, damit die Vorschau keine Besucher zählt.
-#  - Absolute Pfade (/fonts.css, /en/ …) bekommen das Repo-Präfix der Pages-URL.
+#  - Absolute Pfade (/fonts.css, /site.css, /en/ …) bekommen das Repo-Präfix der Pages-URL,
+#    im HTML und in url('/…') innerhalb der CSS-Dateien.
 name: Preview on GitHub Pages
 
 on:
@@ -37,11 +38,14 @@ jobs:
           find _site -name '*.html' -print0 | xargs -0 sed -i -E 's#<script[^>]*plausible\.io[^>]*></script>##g'
           # Root-relative Pfade auf das Pages-Unterverzeichnis umbiegen
           find _site -name '*.html' -print0 | xargs -0 sed -i -E "s#(href|src|action)=\"/#\1=\"${BASE}/#g"
-          sed -i -E "s#url\('/#url('${BASE}/#g" _site/fonts.css
+          find _site -name '*.css' -print0 | xargs -0 sed -i -E "s#url\((['\"]?)/#url(\1${BASE}/#g"
           # Vorschau soll nicht indexiert werden
           printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
           rm -f _site/sitemap.xml
           grep -c "${BASE}/fonts.css" _site/index.html _site/en/index.html
+          grep -c "${BASE}/site.css" _site/index.html _site/en/index.html _site/impressum.html _site/en/datenschutz.html
+          grep -c "${BASE}/legal.css" _site/impressum.html _site/datenschutz.html _site/en/impressum.html _site/en/datenschutz.html
+          grep -c "url('${BASE}/fonts/" _site/fonts.css
           ! grep -rl 'plausible.io/js' _site
       - uses: actions/upload-pages-artifact@v3
         with:

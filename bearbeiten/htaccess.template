@@ -1,7 +1,9 @@
 # 925law – Apache-Konfiguration für Hetzner Webhosting
 # Diese Datei wird von bearbeiten/build_site.py nach website/.htaccess geschrieben.
-# Die CSP-Hashes (__SCRIPT_HASHES__ / __STYLE_HASHES__) berechnet der Generator aus den
-# fertigen HTML-Dateien. Nach JEDER Änderung an Inline-Scripts/Styles neu generieren.
+# Die CSP-Hashes der Inline-Scripts (__SCRIPT_HASHES__) berechnet der Generator aus den
+# fertigen HTML-Dateien. Nach JEDER Änderung an Inline-Scripts neu generieren.
+# CSS ist nur aus eigenen Dateien erlaubt (style-src 'self'): kein <style>-Block und kein
+# style-Attribut im HTML, sonst verwirft der Browser sie.
 
 Options -Indexes -MultiViews
 ServerSignature Off
@@ -39,11 +41,16 @@ AddDefaultCharset UTF-8
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header always set Cross-Origin-Opener-Policy "same-origin"
-  Header always set Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; font-src 'self'; style-src 'self' __STYLE_HASHES__; script-src 'self' https://plausible.io __SCRIPT_HASHES__; connect-src https://plausible.io; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; font-src 'self'; style-src 'self'; script-src 'self' https://plausible.io __SCRIPT_HASHES__; connect-src https://plausible.io; upgrade-insecure-requests"
 
-  # Caching: Schriften/Bilder lange, HTML kurz
+  # Caching: Schriften/Bilder lange, CSS einen Tag, HTML kurz
   <FilesMatch "\.(woff2|png|webp|svg|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Die CSS-Dateien heißen immer gleich, deshalb kein "immutable". Der Generator hängt ihre
+  # Prüfsumme als ?v=… an die Links; nach einer Änderung laden Browser sie sofort neu.
+  <FilesMatch "\.css$">
+    Header set Cache-Control "public, max-age=86400"
   </FilesMatch>
   <FilesMatch "\.(html|xml|txt)$">
     Header set Cache-Control "public, max-age=600, must-revalidate"

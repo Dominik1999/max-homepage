@@ -6,20 +6,29 @@ Liest bearbeiten/925law.html (eine Quelle, Texte im I18N-Wörterbuch) und schrei
 nach website/:
   index.html        deutsche Startseite
   en/index.html     englische Startseite
+  impressum.html, datenschutz.html, en/impressum.html, en/datenschutz.html
+                    aus bearbeiten/recht/ (Vorlage + Textdateien, siehe build_legal.py)
   robots.txt, sitemap.xml
   .htaccess         aus bearbeiten/htaccess.template, mit frisch berechneten CSP-Hashes
+                    der Inline-Scripts
 
 Aufruf (aus beliebigem Verzeichnis):
     python3 bearbeiten/build_site.py
+    python3 bearbeiten/build_site.py --final   # bricht ab, solange in den Rechtstexten
+                                               # noch ein <!-- TODO(Max): ... --> steht
 
 Braucht Python 3 und beautifulsoup4 (pip install beautifulsoup4).
-Impressum, Datenschutz, kontakt.php, fonts.css und Bilder werden NICHT erzeugt,
-sie liegen fertig in website/ und werden direkt bearbeitet.
+kontakt.php, die Stylesheets (site.css, legal.css, fonts.css) und Bilder werden NICHT
+erzeugt, sie liegen fertig in website/ und werden direkt bearbeitet. Der Generator liest
+die Stylesheets nur, um ihre Prüfsumme als ?v=… an die Links zu hängen; deshalb nach jeder
+CSS-Änderung neu generieren.
 """
 import base64, hashlib, json, pathlib, re, sys
 from bs4 import BeautifulSoup
 from bs4.formatter import HTMLFormatter
 from bs4.dammit import EntitySubstitution
+
+from build_legal import build_legal, css_checks, version_css
 
 # HTML5-Ausgabe: <meta ...> statt <meta .../>, `required` statt `required=""`,
 # Umlaute bleiben Umlaute (nur &, <, > werden maskiert).
@@ -51,32 +60,58 @@ def extract_js_object(name):
 
 i18n = extract_js_object("I18N")
 
+
+def warn_drift():
+    """Der sichtbare Text im Quell-Markup ist nur Vorschau; maßgeblich ist das Wörterbuch.
+    Weichen beide ab, wird hier gewarnt, damit die Quelle nicht wieder auseinanderläuft."""
+    soup = BeautifulSoup(html, "html.parser")
+    for node in soup.select("[data-i18n]"):
+        key = node["data-i18n"]
+        want = BeautifulSoup(i18n.get(key, {}).get("de", ""), "html.parser").decode().strip()
+        have = node.decode_contents().strip()
+        if have and have != want:   # leeres Markup = optionaler Wert (z. B. Telefon), kein Vergleich
+            print("Hinweis: Markup-Text weicht vom Wörterbuch ab (Wörterbuch gilt): %s" % key)
+
 # --- SEO-Texte pro Sprache ---
 META = {
     "de": {
         "title": "925law – Rechtsanwalt Arbeitsrecht & Vertragsrecht Berlin | Max Englhard",
-        "desc": ("Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. "
-                 "Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – "
-                 "für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis."),
+        # höchstens 155 Zeichen (der Build prüft das), sonst schneidet Google ab
+        "desc": ("Rechtsanwalt Max Englhard, Berlin: Arbeits- und Vertragsrecht. Kündigung, Abfindung, "
+                 "Aufhebungsvertrag, Verträge, Forderungen. Erstgespräch zum Festpreis."),
         "og_locale": "de_DE",
         "alt_locale": "en_US",
         "og_image": DOMAIN + "/og-image.png",
     },
     "en": {
         "title": "925law – English-speaking Employment & Contract Lawyer in Berlin | Max Englhard",
-        "desc": ("Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. "
-                 "Protection against dismissal, severance, termination agreements, contracts and claims – "
-                 "for companies, executives, employees and freelancers. Fixed-fee initial consultation."),
+        "desc": ("English-speaking employment and contract lawyer in Berlin: dismissal, severance, "
+                 "contracts and claims. Fixed-fee initial consultation."),
         "og_locale": "en_US",
         "alt_locale": "de_DE",
         "og_image": DOMAIN + "/og-image-en.png",
     },
 }
 URLS = {"de": DOMAIN + "/", "en": DOMAIN + "/en/"}
+# Englische Fassungen der Rechtstexte: Links der EN-Startseite werden darauf umgebogen
+EN_LEGAL = {"/impressum.html": "/en/impressum.html", "/datenschutz.html": "/en/datenschutz.html"}
+for _lang, _m in META.items():
+    if len(_m["desc"]) > 155:
+        sys.exit("Meta-Description (%s) hat %d Zeichen, erlaubt sind 155" % (_lang, len(_m["desc"])))
+
+
+def tel_href(number):
+    """'030 123 45 67' -> 'tel:+49301234567' (führende 0 wird zur deutschen Vorwahl)."""
+    digits = re.sub(r"[^\d+]", "", number)
+    if digits.startswith("00"):
+        digits = "+" + digits[2:]
+    elif digits.startswith("0"):
+        digits = "+49" + digits[1:]
+    return "tel:" + digits
 
 
 def jsonld(lang):
-    return {
+    data = {
         "@context": "https://schema.org",
         "@type": "Attorney",
         "name": "925law – Max Englhard",
@@ -101,6 +136,10 @@ def jsonld(lang):
         },
         "email": "kontakt@925law.de",
     }
+    phone = i18n.get("contact_phone", {}).get(lang, "").strip()
+    if phone:
+        data["telephone"] = tel_href(phone)[4:]
+    return data
 
 
 FORM_SCRIPT = """
@@ -151,6 +190,23 @@ def build(lang):
     soup = BeautifulSoup(html, "html.parser")
     soup.html["lang"] = lang
 
+    # Optionale Elemente: data-i18n-if="schlüssel" -> Element entfällt, wenn der Wert leer ist
+    # (Telefonnummer `contact_phone`, Antwortzeit-Zusage `form_response_time`)
+    for node in soup.select("[data-i18n-if]"):
+        key = node["data-i18n-if"]
+        if key not in i18n or lang not in i18n[key]:
+            sys.exit("Fehlender Übersetzungsschlüssel: %s (%s)" % (key, lang))
+        if not i18n[key][lang].strip():
+            node.decompose()
+            continue
+        del node["data-i18n-if"]
+        if node.has_attr("hidden"):
+            del node["hidden"]
+    # Telefon-Links: href aus der Nummer ableiten
+    for node in soup.select("[data-phone]"):
+        node["href"] = tel_href(i18n["contact_phone"][lang])
+        del node["data-phone"]
+
     # Texte aller [data-i18n]-Knoten fest in die Sprache schreiben, Attribut entfernen
     for node in soup.select("[data-i18n]"):
         key = node["data-i18n"]
@@ -180,6 +236,11 @@ def build(lang):
     if not head.find("link", href="/fonts.css"):
         fl = soup.new_tag("link", rel="stylesheet", href="/fonts.css")
         soup.title.insert_after(fl)
+
+    # Stylesheet: in der Quelle relativ (so ist 925law.html auch direkt im Browser geöffnet
+    # gestaltet), in der Ausgabe absolut wie /fonts.css
+    for l in head.find_all("link", href="../website/site.css"):
+        l["href"] = "/site.css"
 
     soup.title.string = META[lang]["title"]
 
@@ -240,6 +301,12 @@ def build(lang):
     if lang_input:
         lang_input["value"] = lang
 
+    # --- EN: Impressum/Datenschutz auf die englischen Fassungen ---
+    if lang == "en":
+        for a in soup.find_all("a", href=True):
+            if a["href"] in EN_LEGAL:
+                a["href"] = EN_LEGAL[a["href"]]
+
     # --- Sprachumschalter: echte Links ---
     sw = soup.select_one(".lang-switch")
     if sw:
@@ -266,16 +333,18 @@ def build(lang):
             s.replace_with(new_script)
             break
 
-    out = soup.decode(formatter=HTML5_MINIMAL)
+    out = version_css(soup.decode(formatter=HTML5_MINIMAL), OUT)
 
     # --- Sicherheitsnetz: Build bricht ab, wenn die Ausgabe Datenschutz-Versprechen verletzt ---
     checks = {
         "Google Fonts in der Ausgabe": "googleapis" not in out and "gstatic" not in out,
-        "fonts.css fehlt": '/fonts.css' in out,
-        "data-i18n übrig": "data-i18n" not in out,
-        "style-Attribute (CSP) übrig": 'style="' not in out,
+        "data-i18n übrig": "data-i18n" not in out and "data-phone" not in out,
+        "EN verlinkt deutsche Rechtstexte": lang != "en" or ('href="/impressum.html"' not in out
+                                                             and 'href="/datenschutz.html"' not in out),
+        "leerer Telefon-Link": 'href="tel:"' not in out,
         "Sprachfeld falsch": 'name="lang" type="hidden" value="%s"' % lang in out or 'name="lang" value="%s"' % lang in out,
     }
+    checks.update(css_checks(out, ("fonts.css", "site.css")))
     failed = [k for k, ok in checks.items() if not ok]
     if failed:
         sys.exit("Build-Prüfung fehlgeschlagen (%s): %s" % (lang, ", ".join(failed)))
@@ -283,28 +352,35 @@ def build(lang):
 
 
 def csp_hashes(files):
-    """SHA-256 aller Inline-<script>/<style>-Blöcke (CSP 'sha256-…') aus den fertigen Dateien."""
-    scripts, styles = [], []
+    """SHA-256 aller Inline-<script>-Blöcke (CSP 'sha256-…') aus den fertigen Dateien.
+    Für CSS gibt es keine Hashes: style-src ist 'self', die Seiten dürfen keinen
+    <style>-Block enthalten (das prüft der Generator hier noch einmal an den fertigen Dateien)."""
+    scripts = []
     for f in files:
         txt = f.read_text(encoding="utf-8")
+        if re.search(r"<style\b", txt):
+            sys.exit("<style>-Block in %s: CSS gehört nach website/site.css bzw. legal.css "
+                     "(die CSP erlaubt nur style-src 'self')" % f)
         for m in re.finditer(r"<script(?P<attrs>[^>]*)>(?P<body>.*?)</script>", txt, re.S):
             attrs = m.group("attrs")
             if "src=" in attrs or "ld+json" in attrs:
                 continue
             scripts.append(m.group("body"))
-        for m in re.finditer(r"<style[^>]*>(?P<body>.*?)</style>", txt, re.S):
-            styles.append(m.group("body"))
 
     def h(body):
         return "'sha256-%s'" % base64.b64encode(hashlib.sha256(body.encode("utf-8")).digest()).decode()
 
-    return sorted({h(b) for b in scripts}), sorted({h(b) for b in styles})
+    return sorted({h(b) for b in scripts})
 
 
 if __name__ == "__main__":
+    warn_drift()
     (OUT / "en").mkdir(parents=True, exist_ok=True)
     (OUT / "index.html").write_text(build("de"), encoding="utf-8")
     (OUT / "en" / "index.html").write_text(build("en"), encoding="utf-8")
+
+    # Impressum + Datenschutz, deutsch und englisch (noindex, deshalb nicht in der Sitemap)
+    legal_pages, legal_todos = build_legal(OUT, DOMAIN, PLAUSIBLE_DOMAIN)
 
     (OUT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % DOMAIN, encoding="utf-8")
@@ -320,13 +396,25 @@ if __name__ == "__main__":
     sitemap += "</urlset>\n"
     (OUT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
-    # .htaccess mit CSP-Hashes aller vier Seiten
-    pages = [OUT / "index.html", OUT / "en" / "index.html", OUT / "impressum.html", OUT / "datenschutz.html"]
-    sh, st = csp_hashes([p for p in pages if p.exists()])
+    # .htaccess mit CSP-Hashes aller sechs Seiten
+    pages = [OUT / "index.html", OUT / "en" / "index.html"] + legal_pages
+    missing = [str(p) for p in pages if not p.exists()]
+    if missing:
+        sys.exit("Seiten fehlen für die CSP-Hashes: " + ", ".join(missing))
+    sh = csp_hashes(pages)
     tpl = HTACCESS_TEMPLATE.read_text(encoding="utf-8")
-    (OUT / ".htaccess").write_text(
-        tpl.replace("__SCRIPT_HASHES__", " ".join(sh)).replace("__STYLE_HASHES__", " ".join(st)),
-        encoding="utf-8")
+    if "__SCRIPT_HASHES__" not in tpl or "style-src 'self';" not in tpl:
+        sys.exit("htaccess.template: __SCRIPT_HASHES__ oder \"style-src 'self';\" fehlt")
+    (OUT / ".htaccess").write_text(tpl.replace("__SCRIPT_HASHES__", " ".join(sh)), encoding="utf-8")
 
-    print("generated: index.html, en/index.html, robots.txt, sitemap.xml, .htaccess "
-          "(%d script hashes, %d style hashes)" % (len(sh), len(st)))
+    print("generated: index.html, en/index.html, %s, robots.txt, sitemap.xml, .htaccess "
+          "(%d pages hashed: %d script hashes; no inline styles)"
+          % (", ".join(str(p.relative_to(OUT)) for p in legal_pages), len(pages), len(sh)))
+
+    if legal_todos:
+        print("\n!!! %d OFFENE PUNKTE in den Rechtstexten (bearbeiten/recht/), vor dem Livegang klären:"
+              % len(legal_todos))
+        for t in legal_todos:
+            print("  - " + t)
+        if "--final" in sys.argv[1:]:
+            sys.exit("--final: Abbruch, solange TODO(Max)-Punkte offen sind.")

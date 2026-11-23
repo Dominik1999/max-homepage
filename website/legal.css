@@ -1,0 +1,45 @@
+/* 925law – Ergänzung für die vier Rechtsseiten (Impressum, Datenschutzerklärung, DE und EN).
+   Wird NACH /site.css geladen. Farben, Schriften, Marke, Sprachumschalter, Footer-Zeile,
+   Sprunglink und Tastaturfokus stehen in site.css (Abschnitt "Gemeinsam"); hier steht nur,
+   was die Rechtsseiten zusätzlich oder anders brauchen.
+
+   Nach einer Änderung: python3 bearbeiten/build_site.py ausführen (setzt die Versionsnummer
+   ?v=… am Link, damit Browser die neue Datei laden). */
+
+body{line-height:1.65;overflow-wrap:break-word;}
+.wrap{max-width:768px;margin:0 auto;padding-left:24px;padding-right:24px;}
+
+/* Kopfzeile */
+.site-header{border-bottom:1px solid var(--line);}
+.head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;padding-bottom:20px;}
+.lang-switch{white-space:nowrap;}
+
+/* Text */
+main{padding-top:40px;padding-bottom:72px;}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.9rem;margin-bottom:32px;}
+.back:hover{text-decoration:underline;}
+h1{font-family:var(--serif);font-weight:800;font-size:2rem;line-height:1.2;margin-bottom:12px;letter-spacing:-0.01em;}
+h2{font-family:var(--serif);font-weight:700;font-size:1.1rem;line-height:1.35;margin:34px 0 8px;}
+h3{font-family:var(--serif);font-weight:700;font-size:0.95rem;margin:20px 0 4px;}
+p{color:var(--ink-soft);margin-bottom:10px;}
+ul{color:var(--ink-soft);margin:0 0 10px 20px;}
+li{margin-bottom:4px;}
+main a{color:var(--accent);}
+.lead{margin-bottom:24px;}
+.note{border-left:3px solid var(--accent);padding-left:14px;font-size:0.9rem;margin:16px 0 24px;}
+.muted{font-size:0.82rem;color:var(--ink-soft);margin-top:56px;}
+
+/* Footer */
+.footer-bottom{padding-top:32px;padding-bottom:64px;gap:16px;}
+.footer-legal a[aria-current]{color:var(--ink);}
+
+@media (max-width:640px){
+  main{padding-top:28px;padding-bottom:56px;}
+  h1{font-size:1.7rem;}
+  .lang-switch a,.footer-legal a{display:inline-block;padding:8px 4px;}
+  .brand{padding:6px 0;}
+  .footer-legal{margin-left:-4px;}
+  .back{padding:8px 0;margin-bottom:20px;}
+  .lang-switch,.footer-bottom{font-size:0.9rem;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px;}
+}
