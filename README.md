@@ -91,7 +91,6 @@ Jeder Push auf `main` baut eine Vorschau (`.github/workflows/pages.yml`). Sie un
 sich bewusst von der echten Seite:
 
 - Das Kontaktformular sendet nichts (GitHub Pages kann kein PHP); es zeigt einen Vorschau-Hinweis.
-- Der Plausible-Zähler ist entfernt.
 - `.htaccess` greift dort nicht (keine Sicherheits-Header in der Vorschau).
 - Pfade sind auf das Repo-Unterverzeichnis umgebogen.
 
@@ -110,6 +109,5 @@ Livegang auf `False` setzen, neu generieren, hochladen.
 ## Vor dem Livegang (offen)
 
 Siehe `tasks/todo.md`, Abschnitt „Left open on purpose“: Impressum (ODR-Absatz, Versicherung),
-Datenschutzerklärung (Eingangsbestätigung, Mailtransport, englische Fassung), Plausible-AV-Vertrag
-oder Entfernen, Telefonnummer (`contact_phone`) und Bestätigung der Antwortzeit-Zusage (`form_response_time`), Formular-Test auf dem Hetzner-Server,
+Datenschutzerklärung (Eingangsbestätigung, Mailtransport, englische Fassung), Telefonnummer (`contact_phone`) und Bestätigung der Antwortzeit-Zusage (`form_response_time`), Formular-Test auf dem Hetzner-Server,
 SPF/DKIM/DMARC für `925law.de`.

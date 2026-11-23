@@ -7,6 +7,7 @@
 #
 # Aufruf:
 #   bearbeiten/deploy_hetzner.sh          lädt alle Dateien aus website/ nach public_html/
+#                                         und bearbeiten/server/ nach ~/cron/ (Cronjobs)
 #   bearbeiten/deploy_hetzner.sh --list   zeigt nur, was auf dem Server liegt
 #
 # Dateien, die es in website/ nicht mehr gibt, werden auf dem Server NICHT gelöscht.
@@ -44,3 +45,10 @@ while IFS= read -r -d '' f; do
   count=$((count + 1))
 done < <(find . -type f ! -name '.DS_Store' -print0)
 echo "$count Dateien nach $HOST:$REMOTE_DIR hochgeladen."
+
+# Server-Skripte (Cronjobs) außerhalb des Webroots nach ~/cron/
+for f in "$ROOT"/bearbeiten/server/*; do
+  [[ -f "$f" ]] || continue
+  ftp --ftp-create-dirs -T "$f" "ftp://$HOST/cron/$(basename "$f")"
+done
+echo "Server-Skripte nach $HOST:cron/ hochgeladen."

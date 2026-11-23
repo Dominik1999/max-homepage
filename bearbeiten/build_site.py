@@ -44,7 +44,7 @@ HTACCESS_TEMPLATE = ROOT / "bearbeiten" / "htaccess.template"
 OUT = ROOT / "website"
 
 DOMAIN = "https://925law.de"
-PLAUSIBLE_DOMAIN = "925law.de"   # None = kein Analytics-Script einbinden (dann auch Datenschutz-Absatz entfernen)
+PLAUSIBLE_DOMAIN = None   # z. B. "925law.de" bindet Plausible ein (dann AV-Vertrag + Datenschutz-Absatz nötig); None = kein Analytics-Script einbinden (dann auch Datenschutz-Absatz entfernen)
 
 # Passwortschutz vor dem Livegang (Login-Fenster „925law - intern“). Die Zugangsdaten liegen
 # in public_html/.htpasswd auf dem Server (nicht im Repo). Zum Livegang auf False setzen,

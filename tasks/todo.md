@@ -48,6 +48,9 @@ Scope: developer items only. Lawyer / wording decisions stay open (see bottom).
 - [x] "German version is authoritative" line kept on the English legal pages
 - [x] BRAK link points to the professional-rules page (review item 6)
 - [x] Timing check: form script sends fill time, < 3 s flags as spam (review item 2)
+- [x] Plausible removed (no account / DPA); CSP no longer allows plausible.io
+- [x] Server logs: found kept forever with full IPs; ~/cron/logs_aufraeumen.php deletes after 7 days (needs the daily cronjob in konsoleH); privacy policy says 7 days
+- [x] Privacy policy date: November 2026
 
 ## Waiting for Max (not mine to decide)
 - Response-time promise, new "Warum" copy, tagline without Angestellte/Beamte, phone number, condensed favicon digits

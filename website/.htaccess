@@ -51,7 +51,7 @@ AddDefaultCharset UTF-8
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header always set Cross-Origin-Opener-Policy "same-origin"
-  Header always set Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; font-src 'self'; style-src 'self'; script-src 'self' https://plausible.io 'sha256-3LMcnZELmv5svR1yZeNw1jdmPHQxNxwiWqfbjWs1qE4=' 'sha256-anTfkC3ipv9kMOHHB3YP6GKK/XeeacamS2u6BA1trLk=' 'sha256-eaocm8GkW/PDQNWQ2U6oQDJ8STBkwTWO9Jpw+5RGGRI=' 'sha256-y9m4+5IEQG61UE0BNX1cXGxfHmTTfdKfhuwT12kg/XU='; connect-src https://plausible.io; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; font-src 'self'; style-src 'self'; script-src 'self' 'sha256-3LMcnZELmv5svR1yZeNw1jdmPHQxNxwiWqfbjWs1qE4=' 'sha256-anTfkC3ipv9kMOHHB3YP6GKK/XeeacamS2u6BA1trLk=' 'sha256-eaocm8GkW/PDQNWQ2U6oQDJ8STBkwTWO9Jpw+5RGGRI=' 'sha256-y9m4+5IEQG61UE0BNX1cXGxfHmTTfdKfhuwT12kg/XU='; connect-src 'self'; upgrade-insecure-requests"
 
   # Caching: Schriften/Bilder lange, CSS einen Tag, HTML kurz
   <FilesMatch "\.(woff2|png|webp|svg|ico)$">
