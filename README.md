@@ -95,6 +95,18 @@ sich bewusst von der echten Seite:
 - `.htaccess` greift dort nicht (keine Sicherheits-Header in der Vorschau).
 - Pfade sind auf das Repo-Unterverzeichnis umgebogen.
 
+## Hochladen zu Hetzner
+
+`bearbeiten/deploy_hetzner.sh` lädt den Inhalt von `website/` per FTPS (verschlüsselt) nach
+`public_html/` auf `www778.your-server.de`. Das FTP-Passwort steht nicht im Repo, sondern im
+macOS-Schlüsselbund (einmalig: `security add-internet-password -s www778.your-server.de -a e3ersy -w`).
+`--list` zeigt nur, was auf dem Server liegt. Dateien, die es in `website/` nicht mehr gibt,
+löscht das Skript nicht.
+
+Bis zum Livegang ist die Seite per Passwort geschützt (`PASSWORD_PROTECT = True` in
+`bearbeiten/build_site.py`, Zugangsdaten in `public_html/.htpasswd` auf dem Server). Zum
+Livegang auf `False` setzen, neu generieren, hochladen.
+
 ## Vor dem Livegang (offen)
 
 Siehe `tasks/todo.md`, Abschnitt „Left open on purpose“: Impressum (ODR-Absatz, Versicherung),

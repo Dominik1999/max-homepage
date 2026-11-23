@@ -46,6 +46,18 @@ OUT = ROOT / "website"
 DOMAIN = "https://925law.de"
 PLAUSIBLE_DOMAIN = "925law.de"   # None = kein Analytics-Script einbinden (dann auch Datenschutz-Absatz entfernen)
 
+# Passwortschutz vor dem Livegang (Login-Fenster „925law - intern“). Die Zugangsdaten liegen
+# in public_html/.htpasswd auf dem Server (nicht im Repo). Zum Livegang auf False setzen,
+# neu generieren und hochladen.
+PASSWORD_PROTECT = True
+HTACCESS_AUTH = """# --- Passwortschutz vor dem Livegang (PASSWORD_PROTECT in bearbeiten/build_site.py) ---
+AuthUserFile "/usr/www/users/e3ersy/.htpasswd"
+AuthName "925law - intern"
+AuthType Basic
+require valid-user
+
+"""
+
 html = SRC.read_text(encoding="utf-8")
 
 
@@ -408,12 +420,17 @@ if __name__ == "__main__":
     tpl = HTACCESS_TEMPLATE.read_text(encoding="utf-8")
     if "__SCRIPT_HASHES__" not in tpl or "style-src 'self';" not in tpl:
         sys.exit("htaccess.template: __SCRIPT_HASHES__ oder \"style-src 'self';\" fehlt")
-    (OUT / ".htaccess").write_text(tpl.replace("__SCRIPT_HASHES__", " ".join(sh)), encoding="utf-8")
+    htaccess = tpl.replace("__SCRIPT_HASHES__", " ".join(sh))
+    if PASSWORD_PROTECT:
+        htaccess = HTACCESS_AUTH + htaccess
+    (OUT / ".htaccess").write_text(htaccess, encoding="utf-8")
 
     print("generated: index.html, de/index.html, %s, robots.txt, sitemap.xml, .htaccess "
           "(%d pages hashed: %d script hashes; no inline styles)"
           % (", ".join(str(p.relative_to(OUT)) for p in legal_pages), len(pages), len(sh)))
 
+    if PASSWORD_PROTECT:
+        print("\nHinweis: .htaccess enthält den Passwortschutz (PASSWORD_PROTECT = True).")
     if legal_todos:
         print("\n!!! %d OFFENE PUNKTE in den Rechtstexten (bearbeiten/recht/), vor dem Livegang klären:"
               % len(legal_todos))
