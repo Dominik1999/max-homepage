@@ -29,6 +29,14 @@ Produktiv-Hosting: Hetzner Webhosting. Vorschau: GitHub Pages (siehe unten).
    ```
 3. `website/` hochladen.
 
+Zwei Wörterbuch-Einträge sind optional; ist der Wert leer (`""`), erscheint die Zeile gar nicht:
+
+- `contact_phone` – Telefonnummer (Seitenleiste, Kopfzeile, Kontaktblock, strukturierte Daten). Derzeit leer.
+- `form_response_time` – Zusage „Antwort innerhalb eines Werktags.“ unter dem Senden-Button. Leeren, falls die Zusage nicht gelten soll.
+
+Die Anschrift (Kaiserkorso 2, 12101 Berlin) steht fest im Markup von `925law.html` (Seitenleiste, Kontaktblock, Footer)
+und in `build_site.py` (strukturierte Daten); bei einem Umzug an allen Stellen und im Impressum ändern.
+
 Der Generator bricht ab, wenn die Ausgabe Google Fonts enthalten würde oder ein
 Übersetzungsschlüssel fehlt. Impressum, Datenschutz und `kontakt.php` sind eigenständige
 Dateien in `website/` und werden direkt bearbeitet. Nach Änderungen an Inline-Scripts oder
@@ -49,5 +57,5 @@ sich bewusst von der echten Seite:
 
 Siehe `tasks/todo.md`, Abschnitt „Left open on purpose“: Impressum (ODR-Absatz, Versicherung),
 Datenschutzerklärung (Eingangsbestätigung, Mailtransport, englische Fassung), Plausible-AV-Vertrag
-oder Entfernen, Telefonnummer/Adresse auf der Startseite, Formular-Test auf dem Hetzner-Server,
+oder Entfernen, Telefonnummer (`contact_phone`) und Bestätigung der Antwortzeit-Zusage (`form_response_time`), Formular-Test auf dem Hetzner-Server,
 SPF/DKIM/DMARC für `925law.de`.
