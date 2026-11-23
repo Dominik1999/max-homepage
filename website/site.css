@@ -258,9 +258,11 @@ section:last-of-type {
 }
 
 /* Hero */
+/* Name links, 925-Stempel rechts auf derselben Höhe */
 .hero-id {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 18px;
   margin-bottom: 32px;
 }
@@ -319,12 +321,6 @@ section:last-of-type {
   background: var(--ink);
 }
 
-.hero-headline-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 28px;
-}
-
 .stamp circle {
   fill: none;
   stroke: var(--ink);
@@ -339,12 +335,11 @@ section:last-of-type {
 
 .stamp-hero {
   flex-shrink: 0;
-  margin-top: 12px;
 }
 
 .stamp-wrap {
   flex-shrink: 0;
-  margin-top: 12px;
+  margin-right: 20px;   /* Platz für das Sternchen rechts oben am Stempel */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -357,7 +352,8 @@ section:last-of-type {
 }
 
 .stamp-wrap .stamp-hero {
-  margin-top: 0;
+  width: 96px;
+  height: 96px;
 }
 
 /* Kurz-Erklärung direkt am Stempel; die ausführliche Fußnote steht im Footer */
@@ -772,10 +768,9 @@ form .cta {
   .service-block li span, .service-block .intro, .step p, .why-item p, .field label,
   .consent, .form-note, .contact-details .lbl, .home .footer-bottom, .footnote p, .sidebar-bottom, .home .lang-switch { font-size: 1rem; }
   .home .footer-bottom { flex-direction: column; gap: 8px; }
-  .hero-headline-row { flex-direction: column; gap: 12px; }
-  .stamp-wrap { flex-direction: row; gap: 14px; margin-top: 0; }
-  .stamp-hero { width: 56px; height: 56px; margin-top: 0; }
-  .stamp-note { text-align: left; font-size: 0.9rem; }
+  .stamp-wrap { gap: 6px; margin-right: 14px; }
+  .stamp-wrap .stamp-hero { width: 64px; height: 64px; }
+  .stamp-note { font-size: 0.8rem; }
 }
 
 /* Handy: die E-Mail-Adresse steht beim Formular; in der Kopfzeile bleibt (falls gesetzt) nur die Telefonnummer */
