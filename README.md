@@ -3,6 +3,8 @@
 Zweisprachige Ein-Seiten-Website (Deutsch / Englisch) für Rechtsanwalt Max Englhard, Berlin.
 Statisches HTML, selbst gehostete Schriften, ein PHP-Skript für das Kontaktformular.
 Produktiv-Hosting: Hetzner Webhosting. Vorschau: GitHub Pages (siehe unten).
+Englisch ist die Standardsprache unter `925law.de/`, Deutsch liegt unter `925law.de/de/`
+(seit 2026-11-23; `.htaccess` leitet alte `/en/`-Adressen weiter).
 
 ## Ordner
 
@@ -15,7 +17,7 @@ Produktiv-Hosting: Hetzner Webhosting. Vorschau: GitHub Pages (siehe unten).
 | `website/fonts.css` | Einbindung der selbst gehosteten Schriften aus `website/fonts/`. |
 | `website/kontakt.php` | Formular-Handler: Benachrichtigung an die Kanzlei + kurze Eingangsbestätigung. |
 | `bearbeiten/925law.html` | **Einzige Quelle für die Startseiten-Texte** (Wörterbuch `I18N` im `<script>`, je `de` und `en`). |
-| `bearbeiten/build_site.py` | Generator: schreibt `website/index.html`, `website/en/index.html`, die vier Rechtsseiten, `sitemap.xml`, `robots.txt`, `.htaccess`. |
+| `bearbeiten/build_site.py` | Generator: schreibt `website/index.html` (Englisch, Startseite), `website/de/index.html` (Deutsch), die vier Rechtsseiten, `sitemap.xml`, `robots.txt`, `.htaccess`. |
 | `bearbeiten/recht/` | **Einzige Quelle für Impressum und Datenschutzerklärung** (deutsch und englisch): eine Vorlage, vier Textdateien. |
 | `bearbeiten/build_legal.py` | Teil des Generators: baut aus `bearbeiten/recht/` die vier Rechtsseiten. Wird von `build_site.py` aufgerufen. |
 | `bearbeiten/htaccess.template` | Vorlage für `.htaccess`; die CSP-Hashes der Inline-Scripts setzt der Generator ein. |
@@ -66,8 +68,8 @@ Generator bricht ab, falls doch eines in der Ausgabe steht.
 
 ## Impressum und Datenschutzerklärung ändern
 
-Die vier Rechtsseiten (`website/impressum.html`, `website/datenschutz.html` und die englischen
-Fassungen unter `website/en/`) werden erzeugt. **Nicht in `website/` bearbeiten**, die Dateien
+Die vier Rechtsseiten (englisch: `website/impressum.html`, `website/datenschutz.html`;
+deutsch: `website/de/impressum.html`, `website/de/datenschutz.html`) werden erzeugt. **Nicht in `website/` bearbeiten**, die Dateien
 werden beim nächsten Lauf überschrieben.
 
 1. Text in `bearbeiten/recht/` ändern: `impressum.de.html`, `impressum.en.html`,

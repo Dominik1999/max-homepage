@@ -18,6 +18,10 @@ AddDefaultCharset UTF-8
 
   # Quell-/Arbeitsdateien niemals ausliefern, falls versehentlich hochgeladen
   RewriteRule ^(bearbeiten|tasks|\.git|\.github)(/|$) - [F,L]
+
+  # Englisch liegt seit 2026-11 auf / (vorher /en/), Deutsch auf /de/: alte EN-Links weiterleiten
+  RewriteRule ^en/?$ / [R=301,L]
+  RewriteRule ^en/(impressum|datenschutz)\.html$ /$1.html [R=301,L]
 </IfModule>
 
 <FilesMatch "\.(py|md|bak|orig|sh|sql|log|ini|env|template|lock|json)$">

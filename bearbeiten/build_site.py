@@ -4,9 +4,9 @@
 
 Liest bearbeiten/925law.html (eine Quelle, Texte im I18N-Wörterbuch) und schreibt
 nach website/:
-  index.html        deutsche Startseite
-  en/index.html     englische Startseite
-  impressum.html, datenschutz.html, en/impressum.html, en/datenschutz.html
+  index.html        englische Startseite (Standard, 925law.de/)
+  de/index.html     deutsche Startseite (925law.de/de/)
+  impressum.html, datenschutz.html, de/impressum.html, de/datenschutz.html
                     aus bearbeiten/recht/ (Vorlage + Textdateien, siehe build_legal.py)
   robots.txt, sitemap.xml
   .htaccess         aus bearbeiten/htaccess.template, mit frisch berechneten CSP-Hashes
@@ -92,9 +92,10 @@ META = {
         "og_image": DOMAIN + "/og-image-en.png",
     },
 }
-URLS = {"de": DOMAIN + "/", "en": DOMAIN + "/en/"}
-# Englische Fassungen der Rechtstexte: Links der EN-Startseite werden darauf umgebogen
-EN_LEGAL = {"/impressum.html": "/en/impressum.html", "/datenschutz.html": "/en/datenschutz.html"}
+URLS = {"de": DOMAIN + "/de/", "en": DOMAIN + "/"}
+DEFAULT_LANG = "en"   # Sprache unter 925law.de/ und Rückfall (x-default) für Suchmaschinen
+# Deutsche Fassungen der Rechtstexte: Links der DE-Startseite werden darauf umgebogen
+DE_LEGAL = {"/impressum.html": "/de/impressum.html", "/datenschutz.html": "/de/datenschutz.html"}
 for _lang, _m in META.items():
     if len(_m["desc"]) > 155:
         sys.exit("Meta-Description (%s) hat %d Zeichen, erlaubt sind 155" % (_lang, len(_m["desc"])))
@@ -263,7 +264,7 @@ def build(lang):
     add.append(link({"rel": "canonical", "href": URLS[lang]}))
     add.append(link({"rel": "alternate", "hreflang": "de", "href": URLS["de"]}))
     add.append(link({"rel": "alternate", "hreflang": "en", "href": URLS["en"]}))
-    add.append(link({"rel": "alternate", "hreflang": "x-default", "href": URLS["de"]}))
+    add.append(link({"rel": "alternate", "hreflang": "x-default", "href": URLS[DEFAULT_LANG]}))
     add.append(link({"rel": "icon", "type": "image/svg+xml", "href": "/favicon.svg"}))
     add.append(link({"rel": "icon", "type": "image/png", "sizes": "32x32", "href": "/favicon-32.png"}))
     add.append(link({"rel": "apple-touch-icon", "href": "/apple-touch-icon.png"}))
@@ -301,18 +302,18 @@ def build(lang):
     if lang_input:
         lang_input["value"] = lang
 
-    # --- EN: Impressum/Datenschutz auf die englischen Fassungen ---
-    if lang == "en":
+    # --- DE: Impressum/Datenschutz auf die deutschen Fassungen ---
+    if lang == "de":
         for a in soup.find_all("a", href=True):
-            if a["href"] in EN_LEGAL:
-                a["href"] = EN_LEGAL[a["href"]]
+            if a["href"] in DE_LEGAL:
+                a["href"] = DE_LEGAL[a["href"]]
 
     # --- Sprachumschalter: echte Links ---
     sw = soup.select_one(".lang-switch")
     if sw:
         sw.clear()
-        de = soup.new_tag("a", href="/"); de.string = "DE"
-        en = soup.new_tag("a", href="/en/"); en.string = "EN"
+        de = soup.new_tag("a", href="/de/"); de.string = "DE"
+        en = soup.new_tag("a", href="/"); en.string = "EN"
         de["class"] = "lang-de" + (" lang-active" if lang == "de" else "")
         en["class"] = "lang-en" + (" lang-active" if lang == "en" else "")
         de["hreflang"] = "de"; en["hreflang"] = "en"
@@ -339,8 +340,10 @@ def build(lang):
     checks = {
         "Google Fonts in der Ausgabe": "googleapis" not in out and "gstatic" not in out,
         "data-i18n übrig": "data-i18n" not in out and "data-phone" not in out,
-        "EN verlinkt deutsche Rechtstexte": lang != "en" or ('href="/impressum.html"' not in out
-                                                             and 'href="/datenschutz.html"' not in out),
+        "DE verlinkt englische Rechtstexte": lang != "de" or ('href="/impressum.html"' not in out
+                                                              and 'href="/datenschutz.html"' not in out),
+        "EN verlinkt deutsche Rechtstexte": lang != "en" or "/de/impressum.html" not in out
+                                            and "/de/datenschutz.html" not in out,
         "leerer Telefon-Link": 'href="tel:"' not in out,
         "Sprachfeld falsch": 'name="lang" type="hidden" value="%s"' % lang in out or 'name="lang" value="%s"' % lang in out,
     }
@@ -375,9 +378,9 @@ def csp_hashes(files):
 
 if __name__ == "__main__":
     warn_drift()
-    (OUT / "en").mkdir(parents=True, exist_ok=True)
-    (OUT / "index.html").write_text(build("de"), encoding="utf-8")
-    (OUT / "en" / "index.html").write_text(build("en"), encoding="utf-8")
+    (OUT / "de").mkdir(parents=True, exist_ok=True)
+    (OUT / "index.html").write_text(build("en"), encoding="utf-8")
+    (OUT / "de" / "index.html").write_text(build("de"), encoding="utf-8")
 
     # Impressum + Datenschutz, deutsch und englisch (noindex, deshalb nicht in der Sitemap)
     legal_pages, legal_todos = build_legal(OUT, DOMAIN, PLAUSIBLE_DOMAIN)
@@ -391,13 +394,13 @@ if __name__ == "__main__":
         sitemap += "  <url>\n    <loc>%s</loc>\n" % URLS[lang]
         sitemap += '    <xhtml:link rel="alternate" hreflang="de" href="%s"/>\n' % URLS["de"]
         sitemap += '    <xhtml:link rel="alternate" hreflang="en" href="%s"/>\n' % URLS["en"]
-        sitemap += '    <xhtml:link rel="alternate" hreflang="x-default" href="%s"/>\n' % URLS["de"]
+        sitemap += '    <xhtml:link rel="alternate" hreflang="x-default" href="%s"/>\n' % URLS[DEFAULT_LANG]
         sitemap += "  </url>\n"
     sitemap += "</urlset>\n"
     (OUT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
     # .htaccess mit CSP-Hashes aller sechs Seiten
-    pages = [OUT / "index.html", OUT / "en" / "index.html"] + legal_pages
+    pages = [OUT / "index.html", OUT / "de" / "index.html"] + legal_pages
     missing = [str(p) for p in pages if not p.exists()]
     if missing:
         sys.exit("Seiten fehlen für die CSP-Hashes: " + ", ".join(missing))
@@ -407,7 +410,7 @@ if __name__ == "__main__":
         sys.exit("htaccess.template: __SCRIPT_HASHES__ oder \"style-src 'self';\" fehlt")
     (OUT / ".htaccess").write_text(tpl.replace("__SCRIPT_HASHES__", " ".join(sh)), encoding="utf-8")
 
-    print("generated: index.html, en/index.html, %s, robots.txt, sitemap.xml, .htaccess "
+    print("generated: index.html, de/index.html, %s, robots.txt, sitemap.xml, .htaccess "
           "(%d pages hashed: %d script hashes; no inline styles)"
           % (", ".join(str(p.relative_to(OUT)) for p in legal_pages), len(pages), len(sh)))
 

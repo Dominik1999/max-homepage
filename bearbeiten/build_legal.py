@@ -7,10 +7,10 @@ pro Seite und Sprache die vier Rechtsseiten:
 
   bearbeiten/recht/vorlage.html            Kopf und Fuß (das CSS steht in website/site.css
                                            und website/legal.css)
-  bearbeiten/recht/impressum.de.html       -> website/impressum.html
-  bearbeiten/recht/impressum.en.html       -> website/en/impressum.html
-  bearbeiten/recht/datenschutz.de.html     -> website/datenschutz.html
-  bearbeiten/recht/datenschutz.en.html     -> website/en/datenschutz.html
+  bearbeiten/recht/impressum.de.html       -> website/de/impressum.html
+  bearbeiten/recht/impressum.en.html       -> website/impressum.html
+  bearbeiten/recht/datenschutz.de.html     -> website/de/datenschutz.html
+  bearbeiten/recht/datenschutz.en.html     -> website/datenschutz.html
 
 Die Textdateien enthalten nur den Inhalt (ab <h1>) als normales HTML. Der Text wird
 unverändert übernommen; es wird nichts übersetzt oder umformuliert.
@@ -30,8 +30,8 @@ PAGES = ("impressum", "datenschutz")
 # Texte der Vorlage (nicht der Rechtstexte) je Sprache
 UI = {
     "de": {
-        "home": "/",
-        "prefix": "/",
+        "home": "/de/",
+        "prefix": "/de/",
         "skip": "Zum Inhalt springen",
         "back": "Zur Startseite",
         "brand_label": "925law – zur Startseite",
@@ -40,8 +40,8 @@ UI = {
         "nav": {"impressum": "Impressum", "datenschutz": "Datenschutz"},
     },
     "en": {
-        "home": "/en/",
-        "prefix": "/en/",
+        "home": "/",
+        "prefix": "/",
         "skip": "Skip to content",
         "back": "Back to home page",
         "brand_label": "925law – back to home page",
@@ -113,6 +113,7 @@ def render(page, lang, template, domain, plausible_domain, out_dir):
         "title": ui["titles"][page],
         "url_de": domain + path_of(page, "de"),
         "url_en": domain + path_of(page, "en"),
+        "url_default": domain + path_of(page, "en"),
         "analytics": analytics,
         "skip": ui["skip"],
         "home": ui["home"],

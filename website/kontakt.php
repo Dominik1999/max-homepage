@@ -27,8 +27,8 @@ $wantsJson = (
   || (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false)
 );
 
-$lang = (($_POST['lang'] ?? 'de') === 'en') ? 'en' : 'de';
-$back = ($lang === 'en') ? '/en/' : '/';   // Rücksprung ohne JavaScript: jeweilige Sprachseite
+$lang = (($_POST['lang'] ?? 'en') === 'de') ? 'de' : 'en';
+$back = ($lang === 'de') ? '/de/' : '/';   // Rücksprung ohne JavaScript: jeweilige Sprachseite
 
 function antwort_ok($wantsJson, $back) {
   if ($wantsJson) {
