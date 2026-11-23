@@ -10,6 +10,7 @@ nach website/:
                     aus bearbeiten/recht/ (Vorlage + Textdateien, siehe build_legal.py)
   robots.txt, sitemap.xml
   .htaccess         aus bearbeiten/htaccess.template, mit frisch berechneten CSP-Hashes
+                    der Inline-Scripts
 
 Aufruf (aus beliebigem Verzeichnis):
     python3 bearbeiten/build_site.py
@@ -17,15 +18,17 @@ Aufruf (aus beliebigem Verzeichnis):
                                                # noch ein <!-- TODO(Max): ... --> steht
 
 Braucht Python 3 und beautifulsoup4 (pip install beautifulsoup4).
-kontakt.php, fonts.css und Bilder werden NICHT erzeugt, sie liegen fertig in website/
-und werden direkt bearbeitet.
+kontakt.php, die Stylesheets (site.css, legal.css, fonts.css) und Bilder werden NICHT
+erzeugt, sie liegen fertig in website/ und werden direkt bearbeitet. Der Generator liest
+die Stylesheets nur, um ihre Prüfsumme als ?v=… an die Links zu hängen; deshalb nach jeder
+CSS-Änderung neu generieren.
 """
 import base64, hashlib, json, pathlib, re, sys
 from bs4 import BeautifulSoup
 from bs4.formatter import HTMLFormatter
 from bs4.dammit import EntitySubstitution
 
-from build_legal import build_legal
+from build_legal import build_legal, css_checks, version_css
 
 # HTML5-Ausgabe: <meta ...> statt <meta .../>, `required` statt `required=""`,
 # Umlaute bleiben Umlaute (nur &, <, > werden maskiert).
@@ -234,6 +237,11 @@ def build(lang):
         fl = soup.new_tag("link", rel="stylesheet", href="/fonts.css")
         soup.title.insert_after(fl)
 
+    # Stylesheet: in der Quelle relativ (so ist 925law.html auch direkt im Browser geöffnet
+    # gestaltet), in der Ausgabe absolut wie /fonts.css
+    for l in head.find_all("link", href="../website/site.css"):
+        l["href"] = "/site.css"
+
     soup.title.string = META[lang]["title"]
 
     def meta(attrs):
@@ -325,19 +333,18 @@ def build(lang):
             s.replace_with(new_script)
             break
 
-    out = soup.decode(formatter=HTML5_MINIMAL)
+    out = version_css(soup.decode(formatter=HTML5_MINIMAL), OUT)
 
     # --- Sicherheitsnetz: Build bricht ab, wenn die Ausgabe Datenschutz-Versprechen verletzt ---
     checks = {
         "Google Fonts in der Ausgabe": "googleapis" not in out and "gstatic" not in out,
-        "fonts.css fehlt": '/fonts.css' in out,
         "data-i18n übrig": "data-i18n" not in out and "data-phone" not in out,
         "EN verlinkt deutsche Rechtstexte": lang != "en" or ('href="/impressum.html"' not in out
                                                              and 'href="/datenschutz.html"' not in out),
         "leerer Telefon-Link": 'href="tel:"' not in out,
-        "style-Attribute (CSP) übrig": 'style="' not in out,
         "Sprachfeld falsch": 'name="lang" type="hidden" value="%s"' % lang in out or 'name="lang" value="%s"' % lang in out,
     }
+    checks.update(css_checks(out, ("fonts.css", "site.css")))
     failed = [k for k, ok in checks.items() if not ok]
     if failed:
         sys.exit("Build-Prüfung fehlgeschlagen (%s): %s" % (lang, ", ".join(failed)))
@@ -345,22 +352,25 @@ def build(lang):
 
 
 def csp_hashes(files):
-    """SHA-256 aller Inline-<script>/<style>-Blöcke (CSP 'sha256-…') aus den fertigen Dateien."""
-    scripts, styles = [], []
+    """SHA-256 aller Inline-<script>-Blöcke (CSP 'sha256-…') aus den fertigen Dateien.
+    Für CSS gibt es keine Hashes: style-src ist 'self', die Seiten dürfen keinen
+    <style>-Block enthalten (das prüft der Generator hier noch einmal an den fertigen Dateien)."""
+    scripts = []
     for f in files:
         txt = f.read_text(encoding="utf-8")
+        if re.search(r"<style\b", txt):
+            sys.exit("<style>-Block in %s: CSS gehört nach website/site.css bzw. legal.css "
+                     "(die CSP erlaubt nur style-src 'self')" % f)
         for m in re.finditer(r"<script(?P<attrs>[^>]*)>(?P<body>.*?)</script>", txt, re.S):
             attrs = m.group("attrs")
             if "src=" in attrs or "ld+json" in attrs:
                 continue
             scripts.append(m.group("body"))
-        for m in re.finditer(r"<style[^>]*>(?P<body>.*?)</style>", txt, re.S):
-            styles.append(m.group("body"))
 
     def h(body):
         return "'sha256-%s'" % base64.b64encode(hashlib.sha256(body.encode("utf-8")).digest()).decode()
 
-    return sorted({h(b) for b in scripts}), sorted({h(b) for b in styles})
+    return sorted({h(b) for b in scripts})
 
 
 if __name__ == "__main__":
@@ -391,15 +401,15 @@ if __name__ == "__main__":
     missing = [str(p) for p in pages if not p.exists()]
     if missing:
         sys.exit("Seiten fehlen für die CSP-Hashes: " + ", ".join(missing))
-    sh, st = csp_hashes(pages)
+    sh = csp_hashes(pages)
     tpl = HTACCESS_TEMPLATE.read_text(encoding="utf-8")
-    (OUT / ".htaccess").write_text(
-        tpl.replace("__SCRIPT_HASHES__", " ".join(sh)).replace("__STYLE_HASHES__", " ".join(st)),
-        encoding="utf-8")
+    if "__SCRIPT_HASHES__" not in tpl or "style-src 'self';" not in tpl:
+        sys.exit("htaccess.template: __SCRIPT_HASHES__ oder \"style-src 'self';\" fehlt")
+    (OUT / ".htaccess").write_text(tpl.replace("__SCRIPT_HASHES__", " ".join(sh)), encoding="utf-8")
 
     print("generated: index.html, en/index.html, %s, robots.txt, sitemap.xml, .htaccess "
-          "(%d pages hashed: %d script hashes, %d style hashes)"
-          % (", ".join(str(p.relative_to(OUT)) for p in legal_pages), len(pages), len(sh), len(st)))
+          "(%d pages hashed: %d script hashes; no inline styles)"
+          % (", ".join(str(p.relative_to(OUT)) for p in legal_pages), len(pages), len(sh)))
 
     if legal_todos:
         print("\n!!! %d OFFENE PUNKTE in den Rechtstexten (bearbeiten/recht/), vor dem Livegang klären:"

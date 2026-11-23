@@ -12,56 +12,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="stylesheet" href="/fonts.css">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/legal.css">
 {{analytics}}
-<style>
-  :root{--bg:#FAF9F7;--ink:#161616;--ink-soft:#4A4A48;--accent:#D6006E;--line:#DEDAD4;--serif:'Archivo',sans-serif;--sans:'IBM Plex Sans',sans-serif;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;overflow-wrap:break-word;}
-  .wrap{max-width:768px;margin:0 auto;padding-left:24px;padding-right:24px;}
-  .skip{position:absolute;left:-9999px;top:8px;z-index:10;background:var(--ink);color:#fff;padding:10px 14px;text-decoration:none;}
-  .skip:focus{left:8px;}
-  .site-header{border-bottom:1px solid var(--line);}
-  .head-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;padding-bottom:20px;}
-  .brand{font-family:var(--serif);font-weight:800;font-size:1.3rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--accent);}
-  .logo-mark circle{fill:none;stroke:var(--accent);stroke-width:3;}
-  .logo-mark text{font-family:var(--serif);font-weight:700;fill:var(--accent);}
-  .lang-switch{font-size:0.85rem;letter-spacing:0.03em;white-space:nowrap;}
-  .lang-switch a{text-decoration:none;color:var(--ink-soft);}
-  .lang-switch a:hover,.lang-switch a:focus-visible{color:var(--accent);}
-  .lang-switch .lang-active{color:var(--accent);font-weight:600;}
-  .lang-switch .sep{color:var(--ink-soft);opacity:0.6;margin:0 8px;}
-  main{padding-top:40px;padding-bottom:72px;}
-  .back{display:inline-flex;align-items:center;gap:8px;color:var(--accent);text-decoration:none;font-weight:600;font-size:0.9rem;margin-bottom:32px;}
-  .back:hover{text-decoration:underline;}
-  h1{font-family:var(--serif);font-weight:800;font-size:2rem;line-height:1.2;margin-bottom:12px;letter-spacing:-0.01em;}
-  h2{font-family:var(--serif);font-weight:700;font-size:1.1rem;line-height:1.35;margin:34px 0 8px;}
-  h3{font-family:var(--serif);font-weight:700;font-size:0.95rem;margin:20px 0 4px;}
-  p{color:var(--ink-soft);margin-bottom:10px;}
-  ul{color:var(--ink-soft);margin:0 0 10px 20px;}
-  li{margin-bottom:4px;}
-  main a{color:var(--accent);}
-  .lead{margin-bottom:24px;}
-  .note{border-left:3px solid var(--accent);padding-left:14px;font-size:0.9rem;margin:16px 0 24px;}
-  .muted{font-size:0.82rem;color:var(--ink-soft);margin-top:56px;}
-  .site-footer{border-top:1px solid var(--line);}
-  .footer-bottom{padding-top:32px;padding-bottom:64px;font-size:0.85rem;color:var(--ink-soft);display:flex;justify-content:space-between;align-items:center;gap:16px;}
-  .footer-brand{display:inline-flex;align-items:center;gap:8px;}
-  .footer-legal{display:inline-flex;gap:18px;}
-  .footer-legal a{color:var(--ink-soft);text-decoration:underline;text-decoration-color:var(--line);}
-  .footer-legal a:hover{color:var(--accent);}
-  .footer-legal a[aria-current]{color:var(--ink);}
-  a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
-  @media (max-width:640px){
-    main{padding-top:28px;padding-bottom:56px;}
-    h1{font-size:1.7rem;}
-    .lang-switch a,.footer-legal a{display:inline-block;padding:8px 4px;}
-    .brand{padding:6px 0;}
-    .footer-legal{margin-left:-4px;}
-    .back{padding:8px 0;margin-bottom:20px;}
-    .lang-switch,.footer-bottom{font-size:0.9rem;}
-    .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px;}
-  }
-</style>
 </head>
 <body>
 <a class="skip" href="#inhalt">{{skip}}</a>
