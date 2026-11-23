@@ -1,6 +1,6 @@
 # 925law – Apache-Konfiguration für Hetzner Webhosting
 # Diese Datei wird von bearbeiten/build_site.py nach website/.htaccess geschrieben.
-# Die CSP-Hashes ('sha256-3LMcnZELmv5svR1yZeNw1jdmPHQxNxwiWqfbjWs1qE4=' 'sha256-HyuwpU27Gwa/H/wX/X104jsHdYwkBBGGQw8naXe23cY=' 'sha256-Yv5XTBDt0hLkxgj/KEqR2iItD9QEDXNEs/Ke0b+4PWA=' 'sha256-anTfkC3ipv9kMOHHB3YP6GKK/XeeacamS2u6BA1trLk=' / 'sha256-2Cv7lcRlL72Wc4G6ZZaNZQ2rK68U9V8exyOKUaqoXZk=' 'sha256-gxSKH9nOJ0t1RzDr/XshOFVMf1rvledaIs2BMQyHkQ8=') berechnet der Generator aus den
+# Die CSP-Hashes ('sha256-3LMcnZELmv5svR1yZeNw1jdmPHQxNxwiWqfbjWs1qE4=' 'sha256-HyuwpU27Gwa/H/wX/X104jsHdYwkBBGGQw8naXe23cY=' 'sha256-Yv5XTBDt0hLkxgj/KEqR2iItD9QEDXNEs/Ke0b+4PWA=' 'sha256-anTfkC3ipv9kMOHHB3YP6GKK/XeeacamS2u6BA1trLk=' / 'sha256-2Cv7lcRlL72Wc4G6ZZaNZQ2rK68U9V8exyOKUaqoXZk=' 'sha256-ccA4/fuQm3QIO1Cc8chx5vlhCn0+eAh+ecfVZVhZYB8=') berechnet der Generator aus den
 # fertigen HTML-Dateien. Nach JEDER Änderung an Inline-Scripts/Styles neu generieren.
 
 Options -Indexes -MultiViews
@@ -39,7 +39,7 @@ AddDefaultCharset UTF-8
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header always set Cross-Origin-Opener-Policy "same-origin"
-  Header always set Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; font-src 'self'; style-src 'self' 'sha256-2Cv7lcRlL72Wc4G6ZZaNZQ2rK68U9V8exyOKUaqoXZk=' 'sha256-gxSKH9nOJ0t1RzDr/XshOFVMf1rvledaIs2BMQyHkQ8='; script-src 'self' https://plausible.io 'sha256-3LMcnZELmv5svR1yZeNw1jdmPHQxNxwiWqfbjWs1qE4=' 'sha256-HyuwpU27Gwa/H/wX/X104jsHdYwkBBGGQw8naXe23cY=' 'sha256-Yv5XTBDt0hLkxgj/KEqR2iItD9QEDXNEs/Ke0b+4PWA=' 'sha256-anTfkC3ipv9kMOHHB3YP6GKK/XeeacamS2u6BA1trLk='; connect-src https://plausible.io; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; font-src 'self'; style-src 'self' 'sha256-2Cv7lcRlL72Wc4G6ZZaNZQ2rK68U9V8exyOKUaqoXZk=' 'sha256-ccA4/fuQm3QIO1Cc8chx5vlhCn0+eAh+ecfVZVhZYB8='; script-src 'self' https://plausible.io 'sha256-3LMcnZELmv5svR1yZeNw1jdmPHQxNxwiWqfbjWs1qE4=' 'sha256-HyuwpU27Gwa/H/wX/X104jsHdYwkBBGGQw8naXe23cY=' 'sha256-Yv5XTBDt0hLkxgj/KEqR2iItD9QEDXNEs/Ke0b+4PWA=' 'sha256-anTfkC3ipv9kMOHHB3YP6GKK/XeeacamS2u6BA1trLk='; connect-src https://plausible.io; upgrade-insecure-requests"
 
   # Caching: Schriften/Bilder lange, HTML kurz
   <FilesMatch "\.(woff2|png|webp|svg|ico)$">

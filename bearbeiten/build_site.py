@@ -57,32 +57,58 @@ def extract_js_object(name):
 
 i18n = extract_js_object("I18N")
 
+
+def warn_drift():
+    """Der sichtbare Text im Quell-Markup ist nur Vorschau; maßgeblich ist das Wörterbuch.
+    Weichen beide ab, wird hier gewarnt, damit die Quelle nicht wieder auseinanderläuft."""
+    soup = BeautifulSoup(html, "html.parser")
+    for node in soup.select("[data-i18n]"):
+        key = node["data-i18n"]
+        want = BeautifulSoup(i18n.get(key, {}).get("de", ""), "html.parser").decode().strip()
+        have = node.decode_contents().strip()
+        if have and have != want:   # leeres Markup = optionaler Wert (z. B. Telefon), kein Vergleich
+            print("Hinweis: Markup-Text weicht vom Wörterbuch ab (Wörterbuch gilt): %s" % key)
+
 # --- SEO-Texte pro Sprache ---
 META = {
     "de": {
         "title": "925law – Rechtsanwalt Arbeitsrecht & Vertragsrecht Berlin | Max Englhard",
-        "desc": ("Rechtsanwalt Max Englhard (925law): Arbeitsrecht und Vertragsrecht in Berlin. "
-                 "Kündigungsschutz, Abfindung, Aufhebungsvertrag, Verträge und Forderungen – "
-                 "für Unternehmen, Führungskräfte, Angestellte und Freelancer. Erstgespräch zum Festpreis."),
+        # höchstens 155 Zeichen (der Build prüft das), sonst schneidet Google ab
+        "desc": ("Rechtsanwalt Max Englhard, Berlin: Arbeits- und Vertragsrecht. Kündigung, Abfindung, "
+                 "Aufhebungsvertrag, Verträge, Forderungen. Erstgespräch zum Festpreis."),
         "og_locale": "de_DE",
         "alt_locale": "en_US",
         "og_image": DOMAIN + "/og-image.png",
     },
     "en": {
         "title": "925law – English-speaking Employment & Contract Lawyer in Berlin | Max Englhard",
-        "desc": ("Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. "
-                 "Protection against dismissal, severance, termination agreements, contracts and claims – "
-                 "for companies, executives, employees and freelancers. Fixed-fee initial consultation."),
+        "desc": ("English-speaking employment and contract lawyer in Berlin: dismissal, severance, "
+                 "contracts and claims. Fixed-fee initial consultation."),
         "og_locale": "en_US",
         "alt_locale": "de_DE",
         "og_image": DOMAIN + "/og-image-en.png",
     },
 }
 URLS = {"de": DOMAIN + "/", "en": DOMAIN + "/en/"}
+# Englische Fassungen der Rechtstexte: Links der EN-Startseite werden darauf umgebogen
+EN_LEGAL = {"/impressum.html": "/en/impressum.html", "/datenschutz.html": "/en/datenschutz.html"}
+for _lang, _m in META.items():
+    if len(_m["desc"]) > 155:
+        sys.exit("Meta-Description (%s) hat %d Zeichen, erlaubt sind 155" % (_lang, len(_m["desc"])))
+
+
+def tel_href(number):
+    """'030 123 45 67' -> 'tel:+49301234567' (führende 0 wird zur deutschen Vorwahl)."""
+    digits = re.sub(r"[^\d+]", "", number)
+    if digits.startswith("00"):
+        digits = "+" + digits[2:]
+    elif digits.startswith("0"):
+        digits = "+49" + digits[1:]
+    return "tel:" + digits
 
 
 def jsonld(lang):
-    return {
+    data = {
         "@context": "https://schema.org",
         "@type": "Attorney",
         "name": "925law – Max Englhard",
@@ -107,6 +133,10 @@ def jsonld(lang):
         },
         "email": "kontakt@925law.de",
     }
+    phone = i18n.get("contact_phone", {}).get(lang, "").strip()
+    if phone:
+        data["telephone"] = tel_href(phone)[4:]
+    return data
 
 
 FORM_SCRIPT = """
@@ -156,6 +186,23 @@ FORM_SCRIPT = """
 def build(lang):
     soup = BeautifulSoup(html, "html.parser")
     soup.html["lang"] = lang
+
+    # Optionale Elemente: data-i18n-if="schlüssel" -> Element entfällt, wenn der Wert leer ist
+    # (Telefonnummer `contact_phone`, Antwortzeit-Zusage `form_response_time`)
+    for node in soup.select("[data-i18n-if]"):
+        key = node["data-i18n-if"]
+        if key not in i18n or lang not in i18n[key]:
+            sys.exit("Fehlender Übersetzungsschlüssel: %s (%s)" % (key, lang))
+        if not i18n[key][lang].strip():
+            node.decompose()
+            continue
+        del node["data-i18n-if"]
+        if node.has_attr("hidden"):
+            del node["hidden"]
+    # Telefon-Links: href aus der Nummer ableiten
+    for node in soup.select("[data-phone]"):
+        node["href"] = tel_href(i18n["contact_phone"][lang])
+        del node["data-phone"]
 
     # Texte aller [data-i18n]-Knoten fest in die Sprache schreiben, Attribut entfernen
     for node in soup.select("[data-i18n]"):
@@ -246,11 +293,11 @@ def build(lang):
     if lang_input:
         lang_input["value"] = lang
 
-    # --- Englische Seite verlinkt die englischen Rechtsseiten ---
+    # --- EN: Impressum/Datenschutz auf die englischen Fassungen ---
     if lang == "en":
         for a in soup.find_all("a", href=True):
-            if a["href"] in ("/impressum.html", "/datenschutz.html"):
-                a["href"] = "/en" + a["href"]
+            if a["href"] in EN_LEGAL:
+                a["href"] = EN_LEGAL[a["href"]]
 
     # --- Sprachumschalter: echte Links ---
     sw = soup.select_one(".lang-switch")
@@ -284,7 +331,10 @@ def build(lang):
     checks = {
         "Google Fonts in der Ausgabe": "googleapis" not in out and "gstatic" not in out,
         "fonts.css fehlt": '/fonts.css' in out,
-        "data-i18n übrig": "data-i18n" not in out,
+        "data-i18n übrig": "data-i18n" not in out and "data-phone" not in out,
+        "EN verlinkt deutsche Rechtstexte": lang != "en" or ('href="/impressum.html"' not in out
+                                                             and 'href="/datenschutz.html"' not in out),
+        "leerer Telefon-Link": 'href="tel:"' not in out,
         "style-Attribute (CSP) übrig": 'style="' not in out,
         "Sprachfeld falsch": 'name="lang" type="hidden" value="%s"' % lang in out or 'name="lang" value="%s"' % lang in out,
     }
@@ -314,6 +364,7 @@ def csp_hashes(files):
 
 
 if __name__ == "__main__":
+    warn_drift()
     (OUT / "en").mkdir(parents=True, exist_ok=True)
     (OUT / "index.html").write_text(build("de"), encoding="utf-8")
     (OUT / "en" / "index.html").write_text(build("en"), encoding="utf-8")
