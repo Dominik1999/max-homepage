@@ -14,7 +14,7 @@
     --ink-soft: #4A4A48;
     --accent: #D6006E;
     --line: #DEDAD4;
-    --line-strong: #B9B4AC;
+    --line-strong: #8A857E;   /* Feldlinien: 3,5:1 auf --bg (WCAG 1.4.11 verlangt 3:1) */
     --serif: 'Archivo', sans-serif;   /* Display-Schrift (Archivo ist eine Sans) */
     --sans: 'IBM Plex Sans', sans-serif;
   }
@@ -132,6 +132,12 @@
     text-underline-offset: 3px;
   }
 
+  .sidebar-bottom > a,
+  .sidebar-address {
+    display: block;
+    margin-top: 6px;
+  }
+
   .lang-switch {
     margin-bottom: 16px;
     font-size: 0.85rem;
@@ -201,10 +207,35 @@
   }
 
   /* Hero */
+  .hero-id {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+
+  .hero-portrait {
+    width: 64px;
+    height: 80px;
+    object-fit: cover;
+    object-position: 50% 22%;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
   #hero .kicker {
     font-size: 0.95rem;
+    line-height: 1.45;
     color: var(--ink-soft);
-    margin-bottom: 24px;
+  }
+
+  #hero .kicker span { display: block; }
+
+  #hero .kicker .kicker-name {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ink);
   }
 
   #hero h1 {
@@ -224,7 +255,8 @@
     margin-top: 32px;
     font-size: 1.2rem;
     color: var(--ink-soft);
-    max-width: 42ch;
+    max-width: 50ch;
+    text-wrap: balance;
   }
 
   .cta {
@@ -269,9 +301,16 @@
   }
 
   .stamp-wrap {
-    position: relative;
     flex-shrink: 0;
     margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .stamp-mark {
+    position: relative;
     line-height: 0;
   }
 
@@ -279,10 +318,18 @@
     margin-top: 0;
   }
 
+  /* Kurz-Erklärung direkt am Stempel; die ausführliche Fußnote steht im Footer */
+  .stamp-note {
+    font-size: 0.8rem;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
   .stamp-asterisk {
     position: absolute;
-    top: -2px;
-    right: -8px;
+    top: -12px;
+    right: -20px;
     color: var(--accent);
     font-family: var(--serif);
     font-weight: 700;
@@ -290,7 +337,7 @@
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 14px 16px;   /* Tippfläche 44px */
   }
   .stamp-asterisk:hover { color: var(--ink); }
 
@@ -445,6 +492,11 @@
     max-width: 600px;
   }
 
+  /* Zwei Spalten, sobald die Inhaltsspalte breit genug ist (Tablet quer / Desktop) */
+  @media (min-width: 820px) and (max-width: 1000px), (min-width: 1100px) {
+    .situations-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; }
+  }
+
   .situations-grid li::before {
     content: '';
     position: absolute;
@@ -487,6 +539,11 @@
     gap: 32px;
   }
 
+  /* Warum + Schritte: 2×2, sobald Platz ist */
+  @media (min-width: 700px) {
+    .why-grid, .steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; }
+  }
+
   .step .num {
     font-family: var(--serif);
     font-weight: 700;
@@ -517,12 +574,57 @@
     font-size: 1.05rem;
   }
 
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+
+  @media (min-width: 820px) and (max-width: 1000px), (min-width: 1100px) {
+    .contact-grid { grid-template-columns: minmax(0, 1fr) 220px; column-gap: 56px; align-items: start; }
+  }
+
   form {
     display: flex;
     flex-direction: column;
     gap: 24px;
     max-width: 520px;
   }
+
+  .form-note {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-top: -8px;
+  }
+
+  .contact-details h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-bottom: 18px;
+  }
+
+  .contact-details address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .contact-details .lbl {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+
+  .contact-details a {
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 3px;
+  }
+
+  .contact-details a:hover { color: var(--accent); }
 
   .field label {
     display: block;
@@ -626,8 +728,9 @@
   .skip:focus { left: 8px; }
 
   /* Mobile */
-  @media (max-width: 960px) {
+  @media (max-width: 1000px) {
     .layout { display: block; }
+    /* Kopfzeile kompakt: Marke links, Sprache rechts, darunter die Links in einer Zeile */
     nav.sidebar {
       position: static;
       width: 100%;
@@ -635,46 +738,53 @@
       flex-direction: row;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: space-between;
-      row-gap: 10px;
-      padding: 16px 24px;
+      justify-content: flex-start;
+      gap: 0 12px;
+      padding: 6px 24px 2px;
       border-right: none;
       border-bottom: 1px solid var(--line);
     }
-    /* Kopfzeile kompakt: Marke, darunter die Links in einer umbrechenden Zeile */
-    .sidebar-top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; width: 100%; }
-    .sidebar-top .brand { margin-bottom: 0; }
-    .sidebar-top ul { flex-direction: row; gap: 0 10px; flex-wrap: wrap; width: 100%; }
-    /* Tippflächen mind. 40px hoch */
-    .sidebar-top a, .lang-switch a, .sidebar-bottom > a, .footer-legal a { display: inline-block; padding: 8px 4px; }
-    .lang-switch { margin-bottom: 0; }
-    .sidebar-bottom {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 16px;
-      width: 100%;
-      border-top: 1px solid var(--line);
-      padding-top: 8px;
-    }
+    .sidebar-top, .sidebar-bottom { display: contents; }
+    .sidebar-top .brand { margin: 0 auto 0 -6px; order: 1; }
+    .sidebar-bottom > a { order: 2; }
+    .lang-switch { order: 3; margin: 0 -6px 0 0; }
+    .sidebar-top ul { order: 4; flex-direction: row; gap: 0; flex-wrap: wrap; width: calc(100% + 10px); margin: 0 -5px; }
+    /* Tippflächen mind. 44px hoch */
+    .sidebar-top a, .lang-switch a, .sidebar-bottom > a, .footer-legal a { display: inline-block; padding: 10px 6px; min-height: 44px; min-width: 44px; margin-top: 0; }
+    .sidebar-top ul a { padding: 10px 5px; }
+    .lang-switch a { text-align: center; }
+    .lang-switch .sep { margin: 0; }
+    /* Anschrift steht auf kleinen Bildschirmen beim Formular und im Footer, nicht in der Kopfzeile */
+    .sidebar-address { display: none; }
     main { padding: 0 24px; max-width: 100%; }
     /* Hero nur so hoch wie sein Inhalt: Headline + Button auf dem ersten Bildschirm */
     #hero { min-height: 0; padding: 32px 0 56px; }
-    #hero .kicker { margin-bottom: 16px; }
+    .hero-id { margin-bottom: 24px; gap: 14px; }
+    .hero-portrait { width: 56px; height: 70px; }
+    #hero .kicker { font-size: 1rem; }
     #hero p.sub { margin-top: 24px; }
     section { padding: 48px 0; }
     .service-block { padding: 32px 0; }
-    #about .about-grid { grid-template-columns: 1fr; }
+    #about .about-grid { grid-template-columns: 1fr; gap: 28px; }
     .portrait { width: 160px; height: 200px; }
-    .situations-grid { gap: 16px; }
-    .steps-grid { gap: 28px; }
-    .why-grid { gap: 28px; }
-    /* Lesbare Schriftgrößen auf dem Handy */
-    .service-block li span, .service-block .intro, .step p, .why-item p, .field label { font-size: 1rem; }
-    .consent, .footer-bottom, .footnote p, .sidebar-bottom, .lang-switch { font-size: 0.9rem; }
+    .situations-grid { row-gap: 16px; }
+    .steps-grid { row-gap: 28px; }
+    .why-grid { row-gap: 28px; }
+    /* Lesbare Schriftgrößen auf dem Handy: Fließtext, Labels, Einwilligung, Footer mind. 16px */
+    .service-block li span, .service-block .intro, .step p, .why-item p, .field label,
+    .consent, .form-note, .contact-details .lbl, .footer-bottom, .footnote p, .sidebar-bottom, .lang-switch { font-size: 1rem; }
     .footer-bottom { flex-direction: column; gap: 8px; }
     .hero-headline-row { flex-direction: column; gap: 12px; }
+    .stamp-wrap { flex-direction: row; gap: 14px; margin-top: 0; }
     .stamp-hero { width: 56px; height: 56px; margin-top: 0; }
+    .stamp-note { text-align: left; font-size: 0.9rem; }
+  }
+
+  /* Handy: die E-Mail-Adresse steht beim Formular; in der Kopfzeile bleibt (falls gesetzt) nur die Telefonnummer */
+  @media (max-width: 599px) {
+    .sidebar-bottom > a[href^="mailto:"] { display: none; }
+    .lang-switch { order: 2; }
+    .sidebar-bottom > a { order: 3; margin-left: -6px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -688,13 +798,13 @@
     outline-offset: 2px;
   }
 </style>
-<meta content="Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation." name="description"><meta content="index,follow" name="robots"><meta content="Max Englhard" name="author"><link href="https://925law.de/en/" rel="canonical"><link href="https://925law.de/" hreflang="de" rel="alternate"><link href="https://925law.de/en/" hreflang="en" rel="alternate"><link href="https://925law.de/" hreflang="x-default" rel="alternate"><link href="/favicon.svg" rel="icon" type="image/svg+xml"><link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"><link href="/apple-touch-icon.png" rel="apple-touch-icon"><meta content="website" property="og:type"><meta content="925law" property="og:site_name"><meta content="925law – English-speaking Employment &amp; Contract Lawyer in Berlin | Max Englhard" property="og:title"><meta content="Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation." property="og:description"><meta content="https://925law.de/en/" property="og:url"><meta content="https://925law.de/og-image-en.png" property="og:image"><meta content="en_US" property="og:locale"><meta content="de_DE" property="og:locale:alternate"><meta content="summary_large_image" name="twitter:card"><meta content="925law – English-speaking Employment &amp; Contract Lawyer in Berlin | Max Englhard" name="twitter:title"><meta content="Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation." name="twitter:description"><meta content="https://925law.de/og-image-en.png" name="twitter:image"><script type="application/ld+json">{
+<meta content="English-speaking employment and contract lawyer in Berlin: dismissal, severance, contracts and claims. Fixed-fee initial consultation." name="description"><meta content="index,follow" name="robots"><meta content="Max Englhard" name="author"><link href="https://925law.de/en/" rel="canonical"><link href="https://925law.de/" hreflang="de" rel="alternate"><link href="https://925law.de/en/" hreflang="en" rel="alternate"><link href="https://925law.de/" hreflang="x-default" rel="alternate"><link href="/favicon.svg" rel="icon" type="image/svg+xml"><link href="/favicon-32.png" rel="icon" sizes="32x32" type="image/png"><link href="/apple-touch-icon.png" rel="apple-touch-icon"><meta content="website" property="og:type"><meta content="925law" property="og:site_name"><meta content="925law – English-speaking Employment &amp; Contract Lawyer in Berlin | Max Englhard" property="og:title"><meta content="English-speaking employment and contract lawyer in Berlin: dismissal, severance, contracts and claims. Fixed-fee initial consultation." property="og:description"><meta content="https://925law.de/en/" property="og:url"><meta content="https://925law.de/og-image-en.png" property="og:image"><meta content="en_US" property="og:locale"><meta content="de_DE" property="og:locale:alternate"><meta content="summary_large_image" name="twitter:card"><meta content="925law – English-speaking Employment &amp; Contract Lawyer in Berlin | Max Englhard" name="twitter:title"><meta content="English-speaking employment and contract lawyer in Berlin: dismissal, severance, contracts and claims. Fixed-fee initial consultation." name="twitter:description"><meta content="https://925law.de/og-image-en.png" name="twitter:image"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Attorney",
   "name": "925law – Max Englhard",
   "url": "https://925law.de/en/",
   "image": "https://925law.de/og-image-en.png",
-  "description": "Max Englhard (925law): English-speaking German employment and contract lawyer in Berlin. Protection against dismissal, severance, termination agreements, contracts and claims – for companies, executives, employees and freelancers. Fixed-fee initial consultation.",
+  "description": "English-speaking employment and contract lawyer in Berlin: dismissal, severance, contracts and claims. Fixed-fee initial consultation.",
   "areaServed": "Berlin, Germany",
   "availableLanguage": [
     "de",
@@ -744,22 +854,28 @@
 </a>
 <ul>
 <li><a href="#services">Services</a></li>
+<li><a href="#about">About</a></li>
 <li><a href="#why">Why 925law</a></li>
 <li><a href="#contact">Contact</a></li>
-<li><a href="#about">About</a></li>
 </ul>
 </div>
 <div class="sidebar-bottom">
 <div class="lang-switch"><a class="lang-de" href="/" hreflang="de">DE</a><span aria-hidden="true" class="sep">/</span><a aria-current="true" class="lang-en lang-active" href="/en/" hreflang="en">EN</a></div>
 <a href="mailto:kontakt@925law.de">kontakt@925law.de</a>
+
+<span class="sidebar-address">Kaiserkorso 2<br>12101 Berlin</span>
 </div>
 </nav>
 <main>
 <section id="hero">
-<p class="kicker">Max Englhard · Attorney-at-law · Berlin · Advice in English and German</p>
+<div class="hero-id">
+<img alt class="hero-portrait" decoding="async" height="946" src="/portrait.webp" width="640">
+<p class="kicker"><span class="kicker-name">Max Englhard</span><span>Attorney-at-law · Berlin</span><span>Advice in English and German</span></p>
+</div>
 <div class="hero-headline-row">
 <h1>When it <span class="accent-num">counts</span> most.</h1>
 <div class="stamp-wrap">
+<div class="stamp-mark">
 <svg aria-hidden="true" class="stamp stamp-hero" height="110" viewbox="0 0 120 120" width="110">
 <circle cx="60" cy="60" r="52"></circle>
 <circle cx="60" cy="60" opacity="0.5" r="42" stroke-width="0.8"></circle>
@@ -767,8 +883,10 @@
 </svg>
 <a aria-label="What 925 stands for" class="stamp-asterisk" href="#footnote">*</a>
 </div>
+<p class="stamp-note">925 = 9 to 5<br>and sterling silver</p>
 </div>
-<p class="sub">Employment and contract law — handled directly, explained plainly.</p>
+</div>
+<p class="sub">Employment and contract law for companies, executives and freelancers. Handled directly, explained plainly.</p>
 <a class="cta" href="#contact">Request a consultation</a>
 </section>
 <section id="services">
@@ -799,6 +917,17 @@
 </div>
 </div>
 </section>
+<section id="about">
+<h2 class="section-title">About</h2>
+<div class="about-grid">
+<img alt="Portrait of Max Englhard, attorney-at-law" class="portrait" decoding="async" height="946" loading="lazy" src="/portrait.webp" width="640">
+<div>
+<p class="lead">I'm <span class="accent-word">925law</span> — Max Englhard, attorney-at-law.</p>
+<p>My career hasn’t run in a straight line: private practice, a fintech, the public sector, and most recently a large commercial firm. I’ve seen a lot and come to know both sides. I know what matters to a business, and just as well how it feels to be an employee.</p>
+<p>What drives me is simple: I like helping people, and law is my tool for it. Most of my clients don’t care about the legal fine print — they want a solution. That’s what I’m good at: spotting the real problem and building a workable way through it, fast, that actually helps you. Clear advice, no runaround, no law-firm jargon, built around you.</p>
+</div>
+</div>
+</section>
 <section id="situations">
 <h2 class="section-title">When things get serious</h2>
 <p class="section-lead">The stakes are high for you. For me, it’s familiar ground.</p>
@@ -816,20 +945,20 @@
 <p class="section-lead">Because I make the <span class="accent-word">difference</span>.</p>
 <div class="why-grid">
 <div class="why-item">
-<h3>Direct</h3>
-<p>You deal with me — from the first call to the final outcome.</p>
+<h3>Large-firm experience</h3>
+<p>Private practice, a fintech, the public sector, and most recently a large commercial firm: that is the experience I bring to your case.</p>
 </div>
 <div class="why-item">
-<h3>First-rate</h3>
-<p>Top-tier advice — rigorous, precise, and to the point.</p>
+<h3>Both sides of the table</h3>
+<p>I know what matters to a business, and just as well how it feels to be an employee.</p>
 </div>
 <div class="why-item">
-<h3>Clear</h3>
-<p>You understand every step — no jargon, no detours.</p>
+<h3>Fixed-fee initial consultation</h3>
+<p>€190 plus VAT (€226.10 incl. VAT). If you go ahead and hire me, that fee is credited in full.</p>
 </div>
 <div class="why-item">
-<h3>Tailored</h3>
-<p>You get what your case needs — no more, no less.</p>
+<h3>English and German</h3>
+<p>I advise in English and in German. You always deal with me, from the first assessment to the final outcome.</p>
 </div>
 </div>
 </section>
@@ -861,6 +990,7 @@
 <section id="contact">
 <h2 class="section-title">Contact</h2>
 <p class="intro" id="contact-intro">Tell me briefly how I can <span class="accent-word">help</span>.</p>
+<div class="contact-grid">
 <form action="/kontakt.php" id="contact-form" method="POST">
 <div aria-hidden="true" class="hp"><label><span>Please leave empty</span> <input autocomplete="off" name="fax_ref" tabindex="-1" type="text"></label></div>
 <input name="lang" type="hidden" value="en">
@@ -876,20 +1006,19 @@
 <label for="message">Message</label>
 <textarea id="message" name="message" required></textarea>
 </div>
-<label class="consent"><input name="consent" required type="checkbox"> <span>I have read the <a href="/datenschutz.html">privacy policy</a> and agree to my details being processed to handle my enquiry.</span></label>
+<label class="consent"><input name="consent" required type="checkbox"> <span>I have read the <a href="/en/datenschutz.html">privacy policy</a> and agree to my details being processed to handle my enquiry.</span></label>
 <button class="cta" type="submit">Send message</button>
+<p class="form-note">You'll hear back within one business day.</p>
 <p aria-live="polite" class="form-status" hidden id="form-status" role="status"></p>
 </form>
 <p class="form-thanks" hidden>Thanks for your message — I'll be in touch.</p>
-</section>
-<section id="about">
-<h2 class="section-title">About</h2>
-<div class="about-grid">
-<img alt="Portrait of Max Englhard, attorney-at-law" class="portrait" decoding="async" height="946" loading="lazy" src="/portrait.webp" width="640">
-<div>
-<p class="lead">I'm <span class="accent-word">925law</span> — Max Englhard, attorney-at-law.</p>
-<p>My career hasn’t run in a straight line: private practice, a fintech, the public sector, and most recently a large commercial firm. I’ve seen a lot and come to know both sides. I know what matters to a business, and just as well how it feels to be an employee.</p>
-<p>What drives me is simple: I like helping people, and law is my tool for it. Most of my clients don’t care about the legal fine print — they want a solution. That’s what I’m good at: spotting the real problem and building a workable way through it, fast, that actually helps you. Clear advice, no runaround, no law-firm jargon, built around you.</p>
+<div class="contact-details">
+<h3>Direct contact</h3>
+<address>
+<p><span class="lbl">Email</span><a href="mailto:kontakt@925law.de">kontakt@925law.de</a></p>
+
+<p><span class="lbl">Address</span>925law · Max Englhard<br>Kaiserkorso 2<br>12101 Berlin</p>
+</address>
 </div>
 </div>
 </section>
@@ -905,8 +1034,8 @@
 </svg>
 <span>925law — Max Englhard, Attorney-at-law</span>
 </span>
-<span>Berlin</span>
-<span class="footer-legal"><a href="/impressum.html">Legal notice</a><a href="/datenschutz.html">Privacy</a></span>
+<span>Kaiserkorso 2 · 12101 Berlin</span>
+<span class="footer-legal"><a href="/en/impressum.html">Legal notice</a><a href="/en/datenschutz.html">Privacy</a></span>
 </div>
 </footer>
 </main>
