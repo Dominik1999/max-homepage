@@ -265,15 +265,6 @@ section:last-of-type {
   margin-bottom: 32px;
 }
 
-.hero-portrait {
-  width: 64px;
-  height: 80px;
-  object-fit: cover;
-  object-position: 50% 22%;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-
 #hero .kicker {
   font-size: 0.95rem;
   line-height: 1.45;
@@ -768,7 +759,6 @@ form .cta {
   /* Hero nur so hoch wie sein Inhalt: Headline + Button auf dem ersten Bildschirm */
   #hero { min-height: 0; padding: 32px 0 56px; }
   .hero-id { margin-bottom: 24px; gap: 14px; }
-  .hero-portrait { width: 56px; height: 70px; }
   #hero .kicker { font-size: 1rem; }
   #hero p.sub { margin-top: 24px; }
   section { padding: 48px 0; }
