@@ -87,18 +87,18 @@ def warn_drift():
 # --- SEO-Texte pro Sprache ---
 META = {
     "de": {
-        "title": "925law – Rechtsanwalt Arbeitsrecht & Vertragsrecht Berlin | Max Englhard",
+        "title": "Arbeitsrecht & Vertragsrecht in Berlin | Rechtsanwalt Max Englhard | 925law",
         # höchstens 155 Zeichen (der Build prüft das), sonst schneidet Google ab
-        "desc": ("Rechtsanwalt Max Englhard, Berlin: Arbeits- und Vertragsrecht. Kündigung, Abfindung, "
-                 "Aufhebungsvertrag, Verträge, Forderungen. Erstgespräch zum Festpreis."),
+        "desc": ("Rechtsanwalt Max Englhard, Berlin: Kündigung, Abfindung, Arbeitsverträge, Vertragsprüfung. "
+                 "Erstgespräch zum Festpreis, auf Deutsch oder Englisch."),
         "og_locale": "de_DE",
         "alt_locale": "en_US",
         "og_image": DOMAIN + "/og-image.png",
     },
     "en": {
-        "title": "925law – English-speaking Employment & Contract Lawyer in Berlin | Max Englhard",
-        "desc": ("English-speaking employment and contract lawyer in Berlin: dismissal, severance, "
-                 "contracts and claims. Fixed-fee initial consultation."),
+        "title": "Employment & Contract Law in Berlin, in English | 925law",
+        "desc": ("Max Englhard, lawyer in Berlin: dismissal, severance, employment contracts and contract review. "
+                 "Fixed-fee first consultation, in English or German."),
         "og_locale": "en_US",
         "alt_locale": "de_DE",
         "og_image": DOMAIN + "/og-image-en.png",
@@ -153,6 +153,40 @@ def jsonld(lang):
     if phone:
         data["telephone"] = tel_href(phone)[4:]
     return data
+
+
+# Platzhalter für Texte, die noch geschrieben werden (z. B. FAQ, „Warum 925law“ 5 und 6).
+# Der Generator listet sie bei jedem Lauf auf; `--final` bricht ab, solange einer übrig ist.
+PLACEHOLDERS = ("[TEXT FOLGT]", "[TEXT TO FOLLOW]")
+
+
+def is_placeholder(text):
+    return any(p in text for p in PLACEHOLDERS)
+
+
+def plain(fragment):
+    """HTML-Fragment aus dem Wörterbuch -> reiner Text (für strukturierte Daten)."""
+    text = " ".join(BeautifulSoup(fragment, "html.parser").get_text(" ").split())
+    return re.sub(r" ([.,;:!?)])", r"\1", text)
+
+
+def faq_jsonld(lang):
+    """FAQPage aus faq1_q/faq1_a, faq2_q/… (fortlaufend, bis ein Schlüssel fehlt).
+    Fragen mit leerem Text oder Platzhalter werden übersprungen; ohne fertige Frage kein Block."""
+    entities, n = [], 1
+    while "faq%d_q" % n in i18n:
+        q = i18n["faq%d_q" % n].get(lang, "")
+        a = i18n.get("faq%d_a" % n, {}).get(lang, "")
+        if plain(q) and plain(a) and not is_placeholder(q + a):
+            entities.append({
+                "@type": "Question",
+                "name": plain(q),
+                "acceptedAnswer": {"@type": "Answer", "text": plain(a)},
+            })
+        n += 1
+    if not entities:
+        return None
+    return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": entities}
 
 
 FORM_SCRIPT = """
@@ -298,6 +332,11 @@ def build(lang):
     ld = soup.new_tag("script", type="application/ld+json")
     ld.string = json.dumps(jsonld(lang), ensure_ascii=False, indent=2)
     add.append(ld)
+    faq = faq_jsonld(lang)
+    if faq:
+        fl = soup.new_tag("script", type="application/ld+json")
+        fl.string = json.dumps(faq, ensure_ascii=False, indent=2)
+        add.append(fl)
     if PLAUSIBLE_DOMAIN:
         pl = soup.new_tag("script", src="https://plausible.io/js/script.js")
         pl["defer"] = ""
@@ -324,8 +363,8 @@ def build(lang):
                 a["href"] = DE_LEGAL[a["href"]]
 
     # --- Sprachumschalter: echte Links ---
-    sw = soup.select_one(".lang-switch")
-    if sw:
+    # (Kopfzeile, Mobilmenü und Footer haben je einen Umschalter)
+    for sw in soup.select(".lang-switch"):
         sw.clear()
         de = soup.new_tag("a", href="/de/"); de.string = "DE"
         en = soup.new_tag("a", href="/"); en.string = "EN"
@@ -434,6 +473,13 @@ if __name__ == "__main__":
 
     if PASSWORD_PROTECT:
         print("\nHinweis: .htaccess enthält den Passwortschutz (PASSWORD_PROTECT = True).")
+    open_texts = sorted(k for k, v in i18n.items() if any(is_placeholder(t) for t in v.values()))
+    if open_texts:
+        print("\n!!! %d Texte auf der Startseite sind noch Platzhalter (%s), vor dem Livegang füllen:"
+              % (len(open_texts), " / ".join(PLACEHOLDERS)))
+        print("  - " + ", ".join(open_texts))
+        if "--final" in sys.argv[1:]:
+            sys.exit("--final: Abbruch, solange Platzhalter-Texte übrig sind.")
     if legal_todos:
         print("\n!!! %d OFFENE PUNKTE in den Rechtstexten (bearbeiten/recht/), vor dem Livegang klären:"
               % len(legal_todos))

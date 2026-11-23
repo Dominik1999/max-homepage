@@ -106,8 +106,8 @@ Bis zum Livegang ist die Seite per Passwort geschützt (`PASSWORD_PROTECT = True
 `bearbeiten/build_site.py`, Zugangsdaten in `public_html/.htpasswd` auf dem Server). Zum
 Livegang auf `False` setzen, neu generieren, hochladen.
 
-## Vor dem Livegang (offen)
+## Vor dem Livegang
 
-Siehe `tasks/todo.md`, Abschnitt „Left open on purpose“: Impressum (ODR-Absatz, Versicherung),
-Datenschutzerklärung (Eingangsbestätigung, Mailtransport, englische Fassung), Telefonnummer (`contact_phone`) und Bestätigung der Antwortzeit-Zusage (`form_response_time`), Formular-Test auf dem Hetzner-Server,
-SPF/DKIM/DMARC für `925law.de`.
+Stand 2026-11-23: Rechtstexte ohne offene `TODO(Max)`-Punkte, Telefonnummer gesetzt, Formular auf
+Hetzner getestet, SPF/DKIM/DMARC eingerichtet (DMARC `p=quarantine`), tägliche Löschung der
+Zugriffsprotokolle per Cronjob. Offen ist nur noch die Entscheidung, den Passwortschutz aufzuheben.

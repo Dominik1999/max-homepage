@@ -4,228 +4,356 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>if('IntersectionObserver' in window){document.documentElement.classList.add('js-anim');}</script>
-<title>925law — Rechtsanwalt Max Englhard</title>
+<title>925law · Rechtsanwalt Max Englhard</title>
 <link rel="stylesheet" href="/fonts.css">
 <link rel="stylesheet" href="../website/site.css">
 </head>
 <body>
-<a class="skip" href="#hero" data-i18n="skip">Zum Inhalt springen</a>
+<a class="skip" href="#main" data-i18n="skip">Zum Inhalt springen</a>
 
-<div class="layout">
-  <nav class="sidebar">
-    <div class="sidebar-top">
-      <a href="#hero" class="brand">
-        <svg class="logo-mark" width="28" height="28" viewBox="0 0 120 120" aria-hidden="true">
-          <circle cx="60" cy="60" r="52" />
-          <circle cx="60" cy="60" r="42" stroke-width="1.4" opacity="0.5" />
-          <text x="60" y="68" font-size="26" text-anchor="middle">925</text>
-        </svg>
-        <span>925law</span>
-      </a>
+<header class="site-top">
+  <div class="container top-row">
+    <a href="#hero" class="brand">
+      <svg class="logo-mark" width="32" height="32" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="52" />
+        <circle cx="60" cy="60" r="42" stroke-width="1.4" opacity="0.5" />
+        <text x="60" y="68" font-size="26" text-anchor="middle">925</text>
+      </svg>
+      <span>925law</span>
+    </a>
+    <nav class="top-nav" aria-label="Hauptnavigation" data-i18n-attr="aria-label:nav_label">
       <ul>
         <li><a href="#services" data-i18n="nav_services">Leistungen</a></li>
         <li><a href="#about" data-i18n="nav_about">Über mich</a></li>
         <li><a href="#why" data-i18n="nav_why">Warum 925law</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
         <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
       </ul>
-    </div>
-    <div class="sidebar-bottom">
+    </nav>
+    <div class="top-actions">
+      <a class="top-phone" data-i18n="contact_phone" data-i18n-if="contact_phone" data-phone hidden></a>
       <div class="lang-switch"><a href="#" class="lang-de lang-active" onclick="setLang('de');return false;">DE</a><span class="sep">/</span><a href="#" class="lang-en" onclick="setLang('en');return false;">EN</a></div>
-      <a href="mailto:kontakt@925law.de">kontakt@925law.de</a>
-      <a data-i18n="contact_phone" data-i18n-if="contact_phone" data-phone hidden></a>
-      <span class="sidebar-address">Kaiserkorso 2<br>12101 Berlin</span>
+      <a href="#contact" class="btn btn-outline top-cta"><span class="cta-long" data-i18n="hero_cta">Erstgespräch anfragen</span><span class="cta-short" data-i18n="header_cta_short">Erstgespräch</span></a>
+      <details class="menu">
+        <summary><span class="menu-icon" aria-hidden="true"></span><span data-i18n="menu_label">Menü</span></summary>
+        <div class="menu-panel">
+          <nav aria-label="Hauptnavigation" data-i18n-attr="aria-label:nav_label">
+            <ul>
+              <li><a href="#services" data-i18n="nav_services">Leistungen</a></li>
+              <li><a href="#about" data-i18n="nav_about">Über mich</a></li>
+              <li><a href="#why" data-i18n="nav_why">Warum 925law</a></li>
+              <li><a href="#faq" data-i18n="nav_faq">FAQ</a></li>
+              <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
+            </ul>
+          </nav>
+          <a class="menu-phone" data-i18n="contact_phone" data-i18n-if="contact_phone" data-phone hidden></a>
+          <div class="lang-switch"><a href="#" class="lang-de lang-active" onclick="setLang('de');return false;">DE</a><span class="sep">/</span><a href="#" class="lang-en" onclick="setLang('en');return false;">EN</a></div>
+        </div>
+      </details>
     </div>
-  </nav>
+  </div>
+</header>
 
-  <main>
+<main id="main">
 
-    <section id="hero">
-      <div class="hero-id">
-        <p class="kicker" data-i18n="hero_kicker"><span class="kicker-name">Max Englhard</span><span>Rechtsanwalt · Berlin</span></p>
-        <div class="stamp-wrap">
+  <section id="hero" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow" data-i18n="hero_eyebrow">Arbeits- und Vertragsrecht · Berlin</p>
+        <h1 data-i18n="hero_h1">Erst <span class="accent-num">recht</span>, wenn's drauf ankommt.</h1>
+        <p class="hero-sub" data-i18n="hero_sub">Arbeits- und Vertragsrecht für Unternehmen, Führungskräfte und Freelancer. Ohne Umwege.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-solid" data-i18n="hero_cta">Erstgespräch anfragen</a>
+          <a href="#services" class="link-arrow" data-i18n="hero_cta2">Leistungen ansehen</a>
+        </div>
+        <p class="proof" data-i18n="hero_proof"><span>Zugelassen bei der Rechtsanwaltskammer Berlin</span><span>Beratung auf Deutsch und Englisch</span><span>Erstgespräch zum Festpreis</span></p>
+      </div>
+      <figure class="hero-figure">
+        <div class="hero-photo">
+          <img class="hero-portrait" src="portrait.webp" width="440" height="650" decoding="async" fetchpriority="high" alt="Porträt Max Englhard, Rechtsanwalt" data-i18n-attr="alt:portrait_alt">
           <div class="stamp-mark">
-            <svg class="stamp stamp-hero" width="110" height="110" viewBox="0 0 120 120" aria-hidden="true">
+            <svg class="stamp" width="104" height="104" viewBox="0 0 120 120" aria-hidden="true">
               <circle cx="60" cy="60" r="52" />
               <circle cx="60" cy="60" r="42" stroke-width="0.8" opacity="0.5" />
               <text x="60" y="68" font-size="26" text-anchor="middle">925</text>
             </svg>
             <a href="#footnote" class="stamp-asterisk" aria-label="Erklärung zu 925" data-i18n-attr="aria-label:asterisk_label">*</a>
           </div>
-          <p class="stamp-note" data-i18n="stamp_note">925 = 9 to 5<br>und Sterlingsilber</p>
         </div>
+        <figcaption>
+          <span class="caption-name" data-i18n="hero_caption">Max Englhard, Rechtsanwalt</span>
+          <span class="stamp-note" data-i18n="stamp_note">925 = 9 to 5<br>und Sterlingsilber</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="services" class="sec">
+    <div class="container">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="sec_services">Leistungen</p>
+        <h2 data-i18n="services_lead">Klartext, kein Kleingedrucktes.</h2>
       </div>
-      <h1 data-i18n="hero_h1">Erst <span class="accent-num">recht</span>, wenn's drauf ankommt.</h1>
-      <p class="sub" data-i18n="hero_sub">Arbeits- und Vertragsrecht für Unternehmen, Führungskräfte und Freelancer. Ohne Umwege.</p>
-      <a href="#contact" class="cta" data-i18n="hero_cta">Erstgespräch anfragen</a>
-    </section>
-
-    <section id="services">
-      <h2 class="section-title" data-i18n="sec_services">Leistungen</h2>
-      <p class="section-lead" data-i18n="services_lead"><span class="accent-word">Klartext</span>, kein Kleingedrucktes.</p>
-      <div class="services-stack">
-
-        <div class="service-block">
-          <div>
-            <h3 data-i18n="b1_h3">Für Unternehmer &amp; Freelancer</h3>
-            <p class="intro" data-i18n="b1_intro">Sie machen Ihre Arbeit, ich kümmere mich um den Rest.</p>
-          </div>
-          <ul>
-            <li data-i18n="b1_i1"><strong>Vertragserstellung, -prüfung und -verhandlung</strong><span>Dienstleistungs-, Kooperations- und Lieferverträge, AGB und Honorarvereinbarungen.</span></li>
+      <div class="svc-groups">
+        <div class="svc-group">
+          <h3 data-i18n="b1_h3">Für Unternehmer &amp; Freelancer</h3>
+          <p class="svc-intro" data-i18n="b1_intro">Sie machen Ihre Arbeit, ich kümmere mich um den Rest.</p>
+          <ol class="svc-list">
+            <li data-i18n="b1_i1"><strong>Vertragserstellung, -⁠prüfung und -⁠verhandlung</strong><span>Dienstleistungs-, Kooperations- und Lieferverträge, AGB und Honorarvereinbarungen.</span></li>
             <li data-i18n="b1_i2"><strong>Unterstützung im Arbeitsrecht</strong><span>Erstellung von Arbeitsverträgen, Begleitung bei Trennungsprozessen, gerichtliche Vertretung in Arbeitssachen.</span></li>
             <li data-i18n="b1_i3"><strong>Durchsetzung von Ansprüchen</strong><span>Außergerichtliche und gerichtliche Durchsetzung Ihrer Ansprüche.</span></li>
-          </ul>
+          </ol>
         </div>
-
-        <div class="service-block">
-          <div>
-            <h3 data-i18n="b2_h3">Für Führungskräfte, Angestellte &amp; Beamte</h3>
-            <p class="intro" data-i18n="b2_intro">Rechtliche Unterstützung in schwierigen Lagen.</p>
-          </div>
-          <ul>
+        <div class="svc-group">
+          <h3 data-i18n="b2_h3">Für Führungskräfte, Angestellte &amp; Beamte</h3>
+          <p class="svc-intro" data-i18n="b2_intro">Rechtliche Unterstützung in schwierigen Lagen.</p>
+          <ol class="svc-list" start="4">
             <li data-i18n="b2_i1"><strong>Kündigungsschutz und Abfindungsverhandlung</strong><span>Vertretung im Kündigungsschutzverfahren und Verhandlung einer angemessenen Abfindung, außergerichtlich oder vor Gericht.</span></li>
             <li data-i18n="b2_i2"><strong>Allgemeine Beratung im Arbeitsrecht</strong><span>Fragen zu Urlaub, Elternzeit, Arbeitszeit, Zeugnis und Vertragsänderungen.</span></li>
             <li data-i18n="b2_i3"><strong>Beamtenrecht</strong><span>Unterstützung und Begleitung in Disziplinarverfahren.</span></li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="about">
-      <h2 class="section-title" data-i18n="sec_about">Über mich</h2>
-      <div class="about-grid">
-        <img class="portrait" src="portrait.webp" width="440" height="650" loading="lazy" decoding="async" alt="Porträt Max Englhard, Rechtsanwalt" data-i18n-attr="alt:portrait_alt">
-        <div>
-          <p class="lead" data-i18n="about_lead"><span class="accent-word">925law</span> bin ich: Max Englhard, Rechtsanwalt.</p>
-          <p data-i18n="about_p1">Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.</p>
-          <p data-i18n="about_p2">Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Genau darin bin ich gut: das Problem schnell erkennen und in kurzer Zeit einen tragfähigen Weg entwickeln, der Ihnen wirklich hilft. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.</p>
+          </ol>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="situations">
-      <h2 class="section-title" data-i18n="sec_situations">Wenn es ernst wird</h2>
-      <p class="section-lead" data-i18n="situations_lead">Für Sie steht viel auf dem Spiel. Für mich ist es vertrautes Terrain.</p>
-      <ul class="situations-grid">
-        <li data-i18n="sit1">Sie haben eine <span class="accent-word">Kündigung</span> oder einen Aufhebungsvertrag auf dem Tisch. Ich entwickle mit Ihnen eine Strategie, greife die Kündigung an und verhandle über Ihre Abfindung. Dafür bleiben nur drei Wochen: Wer nicht klagt, hat mit Sicherheit verloren, egal wie unwirksam die Kündigung war.</li>
-        <li data-i18n="sit4">Sie brauchen einen <span class="accent-word">Vertrag</span>, der im Ernstfall hält, oder haben einen, bei dem Sie ein ungutes Gefühl haben. Ich schreibe ihn so, dass er Ihre Interessen schützt und im Streit nicht als Erstes kippt.</li>
-        <li data-i18n="sit2">Ihr <span class="accent-word">Arbeitszeugnis</span> ist schlechter, als Ihre Arbeit war, und kostet Sie womöglich den nächsten Job. Ich entschlüssele die Geheimcodes und hole die Bewertung heraus, die Ihnen zusteht, notfalls vor Gericht.</li>
-        <li data-i18n="sit5">Ein Kunde zahlt nicht, und Erinnerungen bringen längst nichts mehr. Ich setze Ihre <span class="accent-word">Forderung</span> durch, mit Nachdruck, außergerichtlich und wenn nötig vor Gericht.</li>
-        <li data-i18n="sit3">Gegen Sie läuft ein <span class="accent-word">Disziplinarverfahren</span>, und Ihre Laufbahn steht auf dem Spiel. Ich zerlege die Vorwürfe, nutze jeden Verfahrensfehler und kämpfe um Ihre Laufbahn.</li>
-        <li data-i18n="sit6">Sie müssen sich von einem Mitarbeiter trennen und wollen kein Risiko eingehen. Ich plane die <span class="accent-word">Trennung</span> wasserdicht, damit sie hält und teure Fehler ausbleiben.</li>
+  <section id="about" class="sec tint">
+    <div class="container about-grid">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="sec_about">Über mich</p>
+        <h2 data-i18n="about_lead">925law bin ich: Max Englhard, Rechtsanwalt.</h2>
+      </div>
+      <div class="about-text">
+        <p data-i18n="about_p1">Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.</p>
+        <p data-i18n="about_p2">Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Genau darin bin ich gut: das Problem schnell erkennen und in kurzer Zeit einen tragfähigen Weg entwickeln, der Ihnen wirklich hilft. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="situations" class="sec">
+    <div class="container">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="sec_situations">Wenn es ernst wird</p>
+        <h2 data-i18n="situations_lead">Für Sie steht viel auf dem Spiel. Für mich ist es vertrautes Terrain.</h2>
+      </div>
+      <ul class="sit-list">
+        <li><h3 data-i18n="sit1_h">Kündigung</h3><p data-i18n="sit1">Sie haben eine Kündigung oder einen Aufhebungsvertrag auf dem Tisch. Ich entwickle mit Ihnen eine Strategie, greife die Kündigung an und verhandle über Ihre Abfindung. Dafür bleiben nur drei Wochen: Wer nicht klagt, hat mit Sicherheit verloren, egal wie unwirksam die Kündigung war.</p></li>
+        <li><h3 data-i18n="sit4_h">Vertrag</h3><p data-i18n="sit4">Sie brauchen einen Vertrag, der im Ernstfall hält, oder haben einen, bei dem Sie ein ungutes Gefühl haben. Ich schreibe ihn so, dass er Ihre Interessen schützt und im Streit nicht als Erstes kippt.</p></li>
+        <li><h3 data-i18n="sit2_h">Arbeitszeugnis</h3><p data-i18n="sit2">Ihr Arbeitszeugnis ist schlechter, als Ihre Arbeit war, und kostet Sie womöglich den nächsten Job. Ich entschlüssele die Geheimcodes und hole die Bewertung heraus, die Ihnen zusteht, notfalls vor Gericht.</p></li>
+        <li><h3 data-i18n="sit5_h">Forderung</h3><p data-i18n="sit5">Ein Kunde zahlt nicht, und Erinnerungen bringen längst nichts mehr. Ich setze Ihre Forderung durch, mit Nachdruck, außergerichtlich und wenn nötig vor Gericht.</p></li>
+        <li><h3 data-i18n="sit3_h">Disziplinarverfahren</h3><p data-i18n="sit3">Gegen Sie läuft ein Disziplinarverfahren, und Ihre Laufbahn steht auf dem Spiel. Ich zerlege die Vorwürfe, nutze jeden Verfahrensfehler und kämpfe um Ihre Laufbahn.</p></li>
+        <li><h3 data-i18n="sit6_h">Trennung</h3><p data-i18n="sit6">Sie müssen sich von einem Mitarbeiter trennen und wollen kein Risiko eingehen. Ich plane die Trennung wasserdicht, damit sie hält und teure Fehler ausbleiben.</p></li>
       </ul>
-    </section>
+    </div>
+  </section>
 
-    <section id="why">
-      <h2 class="section-title" data-i18n="sec_why">Warum 925law</h2>
-      <p class="section-lead" data-i18n="why_lead">Weil ich den <span class="accent-word">Unterschied</span> für Sie mache.</p>
-      <div class="why-grid">
-        <div class="why-item">
+  <section id="why" class="sec dark">
+    <div class="container">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="sec_why">Warum 925law</p>
+        <h2 data-i18n="why_lead">Weil ich den Unterschied für Sie mache.</h2>
+      </div>
+      <ol class="why-list">
+        <li>
           <h3 data-i18n="why1_h3">Großkanzlei-Erfahrung</h3>
           <p data-i18n="why1_p">Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei: Diese Erfahrung bringe ich in Ihr Mandat ein.</p>
-        </div>
-        <div class="why-item">
+        </li>
+        <li>
           <h3 data-i18n="why2_h3">Beide Seiten des Tisches</h3>
           <p data-i18n="why2_p">Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.</p>
-        </div>
-        <div class="why-item">
+        </li>
+        <li>
           <h3 data-i18n="why3_h3">Erstgespräch zum Festpreis</h3>
           <p data-i18n="why3_p">190 € zzgl. USt (226,10 € brutto). Beauftragen Sie mich anschließend, wird dieses Honorar voll angerechnet.</p>
-        </div>
-        <div class="why-item">
+        </li>
+        <li>
           <h3 data-i18n="why4_h3">Deutsch und Englisch</h3>
           <p data-i18n="why4_p">Ich berate auf Deutsch und auf Englisch. Sie sprechen dabei immer mit mir, von der ersten Einschätzung bis zum Abschluss.</p>
-        </div>
-      </div>
-    </section>
+        </li>
+        <li>
+          <h3 data-i18n="why5_h3">[TEXT FOLGT]</h3>
+          <p data-i18n="why5_p">[TEXT FOLGT]</p>
+        </li>
+        <li>
+          <h3 data-i18n="why6_h3">[TEXT FOLGT]</h3>
+          <p data-i18n="why6_p">[TEXT FOLGT]</p>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-    <section id="process">
-      <h2 class="section-title" data-i18n="sec_process">Die nächsten Schritte</h2>
-      <div class="steps-grid">
-        <div class="step">
-          <div class="num">1</div>
+  <section id="process" class="sec">
+    <div class="container">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="eb_process">Ablauf</p>
+        <h2 data-i18n="sec_process">Die nächsten Schritte</h2>
+      </div>
+      <ol class="steps">
+        <li>
           <h3 data-i18n="step1_h">Anfrage senden</h3>
           <p data-i18n="step1_p">Schildern Sie kurz Ihr Anliegen über das Formular. Ich melde mich.</p>
-        </div>
-        <div class="step">
-          <div class="num">2</div>
+        </li>
+        <li>
           <h3 data-i18n="step2_h">Erstgespräch</h3>
           <p data-i18n="step2_p">Ich kläre Ihr Anliegen, Ihre Chancen und das weitere Vorgehen. Zum Festpreis von 190 € zzgl. USt (226,10 € brutto).</p>
-        </div>
-        <div class="step">
-          <div class="num">3</div>
+        </li>
+        <li>
           <h3 data-i18n="step3_h">Anrechnung</h3>
           <p data-i18n="step3_p">Beauftragen Sie mich anschließend, wird dieses Honorar voll angerechnet.</p>
-        </div>
-        <div class="step">
-          <div class="num">4</div>
+        </li>
+        <li>
           <h3 data-i18n="step4_h">Honorar</h3>
           <p data-i18n="step4_p">Die Vergütung, die für Sie langfristig am besten passt: nach RVG bei Rechtsstreitigkeiten, nach Stundensatz bei laufender Beratung. Die Einschätzung dazu kommt vorab. Auf Wunsch mit Kostendeckel (Cap) oder als Retainer.</p>
-        </div>
-      </div>
-    </section>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-    <section id="contact">
-      <h2 class="section-title" data-i18n="sec_contact">Kontakt</h2>
-      <p class="intro" id="contact-intro" data-i18n="contact_intro">Beschreiben Sie kurz, womit ich Ihnen <span class="accent-word">helfen</span> kann.</p>
+  <section id="faq" class="sec tint">
+    <div class="container faq-grid">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="sec_faq">FAQ</p>
+        <h2 data-i18n="faq_h2">Häufige Fragen</h2>
+        <p class="sec-lead" data-i18n="faq_lead" data-i18n-if="faq_lead" hidden></p>
+      </div>
+      <ol class="faq-list">
+        <li>
+          <details>
+            <summary><h3 data-i18n="faq1_q">[TEXT FOLGT]</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a" data-i18n="faq1_a">[TEXT FOLGT]</div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><h3 data-i18n="faq2_q">[TEXT FOLGT]</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a" data-i18n="faq2_a">[TEXT FOLGT]</div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><h3 data-i18n="faq3_q">[TEXT FOLGT]</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a" data-i18n="faq3_a">[TEXT FOLGT]</div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><h3 data-i18n="faq4_q">[TEXT FOLGT]</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a" data-i18n="faq4_a">[TEXT FOLGT]</div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><h3 data-i18n="faq5_q">[TEXT FOLGT]</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a" data-i18n="faq5_a">[TEXT FOLGT]</div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><h3 data-i18n="faq6_q">[TEXT FOLGT]</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a" data-i18n="faq6_a">[TEXT FOLGT]</div>
+          </details>
+        </li>
+        <li>
+          <details>
+            <summary><h3 data-i18n="faq7_q">[TEXT FOLGT]</h3><span class="faq-icon" aria-hidden="true"></span></summary>
+            <div class="faq-a" data-i18n="faq7_a">[TEXT FOLGT]</div>
+          </details>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="contact" class="sec">
+    <div class="container">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="sec_contact">Kontakt</p>
+        <h2 data-i18n="contact_h2">Erstgespräch anfragen</h2>
+        <p class="sec-lead" id="contact-intro" data-i18n="contact_intro">Beschreiben Sie kurz, womit ich Ihnen helfen kann.</p>
+      </div>
       <div class="contact-grid">
-      <form id="contact-form" action="kontakt.php" method="POST">
-        <div class="hp" aria-hidden="true"><label><span data-i18n="hp_label">Bitte leer lassen</span> <input type="text" name="fax_ref" tabindex="-1" autocomplete="off"></label></div>
-        <input type="hidden" name="lang" value="de">
-        <div class="field">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
+        <div class="contact-main">
+          <form id="contact-form" action="kontakt.php" method="POST">
+            <div class="hp" aria-hidden="true"><label><span data-i18n="hp_label">Bitte leer lassen</span> <input type="text" name="fax_ref" tabindex="-1" autocomplete="off"></label></div>
+            <input type="hidden" name="lang" value="de">
+            <div class="field" data-error="Bitte ausfüllen." data-i18n-attr="data-error:err_required">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field" data-error="Bitte eine gültige E-Mail-Adresse angeben." data-i18n-attr="data-error:err_email">
+              <label for="email" data-i18n="lbl_email">E-Mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field" data-error="Bitte ausfüllen." data-i18n-attr="data-error:err_required">
+              <label for="message" data-i18n="lbl_message">Nachricht</label>
+              <textarea id="message" name="message" rows="6" required></textarea>
+            </div>
+            <label class="consent"><input type="checkbox" name="consent" required> <span data-i18n="form_consent">Ich habe die <a href="/de/datenschutz.html">Datenschutzerklärung</a> zur Kenntnis genommen.</span></label>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-solid" data-i18n="btn_submit">Nachricht senden</button>
+              <p class="form-note" data-i18n="form_response_time" data-i18n-if="form_response_time">Antwort innerhalb eines Werktags.</p>
+            </div>
+            <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
+          </form>
+          <p class="form-thanks" data-i18n="form_thanks" hidden>Vielen Dank für Ihre Nachricht. Ich melde mich.</p>
         </div>
-        <div class="field">
-          <label for="email" data-i18n="lbl_email">E-Mail</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div class="field">
-          <label for="message" data-i18n="lbl_message">Nachricht</label>
-          <textarea id="message" name="message" required></textarea>
-        </div>
-        <label class="consent"><input type="checkbox" name="consent" required> <span data-i18n="form_consent">Ich habe die <a href="/de/datenschutz.html">Datenschutzerklärung</a> zur Kenntnis genommen.</span></label>
-        <button type="submit" class="cta" data-i18n="btn_submit">Nachricht senden</button>
-        <p class="form-note" data-i18n="form_response_time" data-i18n-if="form_response_time">Antwort innerhalb eines Werktags.</p>
-        <p class="form-status" id="form-status" role="status" aria-live="polite" hidden></p>
-      </form>
-      <p class="form-thanks" data-i18n="form_thanks" hidden>Vielen Dank für Ihre Nachricht. Ich melde mich.</p>
-      <div class="contact-details">
-        <h3 data-i18n="contact_direct_h">Direkter Kontakt</h3>
-        <address>
-          <p><span class="lbl" data-i18n="lbl_email">E-Mail</span><a href="mailto:kontakt@925law.de">kontakt@925law.de</a></p>
-          <p data-i18n-if="contact_phone" hidden><span class="lbl" data-i18n="lbl_phone">Telefon</span><a data-i18n="contact_phone" data-phone></a></p>
-          <p><span class="lbl" data-i18n="lbl_address">Anschrift</span>925law · Max Englhard<br>Kaiserkorso 2<br>12101 Berlin</p>
-        </address>
+        <aside class="contact-card" aria-labelledby="contact-direct-h">
+          <img class="contact-portrait" src="portrait.webp" width="440" height="650" loading="lazy" decoding="async" alt="" >
+          <h3 id="contact-direct-h" data-i18n="contact_direct_h">Direkter Kontakt</h3>
+          <address>
+            <p><span class="lbl" data-i18n="lbl_email">E-Mail</span><a href="mailto:kontakt@925law.de">kontakt@925law.de</a></p>
+            <p data-i18n-if="contact_phone" hidden><span class="lbl" data-i18n="lbl_phone">Telefon</span><a data-i18n="contact_phone" data-phone></a></p>
+            <p><span class="lbl" data-i18n="lbl_address">Anschrift</span>925law · Max Englhard<br>Kaiserkorso 2<br>12101 Berlin</p>
+          </address>
+        </aside>
       </div>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <footer>
-      <div class="footnote" id="footnote">
-        <p data-i18n="footnote">* <span class="fn-num">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird. Egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber, eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.</p>
-      </div>
-      <div class="footer-bottom">
-        <span class="footer-brand">
-          <svg width="18" height="18" viewBox="0 0 120 120" aria-hidden="true">
-            <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="4"/>
-            <text x="60" y="72" font-size="34" text-anchor="middle" font-family="'Archivo', sans-serif" font-weight="700" fill="currentColor">925</text>
-          </svg>
-          <span data-i18n="footer_brand">925law — Max Englhard, Rechtsanwalt</span>
-        </span>
-        <span>Kaiserkorso 2 · 12101 Berlin</span>
-        <span class="footer-legal"><a href="/impressum.html" data-i18n="footer_impressum">Impressum</a><a href="/datenschutz.html" data-i18n="footer_datenschutz">Datenschutz</a></span>
-      </div>
-    </footer>
+</main>
 
-  </main>
-</div>
+<footer class="site-foot">
+  <div class="container foot-grid">
+    <div class="foot-brand">
+      <p class="foot-mark">
+        <svg width="28" height="28" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="4"/>
+          <text x="60" y="72" font-size="34" text-anchor="middle" font-family="'Archivo', sans-serif" font-weight="700" fill="currentColor">925</text>
+        </svg>
+        <span data-i18n="footer_brand">925law · Max Englhard, Rechtsanwalt</span>
+      </p>
+      <p class="footnote" id="footnote" data-i18n="footnote">* <span class="fn-num">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird. Egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber, eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.</p>
+    </div>
+    <div class="foot-col">
+      <p class="foot-h" data-i18n="footer_h_office">Kanzlei</p>
+      <p>Kaiserkorso 2<br>12101 Berlin</p>
+      <p><a href="mailto:kontakt@925law.de">kontakt@925law.de</a></p>
+      <p data-i18n-if="contact_phone" hidden><a data-i18n="contact_phone" data-phone></a></p>
+      <p class="foot-rak" data-i18n="footer_rak">Zugelassen bei der Rechtsanwaltskammer Berlin</p>
+    </div>
+    <div class="foot-col">
+      <p class="foot-h" data-i18n="footer_h_legal">Rechtliches</p>
+      <ul class="foot-links">
+        <li><a href="/impressum.html" data-i18n="footer_impressum">Impressum</a></li>
+        <li><a href="/datenschutz.html" data-i18n="footer_datenschutz">Datenschutz</a></li>
+      </ul>
+      <div class="lang-switch"><a href="#" class="lang-de lang-active" onclick="setLang('de');return false;">DE</a><span class="sep">/</span><a href="#" class="lang-en" onclick="setLang('en');return false;">EN</a></div>
+    </div>
+  </div>
+</footer>
 
 
 <script>
 (function(){
+  var menu = document.querySelector('.menu');
+  if(menu){
+    menu.addEventListener('click', function(e){ if(e.target.closest('a')) menu.open = false; });
+    document.addEventListener('click', function(e){ if(menu.open && !menu.contains(e.target)) menu.open = false; });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && menu.open){ menu.open = false; menu.querySelector('summary').focus(); }
+    });
+  }
   if(!('IntersectionObserver' in window)){ document.documentElement.classList.remove('js-anim'); return; }
-  var els = document.querySelectorAll('main > section:not(#hero), footer');
+  var els = document.querySelectorAll('main > section:not(#hero), body > footer');
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
@@ -236,8 +364,8 @@
 </script>
 
 <script>
-  var I18N = {"skip": {"de": "Zum Inhalt springen", "en": "Skip to content"}, "nav_services": {"de": "Leistungen", "en": "Services"}, "nav_about": {"de": "Über mich", "en": "About"}, "nav_why": {"de": "Warum 925law", "en": "Why 925law"}, "nav_contact": {"de": "Kontakt", "en": "Contact"}, "hero_kicker": {"de": "<span class=\"kicker-name\">Max Englhard</span><span>Rechtsanwalt · Berlin</span>", "en": "<span class=\"kicker-name\">Max Englhard</span><span>Attorney-at-law · Berlin</span>"}, "hero_h1": {"de": "Erst <span class=\"accent-num\">recht</span>, wenn's drauf ankommt.", "en": "When it <span class=\"accent-num\">counts</span> most."}, "hero_sub": {"de": "Arbeits- und Vertragsrecht für Unternehmen, Führungskräfte und Freelancer. Ohne Umwege.", "en": "Employment and contract law for companies, executives and freelancers. Handled directly, explained plainly."}, "hero_cta": {"de": "Erstgespräch anfragen", "en": "Request a consultation"}, "asterisk_label": {"de": "Erklärung zu 925", "en": "What 925 stands for"}, "stamp_note": {"de": "925 = 9 to 5<br>und Sterlingsilber", "en": "925 = 9 to 5<br>and sterling silver"}, "sec_services": {"de": "Leistungen", "en": "Services"}, "services_lead": {"de": "<span class=\"accent-word\">Klartext</span>, kein Kleingedrucktes.", "en": "<span class=\"accent-word\">Plain talk</span>, no fine print."}, "b1_h3": {"de": "Für Unternehmer &amp; Freelancer", "en": "For entrepreneurs &amp; freelancers"}, "b1_intro": {"de": "Sie machen Ihre Arbeit, ich kümmere mich um den Rest.", "en": "You do your work. I'll handle the rest."}, "b1_i1": {"de": "<strong>Vertragserstellung, -prüfung und -verhandlung</strong><span>Dienstleistungs-, Kooperations- und Lieferverträge, AGB und Honorarvereinbarungen.</span>", "en": "<strong>Contract drafting, review &amp; negotiation</strong><span>Service, partnership and supply agreements, standard terms (T&amp;Cs), and fee arrangements.</span>"}, "b1_i2": {"de": "<strong>Unterstützung im Arbeitsrecht</strong><span>Erstellung von Arbeitsverträgen, Begleitung bei Trennungsprozessen, gerichtliche Vertretung in Arbeitssachen.</span>", "en": "<strong>Employment-law support</strong><span>Employment contracts, support through separations, and representation in employment court.</span>"}, "b1_i3": {"de": "<strong>Durchsetzung von Ansprüchen</strong><span>Außergerichtliche und gerichtliche Durchsetzung Ihrer Ansprüche.</span>", "en": "<strong>Recovering what you're owed</strong><span>Pursuing your claims out of court and in it.</span>"}, "b2_h3": {"de": "Für Führungskräfte, Angestellte &amp; Beamte", "en": "For executives, employees &amp; civil servants"}, "b2_intro": {"de": "Rechtliche Unterstützung in schwierigen Lagen.", "en": "Legal support when it matters."}, "b2_i1": {"de": "<strong>Kündigungsschutz und Abfindungsverhandlung</strong><span>Vertretung im Kündigungsschutzverfahren und Verhandlung einer angemessenen Abfindung, außergerichtlich oder vor Gericht.</span>", "en": "<strong>Dismissal &amp; severance</strong><span>Representation in unfair-dismissal claims and negotiating a fair severance — out of court or before it.</span>"}, "b2_i2": {"de": "<strong>Allgemeine Beratung im Arbeitsrecht</strong><span>Fragen zu Urlaub, Elternzeit, Arbeitszeit, Zeugnis und Vertragsänderungen.</span>", "en": "<strong>Everyday employment advice</strong><span>Questions on leave, parental leave, working hours, job references, and changes to your contract.</span>"}, "b2_i3": {"de": "<strong>Beamtenrecht</strong><span>Unterstützung und Begleitung in Disziplinarverfahren.</span>", "en": "<strong>Civil service law</strong><span>Support and representation in disciplinary proceedings.</span>"}, "sec_situations": {"de": "Wenn es ernst wird", "en": "When things get serious"}, "situations_lead": {"de": "Für Sie steht viel auf dem Spiel. Für mich ist es vertrautes Terrain.", "en": "The stakes are high for you. For me, it’s familiar ground."}, "sit1": {"de": "Sie haben eine <span class=\"accent-word\">Kündigung</span> oder einen Aufhebungsvertrag auf dem Tisch. Ich entwickle mit Ihnen eine Strategie, greife die Kündigung an und verhandle über Ihre Abfindung. Dafür bleiben nur drei Wochen: Wer nicht klagt, hat mit Sicherheit verloren, egal wie unwirksam die Kündigung war.", "en": "You’ve been handed a <span class=\"accent-word\">dismissal</span> or a termination agreement. I build a strategy with you, challenge the dismissal and negotiate your severance. You have only three weeks: whoever doesn’t file has lost for certain, however unlawful the dismissal was."}, "sit2": {"de": "Ihr <span class=\"accent-word\">Arbeitszeugnis</span> ist schlechter, als Ihre Arbeit war, und kostet Sie womöglich den nächsten Job. Ich entschlüssele die Geheimcodes und hole die Bewertung heraus, die Ihnen zusteht, notfalls vor Gericht.", "en": "Your <span class=\"accent-word\">job reference</span> is worse than your work was, and it can cost you your next job. I decode the hidden phrasing and secure the assessment you’re entitled to, in court if it comes to that."}, "sit3": {"de": "Gegen Sie läuft ein <span class=\"accent-word\">Disziplinarverfahren</span>, und Ihre Laufbahn steht auf dem Spiel. Ich zerlege die Vorwürfe, nutze jeden Verfahrensfehler und kämpfe um Ihre Laufbahn.", "en": "You’re facing <span class=\"accent-word\">disciplinary proceedings</span>, with your career on the line. I take the allegations apart, use every procedural flaw and fight for your career."}, "sit4": {"de": "Sie brauchen einen <span class=\"accent-word\">Vertrag</span>, der im Ernstfall hält, oder haben einen, bei dem Sie ein ungutes Gefühl haben. Ich schreibe ihn so, dass er Ihre Interessen schützt und im Streit nicht als Erstes kippt.", "en": "You need a <span class=\"accent-word\">contract</span> that holds up when it matters, or you have one that gives you a bad feeling. I draft it so it protects your interests and isn’t the first thing to buckle in a dispute."}, "sit5": {"de": "Ein Kunde zahlt nicht, und Erinnerungen bringen längst nichts mehr. Ich setze Ihre <span class=\"accent-word\">Forderung</span> durch, mit Nachdruck, außergerichtlich und wenn nötig vor Gericht.", "en": "A client isn’t paying, and reminders stopped working long ago. I enforce your <span class=\"accent-word\">claim</span> with real pressure, out of court and, if needed, before it."}, "sit6": {"de": "Sie müssen sich von einem Mitarbeiter trennen und wollen kein Risiko eingehen. Ich plane die <span class=\"accent-word\">Trennung</span> wasserdicht, damit sie hält und teure Fehler ausbleiben.", "en": "You have to let an employee go and don’t want to take any risks. I plan the <span class=\"accent-word\">separation</span> watertight, so it holds and costly mistakes never arise."}, "sec_about": {"de": "Über mich", "en": "About"}, "about_lead": {"de": "<span class=\"accent-word\">925law</span> bin ich: Max Englhard, Rechtsanwalt.", "en": "I'm <span class=\"accent-word\">925law</span> — Max Englhard, attorney-at-law."}, "portrait_alt": {"de": "Porträt Max Englhard, Rechtsanwalt", "en": "Portrait of Max Englhard, attorney-at-law"}, "about_p1": {"de": "Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.", "en": "My career hasn’t run in a straight line: private practice, a fintech, the public sector, and most recently a large commercial firm. I’ve seen a lot and come to know both sides. I know what matters to a business, and just as well how it feels to be an employee."}, "about_p2": {"de": "Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Genau darin bin ich gut: das Problem schnell erkennen und in kurzer Zeit einen tragfähigen Weg entwickeln, der Ihnen wirklich hilft. Verständlich erklärt, ohne Umwege, ohne Kanzlei-Floskeln, maßgeschneidert auf Sie.", "en": "What drives me is simple: I like helping people, and law is my tool for it. Most of my clients don’t care about the legal fine print — they want a solution. That’s what I’m good at: spotting the real problem and building a workable way through it, fast, that actually helps you. Clear advice, no runaround, no law-firm jargon, built around you."}, "sec_why": {"de": "Warum 925law", "en": "Why 925law"}, "why_lead": {"de": "Weil ich den <span class=\"accent-word\">Unterschied</span> für Sie mache.", "en": "Because I make the <span class=\"accent-word\">difference</span>."}, "why1_h3": {"de": "Großkanzlei-Erfahrung", "en": "Large-firm experience"}, "why1_p": {"de": "Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei: Diese Erfahrung bringe ich in Ihr Mandat ein.", "en": "Private practice, a fintech, the public sector, and most recently a large commercial firm: that is the experience I bring to your case."}, "why2_h3": {"de": "Beide Seiten des Tisches", "en": "Both sides of the table"}, "why2_p": {"de": "Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.", "en": "I know what matters to a business, and just as well how it feels to be an employee."}, "why3_h3": {"de": "Erstgespräch zum Festpreis", "en": "Fixed-fee initial consultation"}, "why3_p": {"de": "190 € zzgl. USt (226,10 € brutto). Beauftragen Sie mich anschließend, wird dieses Honorar voll angerechnet.", "en": "€190 plus VAT (€226.10 incl. VAT). If you go ahead and hire me, that fee is credited in full."}, "why4_h3": {"de": "Deutsch und Englisch", "en": "English and German"}, "why4_p": {"de": "Ich berate auf Deutsch und auf Englisch. Sie sprechen dabei immer mit mir, von der ersten Einschätzung bis zum Abschluss.", "en": "I advise in English and in German. You always deal with me, from the first assessment to the final outcome."}, "sec_process": {"de": "Die nächsten Schritte", "en": "The next steps"}, "step1_h": {"de": "Anfrage senden", "en": "Send your request"}, "step1_p": {"de": "Schildern Sie kurz Ihr Anliegen über das Formular. Ich melde mich.", "en": "Tell me briefly what's going on, using the form. I'll get back to you."}, "step2_h": {"de": "Erstgespräch", "en": "Initial consultation"}, "step2_p": {"de": "Ich kläre Ihr Anliegen, Ihre Chancen und das weitere Vorgehen. Zum Festpreis von 190 € zzgl. USt (226,10 € brutto).", "en": "I talk through your situation, your chances, and the next steps — for a flat €190 plus VAT (€226.10 incl. VAT)."}, "step3_h": {"de": "Anrechnung", "en": "Credited back"}, "step3_p": {"de": "Beauftragen Sie mich anschließend, wird dieses Honorar voll angerechnet.", "en": "If you go ahead and hire me, that fee is credited in full."}, "step4_h": {"de": "Honorar", "en": "Fees"}, "step4_p": {"de": "Die Vergütung, die für Sie langfristig am besten passt: nach RVG bei Rechtsstreitigkeiten, nach Stundensatz bei laufender Beratung. Die Einschätzung dazu kommt vorab. Auf Wunsch mit Kostendeckel (Cap) oder als Retainer.", "en": "Whichever fee model works best for you in the long run: statutory rates (RVG) for disputes, an hourly rate for ongoing advice. You'll have my estimate up front — with a cost cap or a retainer if you prefer."}, "sec_contact": {"de": "Kontakt", "en": "Contact"}, "contact_intro": {"de": "Beschreiben Sie kurz, womit ich Ihnen <span class=\"accent-word\">helfen</span> kann.", "en": "Tell me briefly how I can <span class=\"accent-word\">help</span>."}, "lbl_email": {"de": "E-Mail", "en": "Email"}, "lbl_message": {"de": "Nachricht", "en": "Message"}, "btn_submit": {"de": "Nachricht senden", "en": "Send message"}, "form_response_time": {"de": "Antwort innerhalb eines Werktags.", "en": "You'll hear back within one business day."}, "contact_direct_h": {"de": "Direkter Kontakt", "en": "Direct contact"}, "lbl_phone": {"de": "Telefon", "en": "Phone"}, "contact_phone": {"de": "", "en": ""}, "lbl_address": {"de": "Anschrift", "en": "Address"}, "hp_label": {"de": "Bitte leer lassen", "en": "Please leave empty"}, "form_thanks": {"de": "Vielen Dank für Ihre Nachricht. Ich melde mich.", "en": "Thanks for your message — I'll be in touch."}, "form_error": {"de": "Es gab ein Problem beim Senden. Bitte prüfen Sie Ihre Angaben oder schreiben Sie direkt an kontakt@925law.de.", "en": "Something went wrong while sending. Please check your details or email kontakt@925law.de directly."}, "form_preview": {"de": "Vorschau: In dieser Testversion ist das Formular deaktiviert. Auf der echten Seite geht die Nachricht an kontakt@925law.de.", "en": "Preview: the form is disabled in this test version. On the live site your message goes to kontakt@925law.de."}, "footnote": {"de": "* <span class=\"fn-num\">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird. Egal, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die hier entstehen, kümmere ich mich. Daneben steht 925 für 925er Sterlingsilber, eine Legierung mit hohem Feingehalt, robust, stabil und wertig: mein Anspruch und Versprechen.", "en": "* <span class=\"fn-num\">925</span> stands for 9 to 5 — the time when work gets done, whether employed or running your own business. The problems that arise here are the ones I handle. 925 is also 925 sterling silver: an alloy of high purity, sturdy, solid and of real value: my standard and my promise."}, "footer_impressum": {"de": "Impressum", "en": "Legal notice"}, "footer_brand": {"de": "925law — Max Englhard, Rechtsanwalt", "en": "925law — Max Englhard, Attorney-at-law"}, "footer_datenschutz": {"de": "Datenschutz", "en": "Privacy"}, "form_consent": {"de": "Ich habe die <a href=\"/de/datenschutz.html\">Datenschutzerklärung</a> zur Kenntnis genommen.", "en": "I have read the <a href=\"/datenschutz.html\">privacy policy</a>."}};
-  var TITLES = {"de": "925law — Rechtsanwalt Max Englhard", "en": "925law — Max Englhard, Attorney-at-law"};
+  var I18N = {"skip": {"de": "Zum Inhalt springen", "en": "Skip to content"}, "nav_services": {"de": "Leistungen", "en": "Services"}, "nav_about": {"de": "Über mich", "en": "About"}, "nav_why": {"de": "Warum 925law", "en": "Why 925law"}, "nav_contact": {"de": "Kontakt", "en": "Contact"}, "hero_h1": {"de": "Ob Sie einstellen oder gekündigt wurden: <span class=\"h1-turn\">Ich kenne beide <span class=\"accent-num\">Seiten</span>.</span>", "en": "Hiring, or just been let go? <span class=\"h1-turn\">I know both <span class=\"accent-num\">sides</span>.</span>"}, "hero_sub": {"de": "Ich berate Unternehmen und Selbstständige ebenso wie Angestellte und Führungskräfte, von Arbeitsvertrag und Kündigung bis zur Vertragsprüfung.", "en": "I advise businesses and the self-employed as well as employees and executives, on everything from employment contracts and dismissals to contract reviews."}, "hero_cta": {"de": "Erstgespräch anfragen", "en": "Request a consultation"}, "asterisk_label": {"de": "Erklärung zu 925", "en": "What 925 stands for"}, "stamp_note": {"de": "925 = 9 to 5<br>und Sterlingsilber", "en": "925 = 9 to 5<br>and sterling silver"}, "sec_services": {"de": "Leistungen", "en": "Services"}, "services_lead": {"de": "Ich vertrete Unternehmen und Beschäftigte, in derselben Sache aber immer nur eine Seite.", "en": "I act for businesses and for employees, though never for both sides in the same matter."}, "b1_h3": {"de": "Für Unternehmer &amp; Freelancer", "en": "For entrepreneurs &amp; freelancers"}, "b1_intro": {"de": "Sie kümmern sich um Ihr Geschäft. Verträge, Personalfragen und offene Forderungen können Sie mir übergeben.", "en": "You run your business. Contracts, staff issues and unpaid invoices you can hand over to me."}, "b1_i1": {"de": "<strong>Vertragserstellung, -⁠prüfung und -⁠verhandlung</strong><span>Dienstleistungs-, Kooperations- und Lieferverträge, AGB und Honorarvereinbarungen.</span>", "en": "<strong>Contract drafting, review &amp; negotiation</strong><span>Service, partnership and supply agreements, standard terms (T&amp;Cs), and fee arrangements.</span>"}, "b1_i2": {"de": "<strong>Unterstützung im Arbeitsrecht</strong><span>Erstellung von Arbeitsverträgen, Begleitung bei Trennungsprozessen, gerichtliche Vertretung in Arbeitssachen.</span>", "en": "<strong>Employment-law support</strong><span>Employment contracts, support through separations, and representation in employment court.</span>"}, "b1_i3": {"de": "<strong>Durchsetzung von Ansprüchen</strong><span>Außergerichtliche und gerichtliche Durchsetzung Ihrer Ansprüche.</span>", "en": "<strong>Recovering what you’re owed</strong><span>Pursuing your claims out of court and in it.</span>"}, "b2_h3": {"de": "Für Führungskräfte, Angestellte &amp; Beamte", "en": "For executives, employees &amp; civil servants"}, "b2_intro": {"de": "Wenn Ihr Arbeitsverhältnis wackelt oder Sie einfach wissen wollen, was Ihnen zusteht.", "en": "When your job is on the line, or you simply want to know where you stand."}, "b2_i1": {"de": "<strong>Kündigungsschutz und Abfindungsverhandlung</strong><span>Vertretung im Kündigungsschutzverfahren und Verhandlung einer angemessenen Abfindung, außergerichtlich oder vor Gericht.</span>", "en": "<strong>Dismissal &amp; severance</strong><span>Representation in unfair-dismissal claims and negotiating a fair severance, out of court or in front of a judge.</span>"}, "b2_i2": {"de": "<strong>Allgemeine Beratung im Arbeitsrecht</strong><span>Fragen zu Urlaub, Elternzeit, Arbeitszeit, Zeugnis und Vertragsänderungen.</span>", "en": "<strong>Everyday employment advice</strong><span>Questions on leave, parental leave, working hours, job references, and changes to your contract.</span>"}, "b2_i3": {"de": "<strong>Beamtenrecht</strong><span>Unterstützung und Begleitung in Disziplinarverfahren.</span>", "en": "<strong>Civil service law</strong><span>Support and representation in disciplinary proceedings.</span>"}, "sec_situations": {"de": "Wenn es ernst wird", "en": "When things get serious"}, "situations_lead": {"de": "Vielleicht erkennen Sie sich in einer dieser Situationen wieder.", "en": "You may recognise yourself in one of these."}, "sit1": {"de": "Sie haben eine Kündigung oder einen Aufhebungsvertrag auf dem Tisch. Ich entwickle mit Ihnen eine Strategie, greife die Kündigung an und verhandle über Ihre Abfindung. Für die Klage bleiben drei Wochen ab Zugang. Wer diese Frist verpasst, kann die Kündigung in aller Regel nicht mehr angreifen, auch wenn sie unwirksam war.", "en": "You’ve been handed a dismissal or a termination agreement. I work out a strategy with you, challenge the dismissal and negotiate your severance. You have three weeks from receiving the notice to file a claim. Miss that deadline and, as a rule, the dismissal stands, even if it was unlawful."}, "sit2": {"de": "Ihr Arbeitszeugnis ist schlechter, als Ihre Arbeit war, und kann Sie den nächsten Job kosten. Ich lese die versteckten Formulierungen, sage Ihnen, was sie bedeuten, und fordere eine Bewertung ein, die Ihrer Leistung entspricht, notfalls vor Gericht.", "en": "Your job reference is worse than your work was, and it could cost you your next job. I read between the lines of the coded phrasing, tell you what it really says and press for an assessment that reflects your work, in court if need be."}, "sit3": {"de": "Gegen Sie läuft ein Disziplinarverfahren, und Ihre Laufbahn steht auf dem Spiel. Ich prüfe jeden Vorwurf und jeden Verfahrensschritt und verteidige Sie mit allem, was das Verfahren hergibt.", "en": "You’re facing disciplinary proceedings, with your career on the line. I examine every allegation and every procedural step, and defend you with everything the procedure allows."}, "sit4": {"de": "Sie brauchen einen Vertrag, der im Ernstfall hält, oder haben einen, bei dem Sie ein ungutes Gefühl haben. Ich schreibe ihn so, dass er Ihre Interessen schützt und im Streit nicht als Erstes kippt.", "en": "You need a contract that holds up when it matters, or you have one that gives you a bad feeling. I draft it so it protects your interests and isn’t the first thing to buckle in a dispute."}, "sit5": {"de": "Ein Kunde zahlt nicht, und Erinnerungen bringen längst nichts mehr. Ich mache Ihre Forderung mit Nachdruck geltend, außergerichtlich und wenn nötig vor Gericht.", "en": "A client isn’t paying, and reminders stopped working long ago. I pursue your claim firmly, out of court and, if needed, in court."}, "sit6": {"de": "Sie müssen sich von einem Mitarbeiter trennen und wollen das Risiko klein halten. Ich plane die Trennung mit Ihnen, von der Begründung bis zum Wortlaut, damit sie vor Gericht möglichst wenig Angriffsfläche bietet und Sie die voraussichtlichen Kosten vorher kennen.", "en": "You have to let an employee go and want to keep the risk low. I plan the separation with you, from the grounds to the wording, so it gives a court as little as possible to pick apart and you know the likely cost in advance."}, "sec_about": {"de": "Über mich", "en": "About"}, "about_lead": {"de": "925law bin ich: Max Englhard, Rechtsanwalt.", "en": "925law is me: Max Englhard, attorney-at-law."}, "portrait_alt": {"de": "Porträt Max Englhard, Rechtsanwalt", "en": "Portrait of Max Englhard, attorney-at-law"}, "about_p1": {"de": "Mein Weg war nicht geradlinig: Kanzlei, Fintech-Unternehmen, öffentlicher Dienst, zuletzt Großkanzlei. Ich habe viel gesehen und beide Seiten kennengelernt. Ich weiß, worauf es Unternehmen ankommt, und genauso, wie es sich anfühlt, angestellt zu sein.", "en": "My career hasn’t run in a straight line: private practice, a fintech, the public sector, and most recently a large commercial firm. I’ve seen a lot and come to know both sides. I know what matters to a business, and just as well how it feels to be an employee."}, "about_p2": {"de": "Was mich antreibt, ist einfach: Ich helfe Menschen gern, und Jura ist mein Werkzeug dafür. Den meisten meiner Mandant*innen ist das juristische Klein-Klein egal, sie wollen eine Lösung. Darin bin ich gut: schnell erkennen, wo das eigentliche Problem liegt, und einen Weg entwickeln, der für Sie trägt. Und ich erkläre Ihnen das so, dass Sie es ohne Jurastudium verstehen.", "en": "What drives me is simple: I like helping people, and law is how I do it. Most of my clients aren’t interested in legal fine print. They want a solution. That is what I’m good at: working out quickly where the real problem lies and finding a route through it that works for you. And I explain it in a way that makes sense without a law degree."}, "sec_why": {"de": "Warum 925law", "en": "Why 925law"}, "why_lead": {"de": "Was es für Ihr Anliegen bedeutet, mit mir zu arbeiten.", "en": "What working with me means for your matter."}, "why1_h3": {"de": "Ihre Akte liegt bei mir", "en": "I handle your file myself"}, "why1_p": {"de": "925law ist eine Einzelkanzlei. Ich lese Ihre Unterlagen selbst, schreibe Ihre Briefe und Schriftsätze selbst und vertrete Sie in Verhandlungen und vor Gericht. Wenn Sie eine Frage haben, müssen Sie niemandem Ihren Fall neu erklären.", "en": "925law is a one-lawyer practice. I read your documents, write your letters and submissions, and represent you in negotiations and in court. When you have a question, you never have to explain your case to someone new."}, "why2_h3": {"de": "Ich kenne die Rechnung der Gegenseite", "en": "I know how the other side does the maths"}, "why2_p": {"de": "Ich habe in Unternehmen gearbeitet und weiß, wie es ist, angestellt zu sein. In einer Abfindungsverhandlung hilft das ganz praktisch: Ich weiß, welche Risiken ein Arbeitgeber einpreist, etwa eine Lohnnachzahlung, falls die Kündigung vor Gericht keinen Bestand hat, und setze genau dort an. Umgekehrt entwerfe ich Arbeitsverträge für Unternehmen mit Blick darauf, welche Klauseln Beschäftigte später angreifen.", "en": "I have worked inside businesses, and I know what it is like to be employed. In a severance negotiation that has a practical use: I know which risks an employer is pricing in, such as back pay if the dismissal does not hold up in court, and I build the argument around them. It works the other way round too. When I draft employment contracts for companies, I know which clauses employees tend to challenge later."}, "why3_h3": {"de": "Zuerst die Fristen", "en": "Deadlines come first"}, "why3_p": {"de": "Auf Ihre Anfrage antworte ich in der Regel innerhalb eines Arbeitstags. Im Erstgespräch kläre ich als Erstes, welche Fristen laufen, bei einer Kündigung etwa die drei Wochen für die Klage. Danach wissen Sie, was bis wann passieren muss und was davon ich übernehme.", "en": "I usually reply to enquiries within one business day. In the first consultation, the first thing I check is which deadlines are running; after a dismissal, that means the three weeks you have to bring a claim. You come away knowing what has to happen by when, and which parts I will take on."}, "why4_h3": {"de": "Kosten, die Sie vorher kennen", "en": "Costs you know in advance"}, "why4_p": {"de": "Das Erstgespräch kostet 226,10 € inklusive USt (190 € netto). Beauftragen Sie mich danach, rechne ich den Betrag voll an. Bevor ich weiterarbeite, sage ich Ihnen, mit welchen Kosten Sie rechnen müssen. Außergerichtlich können wir auf Wunsch einen Kostendeckel oder einen Retainer vereinbaren; vor Gericht gelten mindestens die gesetzlichen Gebühren.", "en": "The first consultation costs €226.10 including VAT (€190 net), and if you then instruct me, that amount is credited in full. Before I do any further work, I tell you what it is likely to cost. For out-of-court work we can agree a cost cap or a retainer if you prefer; in court proceedings, the statutory fees are the minimum."}, "sec_process": {"de": "Die nächsten Schritte", "en": "The next steps"}, "step1_h": {"de": "Anfrage senden", "en": "Send your request"}, "step1_p": {"de": "Schildern Sie kurz Ihr Anliegen über das Formular. Ich antworte in der Regel innerhalb eines Arbeitstags.", "en": "Tell me briefly what’s going on, using the form. I’ll usually reply within one business day."}, "step2_h": {"de": "Erstgespräch", "en": "Initial consultation"}, "step2_p": {"de": "Wir besprechen Ihr Anliegen, Ihre Chancen und das weitere Vorgehen. Festpreis: 226,10 € inkl. USt (190 € netto).", "en": "We go through your situation, your prospects and the next steps, for a flat fee of €226.10 including VAT (€190 net)."}, "step3_h": {"de": "Anrechnung", "en": "Credited back"}, "step3_p": {"de": "Beauftragen Sie mich anschließend, wird dieses Honorar voll angerechnet.", "en": "If you go ahead and hire me, that fee is credited in full."}, "step4_h": {"de": "Honorar", "en": "Fees"}, "step4_p": {"de": "Bei Rechtsstreitigkeiten rechne ich nach RVG ab, bei laufender Beratung nach Stundensatz. Eine Kosteneinschätzung bekommen Sie vorab. Außergerichtlich ist auf Wunsch auch ein Kostendeckel (Cap) oder ein Retainer möglich; vor Gericht gelten mindestens die gesetzlichen Gebühren.", "en": "For disputes I charge the statutory fees under the RVG, and for ongoing advice an hourly rate. You get a cost estimate up front. For out-of-court work we can also agree a cap or a retainer; in court proceedings, the statutory fees are the minimum."}, "sec_contact": {"de": "Kontakt", "en": "Contact"}, "contact_intro": {"de": "Erst recht, wenn’s drauf ankommt. Beschreiben Sie kurz, worum es geht. Bei einer Kündigung nennen Sie bitte auch das Datum, an dem Sie sie erhalten haben.", "en": "Tell me briefly what it’s about. If you’ve been dismissed, please include the date you received the notice."}, "lbl_email": {"de": "E-Mail", "en": "Email"}, "lbl_message": {"de": "Nachricht", "en": "Message"}, "btn_submit": {"de": "Nachricht senden", "en": "Send message"}, "form_response_time": {"de": "Antwort in der Regel innerhalb eines Arbeitstags.", "en": "You’ll usually hear back within one business day."}, "contact_direct_h": {"de": "Direkter Kontakt", "en": "Direct contact"}, "lbl_phone": {"de": "Telefon", "en": "Phone"}, "contact_phone": {"de": "030 75003173", "en": "+49 30 75003173"}, "lbl_address": {"de": "Anschrift", "en": "Address"}, "hp_label": {"de": "Bitte leer lassen", "en": "Please leave empty"}, "form_thanks": {"de": "Vielen Dank für Ihre Nachricht. Ich melde mich in der Regel innerhalb eines Arbeitstags.", "en": "Thanks for your message. I’ll usually be in touch within one business day."}, "form_error": {"de": "Es gab ein Problem beim Senden. Bitte prüfen Sie Ihre Angaben oder schreiben Sie direkt an kontakt@925law.de.", "en": "Something went wrong while sending. Please check your details or email kontakt@925law.de directly."}, "form_preview": {"de": "Vorschau: In dieser Testversion ist das Formular deaktiviert. Auf der echten Seite geht die Nachricht an kontakt@925law.de.", "en": "Preview: the form is disabled in this test version. On the live site your message goes to kontakt@925law.de."}, "footnote": {"de": "* <span class=\"fn-num\">925</span> steht für 9 to 5, also für die Zeit, in der gearbeitet wird, ob angestellt oder im eigenen Unternehmen. Um die Probleme, die dabei entstehen, kümmere ich mich. Daneben steht 925 für Sterlingsilber: 925 von 1000 Teilen sind reines Silber. Das Metall ist robust und behält seinen Wert. Daran messe ich meine Arbeit.", "en": "* <span class=\"fn-num\">925</span> stands for 9 to 5: working hours, whether you’re employed or run your own business. The problems that come up in that time are the ones I deal with. 925 is also sterling silver, 925 parts in 1,000 pure silver, a metal that is hard-wearing and holds its value. That is the standard I set for my work."}, "footer_impressum": {"de": "Impressum", "en": "Legal notice"}, "footer_brand": {"de": "925law · Max Englhard, Rechtsanwalt", "en": "925law · Max Englhard, Attorney-at-law"}, "footer_datenschutz": {"de": "Datenschutz", "en": "Privacy"}, "form_consent": {"de": "Ich habe die <a href=\"/de/datenschutz.html\">Datenschutzerklärung</a> zur Kenntnis genommen.", "en": "I have read the <a href=\"/datenschutz.html\">privacy policy</a>."}, "nav_label": {"de": "Hauptnavigation", "en": "Main navigation"}, "nav_faq": {"de": "FAQ", "en": "FAQ"}, "menu_label": {"de": "Menü", "en": "Menu"}, "header_cta_short": {"de": "Erstgespräch", "en": "Consultation"}, "hero_eyebrow": {"de": "Arbeits- und Vertragsrecht · Berlin", "en": "Employment &amp; contract law · Berlin"}, "hero_cta2": {"de": "Leistungen ansehen", "en": "View services"}, "hero_proof": {"de": "<span>Zugelassen bei der Rechtsanwaltskammer Berlin</span><span>Beratung auf Deutsch und Englisch</span><span>Erstgespräch zum Festpreis</span>", "en": "<span>Admitted to the Berlin Bar</span><span>Advice in English and German</span><span>Fixed-fee initial consultation</span>"}, "hero_caption": {"de": "Max Englhard, Rechtsanwalt", "en": "Max Englhard, Attorney-at-law"}, "sit1_h": {"de": "Kündigung", "en": "Dismissal"}, "sit2_h": {"de": "Arbeitszeugnis", "en": "Job reference"}, "sit3_h": {"de": "Disziplinarverfahren", "en": "Disciplinary proceedings"}, "sit4_h": {"de": "Vertrag", "en": "Contracts"}, "sit5_h": {"de": "Forderung", "en": "Unpaid claims"}, "sit6_h": {"de": "Trennung", "en": "Letting someone go"}, "why5_h3": {"de": "Auf Deutsch oder Englisch", "en": "In English or German"}, "why5_p": {"de": "Viele Teams in Berlin arbeiten auf Englisch, ihre Verträge oft auch. Ich berate Sie in der Sprache, in der Sie sich sicher fühlen, und erkläre Ihnen deutsche Schreiben und Verfahrensschritte auf Englisch. Vor deutschen Gerichten wird in aller Regel auf Deutsch verhandelt; dort vertrete ich Sie und halte Sie auf Englisch auf dem Laufenden.", "en": "Plenty of Berlin teams work in English, and so do many of their contracts. I advise you in whichever language you are more comfortable with, and I explain German letters and court steps in English. Hearings in German courts are, as a rule, held in German; I represent you there and keep you briefed in English."}, "why6_h3": {"de": "Am Ende steht eine Empfehlung", "en": "You get a recommendation"}, "why6_p": {"de": "Die juristischen Feinheiten prüfe ich gründlich, aber ich lade sie nicht bei Ihnen ab. Sie bekommen eine Einschätzung in verständlicher Sprache: welche Wege es gibt, was jeder kostet und welches Risiko daran hängt. Und ich sage Ihnen, welchen ich an Ihrer Stelle gehen würde.", "en": "I go through the legal detail carefully, but I don’t hand all of it to you. You get my assessment in plain language: the options, what each one costs and what risk comes with it. Then I tell you which one I would choose in your position."}, "eb_process": {"de": "Ablauf", "en": "How it works"}, "sec_faq": {"de": "FAQ", "en": "FAQ"}, "faq_h2": {"de": "Häufige Fragen", "en": "Frequently asked questions"}, "faq_lead": {"de": "", "en": ""}, "contact_h2": {"de": "Erstgespräch anfragen", "en": "Request a consultation"}, "err_required": {"de": "Bitte ausfüllen.", "en": "Please fill in this field."}, "err_email": {"de": "Bitte eine gültige E-Mail-Adresse angeben.", "en": "Please enter a valid email address."}, "footer_h_office": {"de": "Kanzlei", "en": "Office"}, "footer_h_legal": {"de": "Rechtliches", "en": "Legal"}, "footer_rak": {"de": "Zugelassen bei der Rechtsanwaltskammer Berlin", "en": "Admitted to the Berlin Bar (<span lang=\"de\">Rechtsanwaltskammer Berlin</span>)"}, "faq1_q": {"de": "Was kostet ein Erstgespräch zum Arbeits- oder Vertragsrecht?", "en": "How much does a first consultation cost?"}, "faq1_a": {"de": "Das Erstgespräch kostet pauschal 226,10 € inklusive USt (190 € netto). Wir gehen Ihre Situation durch, ich schätze Chancen und Risiken ein und sage Ihnen, wie es weitergehen kann und was das voraussichtlich kostet. Beauftragen Sie mich danach, rechne ich die Gebühr für das Erstgespräch vollständig auf mein weiteres Honorar an.", "en": "The first consultation is a flat €226.10 including VAT (€190 net). We go through your situation, I assess your prospects and the risks, and I explain the next steps and what they are likely to cost. If you then instruct me, the consultation fee is credited in full against my further fees."}, "faq2_q": {"de": "Ich habe eine Kündigung erhalten. Welche Frist gilt?", "en": "I’ve been dismissed. Is there a deadline?"}, "faq2_a": {"de": "Wenn Sie sich gegen die Kündigung wehren wollen, muss die Kündigungsschutzklage innerhalb von drei Wochen nach Zugang beim Arbeitsgericht eingehen (§ 4 KSchG). Verpassen Sie diese Frist, gilt die Kündigung in aller Regel als wirksam, auch wenn sie es eigentlich nicht war. Melden Sie sich außerdem innerhalb von drei Tagen, nachdem Sie vom Ende Ihres Arbeitsverhältnisses erfahren haben, bei der Agentur für Arbeit arbeitsuchend; liegen bis zum Ende mehr als drei Monate, genügt eine Meldung spätestens drei Monate vorher. Das gilt auch, wenn Sie klagen, sonst droht eine Sperrzeit beim Arbeitslosengeld (§ 38 SGB III). Und unterschreiben Sie nichts, bevor Sie es haben prüfen lassen.", "en": "Yes. If you want to challenge the dismissal, your claim must reach the labour court within three weeks of receiving the notice (section 4 of the Dismissal Protection Act, KSchG). If you miss that deadline, the dismissal will as a rule be treated as valid, even if it was not. You should also register as a jobseeker with the Federal Employment Agency within three days of learning when your employment ends; if that date is more than three months away, registering at least three months before it is enough. This applies even if you go to court; otherwise you risk a suspension of unemployment benefit (section 38 SGB III). And do not sign anything until it has been checked."}, "faq3_q": {"de": "Habe ich Anspruch auf eine Abfindung?", "en": "Am I entitled to severance pay?"}, "faq3_a": {"de": "Einen allgemeinen gesetzlichen Anspruch auf Abfindung gibt es nicht. Ein Anspruch kann sich aus einem Sozialplan, einem Tarifvertrag oder Ihrem Arbeitsvertrag ergeben, außerdem nach § 1a KSchG: wenn der Arbeitgeber betriebsbedingt kündigt, im Kündigungsschreiben darauf hinweist, dass Sie eine Abfindung beanspruchen können, wenn Sie die Klagefrist verstreichen lassen, und Sie dann tatsächlich nicht klagen. Die Abfindung beträgt in diesem Fall einen halben Monatsverdienst pro Beschäftigungsjahr. Häufig ist eine Abfindung das Ergebnis einer Verhandlung, oft parallel zu einer Kündigungsschutzklage. Wie viel realistisch ist, hängt vor allem davon ab, wie angreifbar die Kündigung ist.", "en": "German law gives no general right to severance pay. A claim can arise from a redundancy scheme agreed with the works council (Sozialplan), a collective agreement or your employment contract. It can also arise under section 1a KSchG, where the employer dismisses for operational reasons, states in the dismissal letter that you can claim severance if you let the deadline for bringing a claim pass, and you then do not go to court. In that case the severance is half a month’s pay for each year of employment. More often, severance is negotiated, frequently alongside a dismissal claim, and how much is realistic depends largely on how vulnerable the dismissal is."}, "faq4_q": {"de": "Wer trägt die Kosten im Arbeitsgerichtsverfahren?", "en": "Who pays the costs in a labour court case?"}, "faq4_a": {"de": "In der ersten Instanz trägt jede Seite ihre eigenen Anwaltskosten, egal wie das Verfahren ausgeht (§ 12a ArbGG). Sie zahlen also bei einer Niederlage nicht die Anwaltskosten der Gegenseite, bekommen Ihre eigenen aber auch bei einem Sieg nicht erstattet. Das gilt für Arbeitnehmer und Arbeitgeber gleichermaßen. Die Gerichtsgebühren sind vergleichsweise niedrig und entfallen ganz, wenn der gesamte Rechtsstreit durch einen gerichtlichen Vergleich endet.", "en": "At first instance, each side pays its own lawyer, whatever the outcome (section 12a of the Labour Courts Act, ArbGG). If you lose, you do not pay the other side’s legal fees, but if you win, you cannot recover your own. This applies to employers and employees alike. Court fees are comparatively low and fall away entirely if the whole case ends in a court settlement."}, "faq5_q": {"de": "Lohnt sich eine Vertragsprüfung als Freelancer?", "en": "Should I have my freelance contract reviewed?"}, "faq5_a": {"de": "Bei Rahmen- und Projektverträgen stecken die Risiken meist in wenigen Klauseln: Haftung, Zahlungsziele, Nutzungsrechte, Kündigung, Vertragsstrafen. Ich prüfe den Vertrag, sage Ihnen, welche Punkte für Sie problematisch sind, und schlage Formulierungen vor, über die Sie verhandeln können. Auf Wunsch übernehme ich die Verhandlung. Den Aufwand nenne ich Ihnen, bevor ich anfange.", "en": "In framework and project contracts, the risk usually sits in a handful of clauses: liability, payment terms, rights of use, termination and penalty clauses. I review the contract, point out what could cause you problems and suggest wording you can negotiate. I can also handle the negotiation for you. I tell you what the work will cost before I start."}, "faq6_q": {"de": "Beraten Sie auch auf Englisch?", "en": "Can I get advice in English?"}, "faq6_a": {"de": "Ja. Ich berate auf Deutsch und auf Englisch, auch zu englischsprachigen Verträgen, die deutschem Recht unterliegen. Schreiben Sie mir einfach in der Sprache, die Ihnen lieber ist.", "en": "Yes. I advise in English and German, including on English-language contracts governed by German law. Just get in touch in whichever language you prefer."}, "faq7_q": {"de": "Wie schnell bekomme ich eine Antwort?", "en": "How quickly will I hear back?"}, "faq7_a": {"de": "Auf Anfragen über das Kontaktformular antworte ich in der Regel innerhalb eines Arbeitstags. Wenn eine Frist läuft, etwa nach einer Kündigung, schreiben Sie das bitte gleich dazu, zusammen mit dem Datum, an dem Sie das Schreiben erhalten haben. Dann kann ich das Erstgespräch danach planen.", "en": "I usually reply to enquiries sent through the contact form within one business day. If a deadline is running, for example after a dismissal, please say so in your message and include the date you received the letter, so I can schedule the consultation with that in mind."}};
+  var TITLES = {"de": "925law · Rechtsanwalt Max Englhard", "en": "925law · Max Englhard, Attorney-at-law"};
   function setLang(lang){
     document.documentElement.lang = lang;
     document.title = TITLES[lang];
@@ -252,18 +380,16 @@
       var v = I18N[opt[j].getAttribute('data-i18n-if')];
       opt[j].hidden = !(v && v[lang]);
     }
-    var de = document.querySelector('.lang-de'), en = document.querySelector('.lang-en');
-    if (de && en){
-      de.classList.toggle('lang-active', lang==='de');
-      en.classList.toggle('lang-active', lang==='en');
-    }
+    var de = document.querySelectorAll('.lang-de'), en = document.querySelectorAll('.lang-en');
+    for (var n=0;n<de.length;n++){ de[n].classList.toggle('lang-active', lang==='de'); }
+    for (var p=0;p<en.length;p++){ en[p].classList.toggle('lang-active', lang==='en'); }
   }
   (function(){
     var form = document.getElementById('contact-form');
     function showThanks(){
-      if(form) form.style.display='none';
-      var i=document.getElementById('contact-intro'); if(i) i.style.display='none';
-      var t=document.querySelector('.form-thanks'); if(t) t.style.display='block';
+      if(form) form.hidden = true;
+      var i=document.getElementById('contact-intro'); if(i) i.hidden = true;
+      var t=document.querySelector('.form-thanks'); if(t) t.hidden = false;
     }
     // Fallback ohne JavaScript: kontakt.php hat auf ?sent=1 weitergeleitet
     try{
