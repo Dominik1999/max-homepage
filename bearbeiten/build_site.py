@@ -161,6 +161,7 @@ FORM_SCRIPT = """
     var status = document.getElementById('form-status');
     var ERR = __ERR__;
     var PREVIEW = /\\.github\\.io$/.test(location.hostname);
+    var T0 = Date.now();
     function showThanks(){
       if(form) form.hidden = true;
       var i = document.getElementById('contact-intro'); if(i) i.hidden = true;
@@ -185,7 +186,9 @@ FORM_SCRIPT = """
         if(btn && btn.disabled) return;
         if(btn) btn.disabled = true;
         if(status) status.hidden = true;
-        fetch(form.action, { method: 'POST', body: new FormData(form),
+        var fd = new FormData(form);
+        fd.append('fill_ms', String(Date.now() - T0));
+        fetch(form.action, { method: 'POST', body: fd,
           headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } })
         .then(function(r){ return r.json().catch(function(){ return { ok: r.ok }; }); })
         .then(function(res){

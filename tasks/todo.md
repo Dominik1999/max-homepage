@@ -40,6 +40,15 @@ Scope: developer items only. Lawyer / wording decisions stay open (see bottom).
 - [x] Screenshot pass on the merged result (DE/EN start page, legal pages; 390 and 1440)
 - [ ] 27 SPF/DKIM/DMARC and live form test: only after the Hetzner deploy
 
+## Approved by Max (2026-11-23)
+- [x] ODR paragraph removed (DE/EN Impressum)
+- [x] Mailbox provider named: Hetzner (MX = www778.your-server.de), AV contract per Art. 28
+- [x] Rate-limit files: deleted after 24 h by kontakt.php, described in the privacy policy
+- [x] Consent checkbox reworded to acknowledgement; legal basis stays Art. 6 (1) (b)/(f)
+- [x] "German version is authoritative" line kept on the English legal pages
+- [x] BRAK link points to the professional-rules page (review item 6)
+- [x] Timing check: form script sends fill time, < 3 s flags as spam (review item 2)
+
 ## Waiting for Max (not mine to decide)
 - Response-time promise, new "Warum" copy, tagline without Angestellte/Beamte, phone number, condensed favicon digits
 - The eight TODO(Max) points printed by every build (`build_site.py --final` fails while any remain): ODR paragraph, log retention, mailbox provider, rate-limit files, consent vs. Art. 6 basis, "call me" without a phone number, Stand date, "German version is authoritative" line

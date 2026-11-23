@@ -213,7 +213,7 @@
 <label for="message">Nachricht</label>
 <textarea id="message" name="message" required></textarea>
 </div>
-<label class="consent"><input name="consent" required type="checkbox"> <span>Ich habe die <a href="/de/datenschutz.html">Datenschutzerklärung</a> gelesen und bin mit der Verarbeitung meiner Angaben zur Bearbeitung meiner Anfrage einverstanden.</span></label>
+<label class="consent"><input name="consent" required type="checkbox"> <span>Ich habe die <a href="/de/datenschutz.html">Datenschutzerklärung</a> zur Kenntnis genommen.</span></label>
 <button class="cta" type="submit">Nachricht senden</button>
 <p class="form-note">Antwort innerhalb eines Werktags.</p>
 <p aria-live="polite" class="form-status" hidden id="form-status" role="status"></p>
@@ -265,6 +265,7 @@
     var status = document.getElementById('form-status');
     var ERR = "Es gab ein Problem beim Senden. Bitte prüfen Sie Ihre Angaben oder schreiben Sie direkt an kontakt@925law.de.";
     var PREVIEW = /\.github\.io$/.test(location.hostname);
+    var T0 = Date.now();
     function showThanks(){
       if(form) form.hidden = true;
       var i = document.getElementById('contact-intro'); if(i) i.hidden = true;
@@ -289,7 +290,9 @@
         if(btn && btn.disabled) return;
         if(btn) btn.disabled = true;
         if(status) status.hidden = true;
-        fetch(form.action, { method: 'POST', body: new FormData(form),
+        var fd = new FormData(form);
+        fd.append('fill_ms', String(Date.now() - T0));
+        fetch(form.action, { method: 'POST', body: fd,
           headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } })
         .then(function(r){ return r.json().catch(function(){ return { ok: r.ok }; }); })
         .then(function(res){

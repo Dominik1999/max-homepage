@@ -58,6 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // trotzdem (markiert) zugestellt, damit keine echte Anfrage verloren geht – aber ohne
 // automatische Antwort an die angegebene Adresse.
 $spamVerdacht = !empty($_POST['fax_ref']);
+// Zeit-Prüfung: Das Formular-Script schickt mit, wie lange die Seite bis zum Absenden offen war.
+// Unter 3 Sekunden füllt kein Mensch Name, E-Mail und Nachricht aus. Ohne JavaScript fehlt
+// das Feld; dann greift nur die Spam-Falle.
+if (isset($_POST['fill_ms']) && ctype_digit((string)$_POST['fill_ms']) && (int)$_POST['fill_ms'] < 3000) {
+  $spamVerdacht = true;
+}
 
 $name    = trim($_POST['name'] ?? '');
 $email   = trim($_POST['email'] ?? '');
@@ -94,6 +100,10 @@ if ($ip !== '') {
     ftruncate($fh, 0); rewind($fh); fwrite($fh, json_encode($times));
     flock($fh, LOCK_UN); fclose($fh);
   }
+  // Alte Rate-Limit-Dateien (älter als 24 Stunden) löschen, so steht es in der Datenschutzerklärung
+  foreach (glob(sys_get_temp_dir() . '/925law-rl-*.json') ?: [] as $old) {
+    if (@filemtime($old) < time() - 86400) { @unlink($old); }
+  }
 }
 
 $safeName  = str_replace(["\r", "\n"], ' ', $name);
@@ -109,7 +119,7 @@ $body =
   "Name:          " . $safeName . "\n" .
   "E-Mail:        " . $safeEmail . "\n" .
   "Sprache:       " . ($lang === 'en' ? 'Englisch' : 'Deutsch') . "\n" .
-  "Einwilligung:  ja (Datenschutzerklärung bestätigt, " . $zeit . ")\n" .
+  "Datenschutz:   zur Kenntnis genommen (" . $zeit . ")\n" .
   ($spamVerdacht ? "Hinweis:       Spam-Falle ausgelöst – vermutlich automatisiert.\n" : '') .
   "\nNachricht:\n" . wordwrap($message, 990, "\n", true) . "\n";
 
