@@ -18,6 +18,7 @@ ORDNER "website/" — was wohin gehört
 /en/              en/index.html       englische Startseite
 /impressum.html                       Impressum (deutsch)
 /datenschutz.html                     Datenschutzerklärung (deutsch)
+/en/impressum.html  /en/datenschutz.html   englische Fassungen (Übersetzung)
 /kontakt.php                          Formular-Handler (verschickt die Mail)
 /portrait.webp                        Foto
 /favicon.svg  /favicon-32.png  /apple-touch-icon.png
@@ -50,8 +51,9 @@ Es gibt ZWEI Wege:
    aufrufbar: python3 bearbeiten/build_site.py) und bricht ab, falls die
    Ausgabe Google Fonts enthalten würde.
 
-Impressum, Datenschutz und kontakt.php sind eigenständige Dateien und werden
-direkt bearbeitet (nicht über den Generator).
+kontakt.php ist eine eigenständige Datei und wird direkt bearbeitet.
+Impressum und Datenschutzerklärung (deutsch + englisch) erzeugt der Generator
+aus bearbeiten/recht/ (siehe README.md); nicht in website/ bearbeiten.
 
 
 TECHNISCHE HINWEISE
