@@ -6,20 +6,26 @@ Liest bearbeiten/925law.html (eine Quelle, Texte im I18N-Wörterbuch) und schrei
 nach website/:
   index.html        deutsche Startseite
   en/index.html     englische Startseite
+  impressum.html, datenschutz.html, en/impressum.html, en/datenschutz.html
+                    aus bearbeiten/recht/ (Vorlage + Textdateien, siehe build_legal.py)
   robots.txt, sitemap.xml
   .htaccess         aus bearbeiten/htaccess.template, mit frisch berechneten CSP-Hashes
 
 Aufruf (aus beliebigem Verzeichnis):
     python3 bearbeiten/build_site.py
+    python3 bearbeiten/build_site.py --final   # bricht ab, solange in den Rechtstexten
+                                               # noch ein <!-- TODO(Max): ... --> steht
 
 Braucht Python 3 und beautifulsoup4 (pip install beautifulsoup4).
-Impressum, Datenschutz, kontakt.php, fonts.css und Bilder werden NICHT erzeugt,
-sie liegen fertig in website/ und werden direkt bearbeitet.
+kontakt.php, fonts.css und Bilder werden NICHT erzeugt, sie liegen fertig in website/
+und werden direkt bearbeitet.
 """
 import base64, hashlib, json, pathlib, re, sys
 from bs4 import BeautifulSoup
 from bs4.formatter import HTMLFormatter
 from bs4.dammit import EntitySubstitution
+
+from build_legal import build_legal
 
 # HTML5-Ausgabe: <meta ...> statt <meta .../>, `required` statt `required=""`,
 # Umlaute bleiben Umlaute (nur &, <, > werden maskiert).
@@ -240,6 +246,12 @@ def build(lang):
     if lang_input:
         lang_input["value"] = lang
 
+    # --- Englische Seite verlinkt die englischen Rechtsseiten ---
+    if lang == "en":
+        for a in soup.find_all("a", href=True):
+            if a["href"] in ("/impressum.html", "/datenschutz.html"):
+                a["href"] = "/en" + a["href"]
+
     # --- Sprachumschalter: echte Links ---
     sw = soup.select_one(".lang-switch")
     if sw:
@@ -306,6 +318,9 @@ if __name__ == "__main__":
     (OUT / "index.html").write_text(build("de"), encoding="utf-8")
     (OUT / "en" / "index.html").write_text(build("en"), encoding="utf-8")
 
+    # Impressum + Datenschutz, deutsch und englisch (noindex, deshalb nicht in der Sitemap)
+    legal_pages, legal_todos = build_legal(OUT, DOMAIN, PLAUSIBLE_DOMAIN)
+
     (OUT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % DOMAIN, encoding="utf-8")
     sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -320,13 +335,25 @@ if __name__ == "__main__":
     sitemap += "</urlset>\n"
     (OUT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
 
-    # .htaccess mit CSP-Hashes aller vier Seiten
-    pages = [OUT / "index.html", OUT / "en" / "index.html", OUT / "impressum.html", OUT / "datenschutz.html"]
-    sh, st = csp_hashes([p for p in pages if p.exists()])
+    # .htaccess mit CSP-Hashes aller sechs Seiten
+    pages = [OUT / "index.html", OUT / "en" / "index.html"] + legal_pages
+    missing = [str(p) for p in pages if not p.exists()]
+    if missing:
+        sys.exit("Seiten fehlen für die CSP-Hashes: " + ", ".join(missing))
+    sh, st = csp_hashes(pages)
     tpl = HTACCESS_TEMPLATE.read_text(encoding="utf-8")
     (OUT / ".htaccess").write_text(
         tpl.replace("__SCRIPT_HASHES__", " ".join(sh)).replace("__STYLE_HASHES__", " ".join(st)),
         encoding="utf-8")
 
-    print("generated: index.html, en/index.html, robots.txt, sitemap.xml, .htaccess "
-          "(%d script hashes, %d style hashes)" % (len(sh), len(st)))
+    print("generated: index.html, en/index.html, %s, robots.txt, sitemap.xml, .htaccess "
+          "(%d pages hashed: %d script hashes, %d style hashes)"
+          % (", ".join(str(p.relative_to(OUT)) for p in legal_pages), len(pages), len(sh), len(st)))
+
+    if legal_todos:
+        print("\n!!! %d OFFENE PUNKTE in den Rechtstexten (bearbeiten/recht/), vor dem Livegang klären:"
+              % len(legal_todos))
+        for t in legal_todos:
+            print("  - " + t)
+        if "--final" in sys.argv[1:]:
+            sys.exit("--final: Abbruch, solange TODO(Max)-Punkte offen sind.")
